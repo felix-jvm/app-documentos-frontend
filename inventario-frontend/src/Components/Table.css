@@ -1,0 +1,94 @@
+.recordsMessage {
+ width:100%;
+ font-weight:900;
+ position:relative;
+ margin:0 auto 0 auto;
+ color:rgb(63, 1, 1);
+}
+
+.addRecordButton {
+  border-radius:5px;
+  border:1px solid rgb(96, 1, 156);
+  font-size:1.1vw;
+  font-weight:900;
+  color:rgb(96, 1, 156);
+  display:inline-block;  
+  margin: 5px auto 0 auto;
+  padding:10px 45px 10px 45px;  
+  background-color:rgb(255, 255, 255);
+}
+
+.addRecordButton:hover {
+  background-color: rgba(91, 0, 148, 0.122);
+}
+
+.formOutterContainer {
+  position:absolute;
+  top:0;
+  width:100%;
+  height:105vh;
+  overflow:auto;
+}
+
+.table .tBody {
+  display:block;
+  width:100%;
+  overflow:auto;
+}
+
+.table .tHead {
+  display:block;
+  width:100%;
+  overflow:auto;
+}
+.table {
+  min-width:max-content;
+  max-width:max-content;
+  display:block;
+  margin:0 0 0 0;
+  border: 1px solid rgb(195, 195, 195);
+  overflow:auto;
+  background-color:rgb(255, 255, 255);
+}
+
+.searchCodeBar {
+ display:inline-block;
+ position:absolute;
+ width:192px;
+ margin:0 0 0 -10px;
+ border-radius:5px;
+ border:1px solid gray;
+}
+
+.tableTitle {
+  display:inline-block;
+  position:relative;
+  width:180px;
+  margin:2px 0 0 0;
+}
+
+.searchCodeButton {
+  display:inline-block;
+  position:absolute;
+  margin:1px 0 0 185px;
+  border:1px solid rgb(96, 1, 156);
+  padding:0 15px 0 15px;
+  border-radius:6px;
+  font-weight:900;
+  color:rgb(96, 1, 156);
+  background-color:rgb(255, 255, 255);
+}
+
+.searchCodeButton:hover {
+  background-color: rgba(91, 0, 148, 0.122);
+}
+
+.notFoundMessage {
+  display:block;
+  float: left;
+  margin:0 0 0 0;
+  transform:scale(0);
+  font-weight:900;
+  transition:0.5s;
+  color:rgb(176, 12, 12);
+}

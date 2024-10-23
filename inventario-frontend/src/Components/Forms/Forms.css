@@ -1,0 +1,221 @@
+.procedCont {
+ display:block;
+ width:99.9%;
+ height:fit-content;
+ margin:-15px 0 0 0;
+}
+
+.procedCodigoTitle, .responsPuestoTitle, .terminDefTerminoTitle, .descripProcedDescripciònTitle, .AnexosNombreTitle, .AnexosNumTitle, .AnexosCodigoTitle, .revAprobacionPuestoTitle, .revAprobacionNombreTitle, .historialCambioVersionTitle, .revAprobacionNombreTitle, .revAprobacionPuestoTitle {
+ display:inline-block;
+ width:fit-content;
+ position:relative;
+ margin:0 1px 0 0;
+ padding:8px 0 0 0;
+}
+
+.descripProcedDescripciònTitle {
+ display:block;
+ margin:0 0 0 0;
+}
+
+.docRefDocumentoTitle, .historialCambioFechaTitle, .subDescripCodigoTitle {
+ display:inline-block;
+ position:relative;
+ margin:0 3px 0 0;
+ padding:8px 0 0 0;
+ width:fit-content;
+}
+
+.Procedimiento_CodigoSelect, .Anexos_CodigoInput, .HistorialCambios_FechaInput, .HistorialCambios_VersionInput, .SubDescripciones_CodigoInput, .revAprobacionNombreInput {
+ display:inline-block;
+ margin: 0 10px 0 5px;
+ border-radius:5px;
+ min-width:20.2%;
+ max-width:20.2%;
+ min-height:30px;
+ max-height:30px;
+ position:relative;
+ border: 1px solid rgb(107, 105, 105);  
+ overflow-y:hidden;
+}
+.HistorialCambios_FechaInput {
+ position:absolute;
+}
+
+.HistorialCambios_VersionInput {
+ position:absolute;
+}
+
+.revAprobacionFirmaTitle {
+  display:inline-block;
+  position:absolute;    
+  margin:8px 0 0 0;
+}
+
+.revAprobacionFirmaInput {
+ display:inline-block;
+ position:absolute;
+ left:7%;
+}
+
+.revAprobImg {
+  display:inline-block;  
+  position:absolute;
+  height:60px;
+  width:50px;
+  left:27%;
+  top:77%;
+}
+
+.procedObjetivoTitle {
+ margin-bottom:1px; 
+}
+
+.Procedimiento_ObjetivoInput {
+ display:block;
+ position:relative;
+ border-radius:5px; 
+ margin: 0 0 0 0;
+ min-width:99.5%;
+ max-width:99.5%;
+ min-height:250px;
+ max-height:250px; 
+}
+
+.procedAlcanceTitle {
+ margin-bottom:1px; 
+}
+
+.Procedimiento_AlcanceInput {
+ display:block;
+ position:relative;
+ border-radius:5px; 
+ margin: 0 0 0 0;
+ min-width:99.5%;
+ max-width:99.5%;
+ min-height:250px;
+ max-height:250px; 
+}
+
+.docRefTitle {
+ margin-bottom:1px; 
+ min-width:max-content;
+ max-width:max-content;
+}
+
+.DocumentosReferencias_IDDocumentoSelect, .Responsabilidades_IDPuestoSelect, .revAprobacionPuestoInput, .TerminologiasDef_IDTermino {
+ display:inline-block; 
+ position:absolute;
+ margin: 0 0 0 3px;
+ border-radius:5px;  
+ min-width:22%;
+ max-width:22%; 
+ min-height:31px;
+ max-height:31px;  
+
+}
+
+.docRefAddButton, .responsAddButton, .terminDefAddButton, .diagramaFlujoAddButton, .subDescripProcedAddButton {
+ display:inline-block; 
+ position:absolute;
+ margin-left: 22.4%;
+ border-radius:5px;
+ padding:2px 30px 2px 30px;
+ font-weight:900;
+ border: 1px solid rgb(119, 118, 118);
+}
+
+.Secciòn_Responsabilidades {
+ display:block;
+ width:99.9%;  
+ height:fit-content;
+}
+
+.Responsabilidades_DescripcionInput, .TerminologiasDef_DescripcionInput, .DescripcionesProcedimiento_DescripcionInput, .HistorialCambios_DescripcionInput {
+ min-width:99.5%;
+ max-width:99.5%;
+ min-height:250px;
+ max-height:250px;  
+ border-radius:5px;
+}
+
+.Secciòn_Definiciòn_Terminologias {
+ min-width:99.5%;
+ height:fit-content;
+}
+
+.descripProcedCont {
+ min-width:99.5%;
+ height:fit-content;  
+}
+
+.descripProcedAddButton {
+ display:inline-block; 
+ border-radius:5px;
+ position: absolute;
+ padding:2px 30px 2px 30px;
+ font-weight:900;
+ border: 1px solid rgb(119, 118, 118); 
+ margin:2px 0 2px 2px;   
+}
+
+.historialCambioAddButton {
+  display:inline-block; 
+  border-radius:5px;
+  position: absolute;
+  padding:2px 30px 2px 30px;
+  font-weight:900;
+  border: 1px solid rgb(119, 118, 118); 
+  bottom:0;   
+ }
+
+.anexoAddButton {
+    display:inline-block; 
+    border-radius:5px;
+    position:absolute;
+    left:27.6%;
+    padding:2px 30px 2px 30px;
+    font-weight:900;
+    border: 1px solid rgb(119, 118, 118); 
+    margin:0 0 0 0;  
+   }
+
+.anexosCont {
+ min-width:99.5%;
+ height:fit-content; 
+}
+
+.Anexos_NumInput, .Anexos_NombreInput {
+ display:inline-block;
+ min-width:20%;   
+ max-width:20%;   
+ min-height:30px;
+ max-height:30px;
+ border-radius:5px;
+ position:absolute;
+ border: 1px solid rgb(107, 105, 105); 
+ margin:0 0 0 5px;
+}
+
+.historialCambioDescripcionTitle {
+ display: block;  
+ margin:15px 0 0 1px; 
+}
+
+table {
+    min-width:80%;
+    max-width:80%;  
+    margin-left:2px;
+    border-collapse:collapse;
+    text-align:left;  
+    border: 1px solid black;
+   }
+
+textarea {
+ margin-left:2px;
+ font-family:'Calibri Light';
+}   
+
+table th, td {
+ border: 1px solid black;    
+}

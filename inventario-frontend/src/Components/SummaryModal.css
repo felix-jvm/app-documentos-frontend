@@ -1,0 +1,134 @@
+.summaryMainCont {
+    display:block;   
+    position:fixed;
+    overflow: hidden;
+    left:0px;
+    top:0;
+    z-index:3000;
+    min-width:100%;
+    max-width:100%;
+    min-height:100%;
+    max-height:100%;
+    background-color: rgba(0, 0, 0, 0.969);   
+}
+
+.summaryMiddleCont {
+    background-color:rgb(229, 229, 229);  
+    position:relative;
+    margin:2% auto 40% auto;
+    width:50%;
+    height:95vh;
+    overflow:auto;
+    border-radius:6px;
+    border:1px solid rgb(37, 36, 37);
+}
+
+.summaryProcedimiento {
+ width:99.5%;
+ height:min-content;
+ overflow-y:auto;
+ display:none;
+ position:relative;
+ height:fit-content;
+ background-color:rgb(224, 223, 223);
+ margin:0 0 20px 0;
+}
+
+.summaryDocumentosReferencias {
+    width:99.5%;
+    height:min-content;
+    overflow-y:auto;
+    display:none;
+    position:relative;
+    height:fit-content;
+    background-color:rgb(224, 223, 223);
+    margin:0 0 20px 0;
+}
+
+.summaryResponsabilidades {
+    width:99.5%;
+    height:min-content;
+    overflow-y:auto;
+    display:none;
+    position:relative;
+    height:fit-content;
+    background-color:rgb(224, 223, 223);
+    margin:0 0 20px 0;
+}
+
+.summaryTerminologiasDef {
+    width:99.5%;
+    height:min-content;
+    overflow-y:auto;
+    display:none;
+    position:relative;
+    height:fit-content;
+    background-color:rgb(224, 223, 223);
+    margin:0 0 20px 0;
+}
+
+.summaryDescripcionesProcedimiento {
+    width:99.5%;
+    height:min-content;
+    overflow-y:auto;
+    display:none;
+    position:relative;
+    height:fit-content;
+    background-color:rgb(224, 223, 223);
+    margin:0 0 20px 0;
+}
+
+.summarySubDescripciones {
+    width:99.5%;
+    height:min-content;
+    overflow-y:auto;
+    display:none;
+    position:relative;
+    height:fit-content;
+    background-color:rgb(224, 223, 223);
+    margin:0 0 20px 0;
+}
+
+.summaryAnexos {
+    width:99.5%;
+    height:min-content;
+    overflow-y:auto;
+    display:none;
+    position:relative;
+    height:fit-content;
+    background-color:rgb(224, 223, 223);
+    margin:0 0 20px 0;
+}
+
+.summaryDiagrama_flujo {
+    width:99.5%;
+    height:min-content;
+    overflow-y:auto;
+    display:none;
+    position:relative;
+    height:fit-content;
+    background-color:rgb(224, 223, 223);
+    margin:0 0 20px 0;
+}
+
+.summaryRevAprobacion {
+    width:99.5%;
+    height:min-content;
+    overflow-y:auto;
+    display:none;
+    position:relative;
+    height:fit-content;
+    background-color:rgb(224, 223, 223);
+    margin:0 0 20px 0;
+}
+
+.summaryHistorialCambios {
+    width:99.5%;
+    height:min-content;
+    overflow-y:auto;
+    display:none;
+    position:relative;
+    height:fit-content;
+    background-color:rgb(224, 223, 223);
+    margin:0 0 20px 0;
+}
