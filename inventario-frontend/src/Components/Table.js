@@ -29,7 +29,7 @@ export default function Table(props) {
  const [creationForm,setCreationForm] = useState('');
  const [updateForm, setUpdateForm] = useState('');
  const [confirmationModal,setConfirmationModal] = useState(false);  
-
+ var lastSelectedRecord = useRef(undefined) 
  useEffect(()=>{
    if(times.current >=1) {lastCounter.current=times.current+2;actualRoute.current=props.setTableName;creationForm.includes('flow')? (()=>{setCreationForm(creationForm.split('_')[0]);times.current=-2})():setCreationForm('');setUpdateForm('')}
   //  if (times.current>2) { setTimeout(()=>{props.setProcedData('')},1000)}
@@ -49,7 +49,6 @@ export default function Table(props) {
   }
 
 if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(props) !== 'procedimiento') { 
-  // console.log('----------------->',actualRoute.current,parseRoute(props),times.current)  
   props.data && !props.data.includes('statusEmpty')? (() => { 
   trHead? trHead.innerHTML = '' : void(0);
   tBody? tBody.innerHTML = '' : void(0);
@@ -151,14 +150,22 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
       td.style.fontSize = '0.9vw'      
       tr.appendChild(td)
      }
-     tr.addEventListener('click',e=>{if(e.target.parentElement.children){(handleSearchRecord(e.target.parentElement.children[0].innerText))}})
+     tr.addEventListener('click',e=>{
+      e.target.parentElement.style.backgroundColor = 'rgb(212, 208, 208)' 
+      if(e.target.parentElement.children){
+       if(!lastSelectedRecord.current){lastSelectedRecord.current=e.target.parentElement.children[0].innerText}
+       else if(e.target.parentElement.children[0].innerText==lastSelectedRecord.current){handleSearchRecord(e.target.parentElement.children[0].innerText);lastSelectedRecord.current=undefined}
+       else{lastSelectedRecord.current=e.target.parentElement.children[0].innerText}
+      }})    
+     tr.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor = 'white'})
      tBody.appendChild(tr)
      recordsMessage.style.display = 'none'
     }
    },100)}
   
-  function handleSearchRecord(procedCode=undefined) {
-   let codeToSearch = document.getElementsByClassName('searchCodeBar')[0].value || procedCode
+  function handleSearchRecord() {
+
+   let codeToSearch = document.getElementsByClassName('searchCodeBar')[0].value || lastSelectedRecord.current
    let notFoundMessage=document.getElementsByClassName('notFoundMessage')[0];
    if(!codeToSearch){
     notFoundMessage.style.transform='scale(1)';
@@ -197,6 +204,31 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
    {parseRoute(props)==='procedimiento' && <input type='submit' className='searchCodeButton' value='Buscar' onClick={()=>{handleSearchRecord()}}/>}
    <br/>
    {parseRoute(props)==='procedimiento' && <h5 className='notFoundMessage'>No se encontrò ningùn registro con el còdigo especificado</h5>}
+
+   <br/>
+
+   <button className = 'addRecordButton' onClick = {()=>{setCreationForm(parseRoute(props));setUpdateForm('');times.current=0;if(parseRoute(props)==='procedimiento'){props.setProcedData('CREATE')}}} style={{'float':'left','margin':'0 10px 5px 0'}}>Agregar</button>
+   {parseRoute(props)==='procedimiento' && <button className = 'addRecordButton' style={{'float':'left','margin':'0 10px 5px 0'}} onClick={()=>{
+    let codeBar = document.getElementsByClassName('searchCodeBar')[0]
+    codeBar.value = ''
+    procedRecordActions.current=undefined;
+    handleSearchRecord()  
+      }} >Modificar</button>}
+
+   {parseRoute(props)==='procedimiento' && <button className = 'addRecordButton' style={{'margin':'0 10px 5px 0','float':'left'}} onClick={(e)=>{if(parseRoute(props)==='procedimiento'){
+    let codeBar = document.getElementsByClassName('searchCodeBar')[0]
+    codeBar.value = ''
+    procedRecordActions.current='DELETE_RECORD';
+    handleSearchRecord()
+    }}}>Eliminar</button>}
+
+    {parseRoute(props)==='procedimiento' && <button className = 'addRecordButton' style={{'margin':'0 10px 5px 0','float':'left'}} onClick={()=>{}}>Imprimir</button>}
+
+
+<br/>
+<br/>
+<br/>
+
    <table className = "table">
      <thead className='tHead'>
        <tr className='trHead'>
@@ -220,22 +252,7 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
     (updateForm==='revaprobacion' && <RevAprobacion route={parseRoute(props)} updateElementId={updateElementId} callMode={callMode}/>) ||
     (updateForm==='historialcambios' && <HistorialCambios route={parseRoute(props)} updateElementId={updateElementId} callMode={callMode}/>)}
   
-   <button className = 'addRecordButton' onClick = {()=>{setCreationForm(parseRoute(props));setUpdateForm('');times.current=0;if(parseRoute(props)==='procedimiento'){props.setProcedData('CREATE')}}}>Agregar</button>
-   {parseRoute(props)==='procedimiento' && <button className = 'addRecordButton' style={{'margin':'0 10px 0 10px'}} onClick={()=>{
-    let codeBar = document.getElementsByClassName('searchCodeBar')[0]
-    codeBar.value = ''
-    procedRecordActions.current=undefined;
-    codeBar.placeholder='Còdigo de registro';    
-    codeBar.focus()}}>Modificar</button>}
-   <br/>
-   {parseRoute(props)==='procedimiento' && <button className = 'addRecordButton' style={{'margin':'10px 0 0 0'}} onClick={(e)=>{if(parseRoute(props)==='procedimiento'){
-    let codeBar = document.getElementsByClassName('searchCodeBar')[0]
-    codeBar.value = ''
-    procedRecordActions.current='DELETE_RECORD';
-    codeBar.placeholder='Còdigo de registro a eliminar';
-    codeBar.focus()}}}>Eliminar</button>}
 
-    <button className = 'addRecordButton' style={{'margin':'10px 0 0 9px'}} onClick={()=>{}}>Imprimir</button>
 
    {
   //  (creationForm==='procedimiento' && <Proced setTableName={props.setTableName} setCreationForm={setCreationForm}/>) || 

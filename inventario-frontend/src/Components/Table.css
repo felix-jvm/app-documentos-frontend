@@ -44,7 +44,7 @@
 .table {
   min-width:max-content;
   max-width:max-content;
-  display:block;
+  display:inline-block;
   margin:0 0 0 0;
   border: 1px solid rgb(195, 195, 195);
   overflow:auto;

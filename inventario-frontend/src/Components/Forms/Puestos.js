@@ -1,5 +1,10 @@
+import {useState,useRef,useEffect} from 'react';
+import ConfirmationModal from "../ConfirmationModal";
+import './Forms.css'
+import '../ConfirmationModal.css'
 
 export default function Puestos (props) {
+  const [confirmationModal,setConfirmationModal] = useState(false); 
 
   function handleSend(obj) {
     var formData = obj.target
@@ -22,8 +27,10 @@ export default function Puestos (props) {
      method:'POST',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({mode:mode, data})})
-    props.setTableName? props.setTableName('responsabilidades'):window.location.reload(true)
-    props.setCreationForm? props.setCreationForm('responsabilidades_flow'):window.location.reload(true)
+     .then(res=>res.json()) 
+     .then(res=>{if(res){console.log('----------->',res);setConfirmationModal('Datos guardados correctamente')}})     
+    // props.setTableName? props.setTableName('responsabilidades'):window.location.reload(true)
+    // props.setCreationForm? props.setCreationForm('responsabilidades_flow'):window.location.reload(true)
   }
 
   function handleDelete(){
@@ -87,23 +94,25 @@ export default function Puestos (props) {
    })
 
     return (
-      <div className="formCont">
-        <form id='puestos' onSubmit={(data)=>handleSend(data)}>
-          <label>Descripcion</label>
+      <div className='modalMainCont'>
+        <form id='puestos' onSubmit={(data)=>handleSend(data)} style={{'width':'30%','minHeight':'55vh','maxHeight':'55vh','backgroundColor':'rgb(227, 225, 225)','margin':'80px auto 0 auto','borderRadius':'5px','position':'relative','padding':'5px'}}>
+        <h3>Descripciòn</h3>
+          <textarea required={true} maxLength='50' name='descripcion' className='Procedimiento_ObjetivoInput' style={{'margin':'-10px 0 5px 0'}}></textarea>
+          <h3>Unidad Negocio</h3>
+          <input type='number' required={false} name='unidadnegocio' className='DocumentosReferencias_IDDocumentoSelect codigoText' style={{'minWidth':'40%','border':'1px solid gray','margin':'-10px 0 0 0'}}/>
           <br/>
-          <input type='text' required={true} maxLength='50' name='descripcion'/>
+          <h3 style={{'margin':'0 0 0 3px'}}>Actividad</h3>
+          <input type='number' required={false} name='actividad' className='DocumentosReferencias_IDDocumentoSelect codigoText' style={{'minWidth':'40%','border':'1px solid gray','margin':'-4px 0 0 0'}}/>
           <br/>
-          <label>Unidad Negocio</label>
-          <br/>
-          <input type='number' required={false} name='unidadnegocio'/>
-          <br/>
-          <label>Actividad</label>
-          <br/>
-          <input type='number' required={false} name='actividad'/>
           <br/>          
-          <input type='submit' value='Guardar'/>
-          <input type='submit' value='Borrar' onClick={()=>handleDelete()} name='deleteButton' className='deleteButton'/>          
+          <input type='submit' value='Guardar' className='docRefAddButton' style={{'margin':'-10px 0 0 0'}}/>
+          <br/>
+          <input type='submit' value='Cerrar' className='docRefAddButton' style={{'margin':'0 0 0 0','padding':'2px 37px 2px 35px'}} onClick={()=>props.setCreationForm('')}/>      
         </form>
+        {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} message={'Datos guardados correctamente'} 
+         icon={<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
+         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </svg> } reload={'true'}/>}          
       </div>  
      )
 }
