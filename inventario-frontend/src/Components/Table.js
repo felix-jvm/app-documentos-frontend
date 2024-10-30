@@ -222,8 +222,17 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
     handleSearchRecord()
     }}}>Eliminar</button>}
 
-    {parseRoute(props)==='procedimiento' && <button className = 'addRecordButton' style={{'margin':'0 10px 5px 0','float':'left'}} onClick={()=>{}}>Imprimir</button>}
-
+    {parseRoute(props)==='procedimiento' && <a className = 'addRecordButton' style={{'margin':'0 10px 5px 0','float':'left'}} onClick={e=>{
+      fetch('http://localhost:8000/procedimiento/',{
+        'method':'POST',
+        'headers':{'Content-Type':'application/json'},
+        body:JSON.stringify({'mode':'fillForm','procedCodigo':lastSelectedRecord.current})
+       })
+       .then(res=>res.json())
+       .then((res)=>{
+        let procedId = res.specificData.RevAprobacion[res.specificData.RevAprobacion.length-1] 
+        if(typeof(procedId)==='number'){e.target.href=`http://192.168.2.69:16900/Report/ViewReport/${procedId}`}})
+        }} target='_blank'>Imprimir</a>}
 
 <br/>
 <br/>
