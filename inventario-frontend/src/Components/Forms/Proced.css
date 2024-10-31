@@ -11,10 +11,10 @@
 .saveProcButton {
  border-radius:5px;
  border:1px solid rgb(96, 1, 156);
- padding:10px 45px 10px 45px;  
+ padding:5px 45px 5px 45px;  
  font-size:1.1vw;
  font-weight:900;
- top:40px;
+ top:20px;
  left:84%;
  position:fixed;
  color:rgb(96, 1, 156);

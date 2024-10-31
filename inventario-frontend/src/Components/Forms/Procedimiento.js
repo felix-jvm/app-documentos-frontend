@@ -40,11 +40,15 @@ export default function Procedimiento (props) {
      })    
     .then(e => e.json())
     .then(data => {
+    if(props.procedData.specificData && props.procedData.specificData.Procedimiento_Codigo){
+      let displayDocument = document.getElementsByClassName('displayDocument')[0]
+      displayDocument.innerText = documentCodes.current[props.procedData.specificData.Procedimiento_Codigo]
+    }
     var DocumentosReferencias_IDDocumentoSelect = document.getElementsByClassName('DocumentosReferencias_IDDocumentoSelect')[0]
     for(let respons of data['DocumentosReferencias-IDDocumento']) {
      let option = document.createElement('option')
      option.value = `{"pk":"${respons['ID']}","Codigo":"${respons['Codigo']}"}`
-     option.innerText = `${respons.Codigo}`
+     option.innerText = `${respons.Codigo} - ${respons.Descripcion}`
      DocumentosReferencias_IDDocumentoSelect.appendChild(option)
     }
     DocumentosReferencias_IDDocumentoSelect.value = ''

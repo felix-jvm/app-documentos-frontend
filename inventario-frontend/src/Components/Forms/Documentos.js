@@ -76,11 +76,7 @@ export default function Documentos (props) {
           body:JSON.stringify({'mode':'requestCodeSequence',code})
         })
         .then((res)=>res.json())
-        .then((res)=>{
-          if(res.length){
-            codigoText.value = `${code}-${res}`
-          } else {codigoText.value = `${code}-001`}
-        })         
+        .then((res)=>{if(res.length){codigoText.value = `${code}-${res}`}})         
       }}
 
     return (
