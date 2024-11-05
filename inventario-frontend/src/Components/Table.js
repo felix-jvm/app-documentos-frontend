@@ -173,7 +173,7 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
     return
    }
    if(!procedRecordActions.current){
-    fetch('http://localhost:8000/procedimiento/',{
+    fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
       'method':'POST',
       'headers':{'Content-Type':'application/json'},
       body:JSON.stringify({'mode':'fillForm','procedCodigo':codeToSearch})
@@ -184,7 +184,7 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
       else {props.setProcedData({specificProced:codeToSearch,...res})}
      })
    }else if(procedRecordActions.current=='DELETE_RECORD'){
-    fetch('http://localhost:8000/procedimiento/',{
+    fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
       'method':'POST',
       'headers':{'Content-Type':'application/json'},
       body:JSON.stringify({'mode':'deleteRecord','procedCodigo':codeToSearch})
@@ -223,7 +223,7 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
     }}}>Eliminar</button>}
 
     {parseRoute(props)==='procedimiento' && <a className = 'addRecordButton' style={{'margin':'0 10px 5px 0','float':'left'}} onClick={e=>{
-      fetch('http://localhost:8000/procedimiento/',{
+      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'fillForm','procedCodigo':lastSelectedRecord.current})
@@ -231,7 +231,7 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
        .then(res=>res.json())
        .then((res)=>{
         let procedId = res.specificData && res.specificData.RevAprobacion? res.specificData.RevAprobacion[res.specificData.RevAprobacion.length-1]:undefined
-        if(typeof(procedId)==='number'){e.target.href=`http://192.168.2.69:16900/Report/ViewReport/${procedId}`}})
+        if(typeof(procedId)==='number'){e.target.href=`http://${window.location.hostname}:16900/Report/ViewReport/${procedId}`}})
         }} target='_blank'>Imprimir</a>}
 <br/>
 <br/>

@@ -23,25 +23,25 @@ export default function Puestos (props) {
     } else {
      mode = 'create'
    } 
-   fetch(`http://localhost:8000/${props.route}/`,{
+   fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
      method:'POST',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({mode:mode, data})})
      .then(res=>res.json()) 
-     .then(res=>{if(res){console.log('----------->',res);setConfirmationModal('Datos guardados correctamente')}})     
+     .then(res=>{if(res){setConfirmationModal('Datos guardados correctamente')}})     
     // props.setTableName? props.setTableName('responsabilidades'):window.location.reload(true)
     // props.setCreationForm? props.setCreationForm('responsabilidades_flow'):window.location.reload(true)
   }
 
-  function handleDelete(){
-    fetch(`http://localhost:8000/${props.route}/`,{
-     method:'DELETE',
-     headers:{'Content-Type':'application/json'},
-     body:JSON.stringify({ID:props.updateElementId.current,mode:'delete'})})
-     .then(()=>window.location.reload())}  
+  // function handleDelete(){
+  //   fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
+  //    method:'DELETE',
+  //    headers:{'Content-Type':'application/json'},
+  //    body:JSON.stringify({ID:props.updateElementId.current,mode:'delete'})})
+  //    .then(()=>window.location.reload())}  
 
   if(props.callMode && props.callMode.current==='update') {
-    fetch(`http://localhost:8000/${props.route}/`,{
+    fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
      method:'POST',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({mode:'requestUpdateData',ID:props.updateElementId})
@@ -61,7 +61,7 @@ export default function Puestos (props) {
      deleteButton? deleteButton.style.visibility = 'hidden':void(0)    
     }
 
-  fetch(`http://localhost:8000/${props.route}/`,{
+  fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
     method:'POST',
     'headers':{'Content-Type':'application/json'},
     body:JSON.stringify({mode:'relations'})

@@ -25,7 +25,7 @@ export default function Documentos (props) {
      mode = 'create'
    } 
 
-   fetch(`http://localhost:8000/${props.route}/`,{
+   fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
      method:'POST',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({mode:mode, data})})
@@ -34,7 +34,7 @@ export default function Documentos (props) {
   }
 
   // function handleDelete(){
-  //   fetch(`http://localhost:8000/${props.route}/`,{
+  //   fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
   //    method:'DELETE',
   //    headers:{'Content-Type':'application/json'},
   //    body:JSON.stringify({ID:props.updateElementId.current,mode:'delete'})})
@@ -42,7 +42,7 @@ export default function Documentos (props) {
   //  }
 
   setTimeout(()=>{
-    fetch(`http://localhost:8000/${props.route}/`,{
+    fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
       method:'POST',
       'headers':{'Content-Type':'application/json'},
       body:JSON.stringify({'mode':'fillForm'})
@@ -70,7 +70,7 @@ export default function Documentos (props) {
       let codigoText = document.getElementsByClassName('codigoText')[0]
       let code = `${tipoDoc.value.split('-')[0]}-${e.target.value.split('-')[0]}`
       if(tipoDoc.value && e.target.value){
-        fetch(`http://localhost:8000/${props.route}/`,{
+        fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
           method:'POST',
           'headers':{'Content-Type':'application/json'},
           body:JSON.stringify({'mode':'requestCodeSequence',code})

@@ -55,7 +55,7 @@ export default function RevAprobacion (props) {
 
     useEffect(() => {
       setTimeout(() => {
-        fetch('http://localhost:8000/procedimiento/',
+        fetch(`http://${window.location.hostname}:8000/procedimiento/`,
           {
             'method':'POST',
             'headers':{'Content-Type':'application/json'},

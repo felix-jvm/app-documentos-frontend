@@ -8,7 +8,7 @@ export default function DiagramaFlujo(props) {
    if(props.procedData.specificData && props.procedData.specificData['Diagrama_Flujo']){
     //  let diagramaFlujoInput = document.getElementsByClassName('diagramaFlujoInput')[0]
     //  diagramaFlujoInput.value = props.procedData.specificData['Diagrama_Flujo']
-     setImage('http://localhost:8000'+props.procedData.specificData['Diagrama_Flujo']['image_url'])
+     setImage(`http://${window.location.hostname}:8000`+props.procedData.specificData['Diagrama_Flujo']['image_url'])
      setArchive(props.procedData.specificData['Diagrama_Flujo'])
   }},500)}),[])
 
@@ -20,7 +20,7 @@ export default function DiagramaFlujo(props) {
      formData.append('img',archive)
      formData.append('mode','save_diagrama_flujo_img')
      formData.append('procedCode',props.backenData.current['Procedimiento_CodigoSelect'])
-     fetch('http://localhost:8000/procedimiento/',{
+     fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
       method:'POST',
       body:formData
     })

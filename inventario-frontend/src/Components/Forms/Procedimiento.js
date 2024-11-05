@@ -8,7 +8,7 @@ export default function Procedimiento (props) {
  useEffect(() => {
   setTimeout(() => {
     let specificProcedCode = props.procedData.specificData && Object.keys(props.procedData.specificData).includes('Procedimiento_Codigo')?props.procedData.specificData['Procedimiento_Codigo']:false
-    fetch('http://localhost:8000/procedimiento/',
+    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
       {
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
@@ -32,7 +32,7 @@ export default function Procedimiento (props) {
         } else {Procedimiento_CodigoSelect.value=''}
     })
 
-    fetch('http://localhost:8000/procedimiento/',
+    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
      {
        'method':'POST',
        'headers':{'Content-Type':'application/json'},

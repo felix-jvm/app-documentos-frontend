@@ -29,7 +29,7 @@ export default function Proced (props) {
     <button className='saveProcButton' onClick={e=>{setSendData(true);e.preventDefault()}}>Guardar datos</button>
     <button className='saveProcButton' onClick={e=>{window.location.reload()}} style={{'display':'block','margin':'3% 0 0 0'}}>Cerrar</button>
     {props.procedData.specificProced && <a className = 'saveProcButton' style={{'display':'block','margin':'6% 0 0 0'}} onClick={e=>{
-      fetch('http://localhost:8000/procedimiento/',{
+      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'fillForm','procedCodigo':props.procedData.specificProced})
@@ -37,7 +37,7 @@ export default function Proced (props) {
        .then(res=>res.json())
        .then((res)=>{
         let procedId = res.specificData && res.specificData.RevAprobacion? res.specificData.RevAprobacion[res.specificData.RevAprobacion.length-1]:undefined
-        if(typeof(procedId)==='number'){e.target.href=`http://192.168.2.69:16900/Report/ViewReport/${procedId}`}})
+        if(typeof(procedId)==='number'){e.target.href=`http://${window.location.hostname}:16900/Report/ViewReport/${procedId}`}})
         }} target='_blank'>Imprimir</a>}
     {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} message={'Datos guardados correctamente'} 
     icon={<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
