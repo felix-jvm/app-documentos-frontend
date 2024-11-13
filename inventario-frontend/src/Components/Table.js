@@ -24,15 +24,15 @@ export default function Table(props) {
  var actualRoute = useRef('')
  var lastCounter = useRef(0)
  var updateElementId = useRef(null)
- var callMode = useRef(null);
+ var callMode = useRef(null)
  var procedRecordActions = useRef(null)
+ var codeToSearchLength = useRef(null)
  const [creationForm,setCreationForm] = useState('');
  const [updateForm, setUpdateForm] = useState('');
  const [confirmationModal,setConfirmationModal] = useState(false);  
  var lastSelectedRecord = useRef(undefined) 
  useEffect(()=>{
-   if(times.current >=1) {lastCounter.current=times.current+2;actualRoute.current=props.setTableName;creationForm.includes('flow')? (()=>{setCreationForm(creationForm.split('_')[0]);times.current=-2})():setCreationForm('');setUpdateForm('')}
-  //  if (times.current>2) { setTimeout(()=>{props.setProcedData('')},1000)}
+   if(times.current >=1) {lastCounter.current=times.current+2;actualRoute.current=props.tableName;creationForm.includes('flow')? (()=>{setCreationForm(creationForm.split('_')[0]);times.current=-2})():setCreationForm('');setUpdateForm('')}
    times.current += 1 
  })
 
@@ -181,13 +181,14 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
      .then(res=>res.json())
      .then((res)=>{
       if(res.length===0){notFoundMessage.style.transform='scale(1)';setTimeout(()=>{notFoundMessage.style.transform='scale(0)'},4000)}
-      else {props.setProcedData({specificProced:codeToSearch,...res})}
-     })
-   }else if(procedRecordActions.current=='DELETE_RECORD'){
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
-      'method':'POST',
-      'headers':{'Content-Type':'application/json'},
-      body:JSON.stringify({'mode':'deleteRecord','procedCodigo':codeToSearch})
+      else {
+        let codeToLook = document.getElementsByClassName('searchCodeBar')[0].value
+        if(codeToLook){props.setTableName(`specificProcedRecord_${codeToLook}`)}else{props.setProcedData({specificProced:codeToSearch,...res})}
+      }})}else if(procedRecordActions.current=='DELETE_RECORD'){
+      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+       'method':'POST',
+       'headers':{'Content-Type':'application/json'},
+       body:JSON.stringify({'mode':'deleteRecord','procedCodigo':codeToSearch})
      })
      .then(res=>res.json())
      .then((res)=>{
@@ -195,12 +196,13 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
       else {setConfirmationModal(true)}
       procedRecordActions.current = undefined
      })}
+     codeToSearchLength.current = codeToSearch.length
   }
 
  return (
   <>
    <h3 className='tableTitle'>{parseRoute(props)}</h3>
-   {parseRoute(props)==='procedimiento' && <input className='searchCodeBar' placeholder='Buscar por còdigo'/>}
+   {parseRoute(props)==='procedimiento' && <input className='searchCodeBar' placeholder='Buscar por còdigo' onKeyDown={(e)=>{if(e.target.value.length===0 && codeToSearchLength.current){props.setTableName('');codeToSearchLength.current=0;setTimeout(()=>{props.setTableName('procedimiento')},100)}}}/>}
    {parseRoute(props)==='procedimiento' && <input type='submit' className='searchCodeButton' value='Buscar' onClick={()=>{handleSearchRecord()}}/>}
    <br/>
    {parseRoute(props)==='procedimiento' && <h5 className='notFoundMessage'>No se encontrò ningùn registro con el còdigo especificado</h5>}
@@ -263,7 +265,7 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
 
 
    {
-  //  (creationForm==='procedimiento' && <Proced setTableName={props.setTableName} setCreationForm={setCreationForm}/>) || 
+  //  (creationForm==='procedimiento' && <Proced tableName={props.tableName} setCreationForm={setCreationForm}/>) || 
    (creationForm==='documentosreferencias' && <DocumentosReferencias route={parseRoute(props)} setCreationForm={setCreationForm}/>) || 
    (creationForm==='documentos' && <Documentos route={parseRoute(props)} setCreationForm={setCreationForm}/>) || 
    (creationForm==='responsabilidades' && <Responsabilidades route={parseRoute(props)} setCreationForm={setCreationForm}/>) || 

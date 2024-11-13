@@ -10,11 +10,30 @@ function App() {
   const [tableName, setTableName] = useState('');
   const [data, setData] = useState('');
   useEffect(() => {
-   if (tableName) { 
+   if (tableName && !tableName.includes('specificProcedRecord')) { 
     fetch(`http://${window.location.hostname}:8000/${tableName}/`)
       .then(res => res.json())
       .then(res => setData(res))       
-    }},[tableName])
+    }else if(tableName.includes('specificProcedRecord')){
+      setTableName('procedimiento')
+      let codeToSearch = tableName.split('_')[1].replace(' ','')
+      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+        'method':'POST',
+        'headers':{'Content-Type':'application/json'},
+        body:JSON.stringify({'mode':'fillForm','procedCodigo':codeToSearch})
+       })
+       .then(res=>res.json())
+       .then((res)=>{
+         let specificData = res.specificData
+         setTableName('procedimiento')
+         setData({'fields':['Còdigo','Descripcion','Objetivo','Fecha','Version'],
+          'data':[
+            {'Codigo':specificData.Procedimiento_Codigo,
+            'Descripcion':specificData.Documentos.Descripcion ,
+            'Objetivo':specificData.Procedimiento_Objetivo,
+            'Fecha':specificData.Documentos.Fecha,
+            'Version':specificData.Documentos.Version}]})
+        })}},[tableName])
   
   function activateProcOutterCont() {
    let procedOutterCont = document.getElementsByClassName('procedOutterCont')[0];
@@ -44,7 +63,7 @@ function App() {
                                 Registros
                             </div>
                             <div className="card-body">
-                             {tableName && <Table data={data} setTableName={tableName} setProcedData={setProcedData}/>}
+                             {tableName && <Table data={data} tableName={tableName} setTableName={setTableName} setData={setData} setProcedData={setProcedData}/>}                           
                             </div>
                         </div>
                     </div>

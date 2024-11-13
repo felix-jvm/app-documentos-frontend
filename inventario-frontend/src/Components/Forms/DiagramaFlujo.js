@@ -5,13 +5,18 @@ export default function DiagramaFlujo(props) {
  const [archive, setArchive] = useState(null);
  useEffect((() => {
   setTimeout(() => {
-   if(props.procedData.specificData && props.procedData.specificData['Diagrama_Flujo']){
-    //  let diagramaFlujoInput = document.getElementsByClassName('diagramaFlujoInput')[0]
-    //  diagramaFlujoInput.value = props.procedData.specificData['Diagrama_Flujo']
-     setImage(`http://${window.location.hostname}:8000`+props.procedData.specificData['Diagrama_Flujo']['image_url'])
-     setArchive(props.procedData.specificData['Diagrama_Flujo'])
+   if(props.procedData.specificData){
+    fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+     'method':'POST',
+     'headers':{'Content-Type':'application/json'},
+     body:JSON.stringify({'mode':'request_proced_diagrama_flujo','procedCode':props.procedData.specificData['Procedimiento_Codigo']})
+    })    
+    .then((res)=>res.blob())
+    .then((res)=>{
+      const url = URL.createObjectURL(res);
+      setImage(url)
+    })
   }},500)}),[])
-
 
  useEffect((() => {
   if(props.senData){
