@@ -82,7 +82,7 @@ export default function HistorialCambios (props) {
     props.setConfirmationModal(false)
     return  
     }  
-    fetch('http://localhost:8000/procedimiento/',{
+    fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'mode':'CREATE',backenData:props.backenData.current})
