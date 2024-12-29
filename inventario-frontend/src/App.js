@@ -2,13 +2,17 @@
 import './App.css';
 import Table from './Components/Table';
 import SideMenu from './Components/SideMenu';
-import Proced from './Components/Forms/Proced'
+import Proced from './Components/Forms/Proced';
+import Login from './Components/Forms/Login';
 import { useState, useEffect, useRef} from 'react';
 
 function App() {
   const [procedData, setProcedData] = useState(null);
   const [tableName, setTableName] = useState('');
   const [data, setData] = useState('');
+  const [home,setHome] = useState(false);
+  const [userData,setUserData] = useState(false);
+  useEffect(()=>{if(!userData){setHome(false)}},[userData])  
   useEffect(() => {
    if (tableName && !tableName.includes('specificProcedRecord')) { 
     fetch(`http://${window.location.hostname}:8000/${tableName}/`)
@@ -45,7 +49,7 @@ function App() {
 
    <div className="App">
 
-        <div id="layoutSidenav">
+    {(!home && !userData && <Login setHome={setHome} setUserData={setUserData} mode={'login'}/>) || (home && userData && <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                           <SideMenu setTableName={setTableName}/>
@@ -69,7 +73,7 @@ function App() {
                     </div>
                 </main>
             </div>
-        </div>
+        </div>)}
         {procedData && activateProcOutterCont()}
         <div className='procedOutterCont'>{procedData && <Proced procedData={procedData} setProcedData={setProcedData}/>}</div>
    </div>

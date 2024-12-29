@@ -1,0 +1,109 @@
+.loginMaintCont {
+    background-color:rgb(255, 255, 255);  
+    position:relative;
+    margin:0 auto 0 auto;
+    margin-top:10%;
+    width:30%;
+    height:fit-content;
+    border-radius:6px;
+    padding:30px 0 50px 0.2%;
+    box-shadow:1px 1px 10px gray;
+  }
+
+.loginTitle {
+    position:relative;
+    width:fit-content;
+    margin:30px 0 0 0;    
+}
+
+.loginLabel {
+    margin:30px 3px 0 0px;
+    padding:8px 0 0 0;
+    width:fit-content;   
+}
+
+.loginInput {
+    margin:0;
+    border-radius:5px;
+    min-width:99.4%;
+    max-width:99.4%;
+    min-height:50px;
+    max-height:50px;
+    padding-left:5px;
+    border:1px solid rgb(179, 179, 179); 
+    overflow-y:hidden;
+}
+
+.loginButton {
+    border-radius:5px;
+    border:1px solid rgb(96, 1, 156);
+    padding:5px 10% 5px 10%;  
+    font-size:1.1vw;
+    font-weight:900;
+    position:relative;
+    color:rgb(96, 1, 156);
+    margin: 20px 0 0 1px;
+    background-color:rgb(255, 255, 255);
+}
+
+.saveProcButton:hover {
+    background-color: rgba(91, 0, 148, 0.122);
+    cursor: pointer;
+}
+
+@media screen and (max-width:1300px){
+    .loginInput {
+        margin:0;
+        max-width:99%;
+        min-width:99%;
+    }
+}
+
+@media screen and (max-width:1100px){
+    .loginMaintCont {
+       padding:0; 
+    }
+    .loginInput {
+        border-radius:4px;
+        margin:0;
+        max-width:100%;
+        min-width:100%;
+    }
+}
+
+@media screen and (max-width:815px){
+    .loginMaintCont {
+       padding:0; 
+    }
+    .loginInput {
+        border-radius:4px;
+        margin:0;
+        max-width:100%;
+        min-width:100%;
+    }
+}
+
+
+@media screen and (max-width:715px){
+    .loginMaintCont {
+       padding:0; 
+    }
+    .loginInput {
+        border-radius:4px;
+        margin:0;
+        max-width:100%;
+        min-width:100%;
+    }
+}
+
+@media screen and (max-width:550px){
+    .loginMaintCont {
+       padding:0; 
+    }
+    .loginInput {
+        border-radius:4px;
+        margin:0;
+        max-width:100%;
+        min-width:100%;
+    }
+}
