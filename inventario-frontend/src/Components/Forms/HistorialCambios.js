@@ -73,7 +73,6 @@ export default function HistorialCambios (props) {
 
  useEffect((() => {
   if(props.senData){ 
-  //  console.log('------------>',props.backenData.current['revAprobacion']) 
    if(!props.backenData.current['Procedimiento_AlcanceInput'] || !props.backenData.current['Procedimiento_ObjetivoInput'] || !props.backenData.current['Procedimiento_CodigoSelect']) {
     (!props.backenData.current['Procedimiento_AlcanceInput'] && setModalErrorData(`El campo Alcance de la Secciòn_Procedimiento es requerido.`)) ||
     (!props.backenData.current['Procedimiento_ObjetivoInput'] && setModalErrorData(`El campo Objetivo de la Secciòn_Procedimiento es requerido.`)) ||
@@ -88,9 +87,11 @@ export default function HistorialCambios (props) {
       body:JSON.stringify({'mode':'CREATE',backenData:props.backenData.current})
     })
     .then(res=>res.json())
-    .then(res=>res.status === 'ok'? (()=>{
-      props.setConfirmationModal(true)
-      setSummary(true)
+    .then(res=>res.status === 'ok'? (()=>{      
+      props.setConfirmationModal(true);
+      setSummary(true);
+      props.setSendData(false);
+      props.refreshDataTable.current = true
     })():void 0)
   }}),[props.senData])
 
@@ -115,7 +116,7 @@ export default function HistorialCambios (props) {
     <br/>
     <br/>
    <h4 className='historialCambioVersionTitle'>Versión:</h4>   
-   <input type='number' className='HistorialCambios_VersionInput' placeholder='Versiòn del cambio' step='.02'/>
+   <input type='number' className='HistorialCambios_VersionInput' placeholder='Versiòn del cambio' step='.01'/>
    <h4 className='historialCambioDescripcionTitle'>Descripciòn:</h4>   
    <textarea className='HistorialCambios_DescripcionInput' placeholder='Razòn por la que se realizò el cambio'></textarea>
    <br/>

@@ -1,4 +1,4 @@
-.modalMainCont {
+.confirmationModalMainCont {
  display:block;   
  position:fixed;
  left:0px;
@@ -11,7 +11,7 @@
  background-color: rgba(0, 0, 0, 0.969);   
 }
 
-.modalInnerCont {
+.confirmationModalInnerCont {
   background-color:rgb(229, 229, 229);  
   position:relative;
   margin:20% auto 40% auto;
@@ -21,7 +21,7 @@
   border:1px solid rgb(37, 36, 37);
 }
 
-.modalMessage {
+.confirmationModalMessage {
  display:block;   
  position:relative;
  margin:0 auto 0 auto;   

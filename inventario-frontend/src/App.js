@@ -75,7 +75,7 @@ function App() {
             </div>
         </div>)}
         {procedData && activateProcOutterCont()}
-        <div className='procedOutterCont'>{procedData && <Proced procedData={procedData} setProcedData={setProcedData}/>}</div>
+        <div className='procedOutterCont'>{procedData && <Proced procedData={procedData} setProcedData={setProcedData} setTableName={setTableName}/>}</div>
    </div>
 
   )}
