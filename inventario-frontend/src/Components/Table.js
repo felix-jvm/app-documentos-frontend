@@ -30,6 +30,7 @@ export default function Table(props) {
  const [creationForm,setCreationForm] = useState('');
  const [updateForm, setUpdateForm] = useState('');
  const [confirmationModal,setConfirmationModal] = useState(false);  
+ var tableTile = useRef(parseRoute(props))
  var lastSelectedRecord = useRef(undefined) 
  useEffect(()=>{
    if(times.current >=1) {lastCounter.current=times.current+2;actualRoute.current=props.tableName;creationForm.includes('flow')? (()=>{setCreationForm(creationForm.split('_')[0]);times.current=-2})():setCreationForm('');setUpdateForm('')}
@@ -47,6 +48,15 @@ export default function Table(props) {
     }
     return route
   }
+
+  setTimeout(()=>{
+    tableTile.current=parseRoute(props)
+    if(tableTile.current){
+     tableTile.current=String(tableTile.current).charAt(0).toUpperCase() + String(tableTile.current).slice(1)
+     let tableTitleElement = document.getElementsByClassName('tableTitle')[0]
+     tableTitleElement.innerText = tableTile.current
+    }       
+  },100)
 
 if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(props) !== 'procedimiento') { 
   props.data && !props.data.includes('statusEmpty')? (() => { 
@@ -150,6 +160,7 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
       td.style.fontSize = '0.9vw'      
       tr.appendChild(td)
      }
+     tr.addEventListener('mouseenter',e=>{e.target.parentElement.style.cursor = 'pointer'})
      tr.addEventListener('click',e=>{
       e.target.parentElement.style.backgroundColor = 'rgb(212, 208, 208)' 
       if(e.target.parentElement.children){
@@ -201,7 +212,7 @@ if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(p
 
  return (
   <>
-   <h3 className='tableTitle'>{parseRoute(props)}</h3>
+   <h3 className='tableTitle'></h3>
    {parseRoute(props)==='procedimiento' && <input className='searchCodeBar' placeholder='Buscar por còdigo' onKeyDown={(e)=>{if(e.target.value.length===0 && codeToSearchLength.current){props.setTableName('');codeToSearchLength.current=0;setTimeout(()=>{props.setTableName('procedimiento')},100)}}}/>}
    {parseRoute(props)==='procedimiento' && <input type='submit' className='searchCodeButton' value='Buscar' onClick={()=>{handleSearchRecord()}}/>}
    <br/>

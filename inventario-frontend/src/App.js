@@ -59,7 +59,7 @@ function App() {
             <div id="layoutSidenav_content">
                 <main>
                     <div className="container-fluid px-4">
-                        <h1 className="mt-4">Procedimientos</h1>
+                        <div style={{'margin':'0 auto 0 auto','width':'fit-content'}}><h1 className="mt-4">Gestión de Documentos</h1></div>
 
                         <div className="card mb-4">
                             <div className="card-header">
