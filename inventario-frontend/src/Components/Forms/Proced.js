@@ -18,10 +18,12 @@ export default function Proced (props) {
   var summaryData = useRef({'Procedimiento_alcance':'','Procedimiento_objetivo':'','Procedimiento_codigo':'','DocumentosReferencias':{},'Responsabilidades':{},'TerminologiasDef':{},'DescripcionesProcedimiento':{},'SubDescripciones':{},'Diagrama_flujo':'','Anexos':{},'RevAprobacion':{},'recordsToDelete':{}})
   if(props.procedData.specificProced){backenData.current={'specificProced':props.procedData.specificProced,...backenData.current}}
   useEffect(()=>{if(refreshDataTable.current){
+     console.log('--------------------------_>here')
      props.setTableName('')
      setTimeout(()=>{
       props.setTableName('procedimiento')
-    },0)
+      refreshDataTable.current = false
+    },1000)
   }},[refreshDataTable.current])
   return (
    <div className='procedInnerCont'>
