@@ -12,7 +12,7 @@ function App() {
   const [data, setData] = useState('');
   const [home,setHome] = useState(false);
   const [userData,setUserData] = useState(false);
-  useEffect(()=>{if(!userData){setHome(false)}},[userData])  
+  useEffect(()=>{if(!userData){setHome(false)}},[userData])      
   useEffect(() => {
    if (tableName && !tableName.includes('specificProcedRecord')) { 
     fetch(`http://${window.location.hostname}:8000/${tableName}/`)
@@ -44,6 +44,12 @@ function App() {
    procedOutterCont.style.display = 'block';
   }
 
+  function deactivateProcOutterCont() {
+   setTimeout(()=>{
+    let procedOutterCont = document.getElementsByClassName('procedOutterCont')[0]
+    procedOutterCont.style.display = 'none'
+  },100)}
+
   return (
 
 
@@ -74,7 +80,7 @@ function App() {
                 </main>
             </div>
         </div>)}
-        {procedData && activateProcOutterCont()}
+        {procedData && activateProcOutterCont() || !procedData && deactivateProcOutterCont()}
         <div className='procedOutterCont'>{procedData && <Proced procedData={procedData} setProcedData={setProcedData} setTableName={setTableName}/>}</div>
    </div>
 

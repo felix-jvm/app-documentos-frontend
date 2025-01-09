@@ -1,7 +1,6 @@
 import {useState,useRef,useEffect} from 'react';
 import ConfirmationModal from "../ConfirmationModal";
 import './Forms.css'
-import '../ConfirmationModal.css'
 
 export default function Documentos (props) {
   const [confirmationModal,setConfirmationModal] = useState(false);    
@@ -82,7 +81,7 @@ export default function Documentos (props) {
     return (
       <div className='modalMainCont'>
         <h1 className='procedAlcanceTitle'>Documentos</h1>
-        <form id='documentos' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'85vh','maxHeight':'85vh','backgroundColor':'rgb(227, 225, 225)','margin':'0 auto 0 auto','borderRadius':'5px','position':'relative'}}>
+        <form id='documentos' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'850px','maxHeight':'850px','backgroundColor':'rgb(227, 225, 225)','margin':'0 auto 0 auto','borderRadius':'5px','position':'relative'}}>
           <h3>Codigo:</h3>
           <h5 style={{'margin':'0 0 0 2px'}}>Tipo documento</h5>
           <select className='DocumentosReferencias_IDDocumentoSelect tipoDoc' required={true} style={{'minWidth':'40%'}}></select>

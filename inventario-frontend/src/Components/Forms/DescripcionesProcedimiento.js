@@ -7,6 +7,10 @@ export default function DescripcionProcedimiento (props) {
  var errorDataref = useRef(false); 
  var selectedrecord = useRef('')
  var selectedTableRecord = useRef(undefined)
+ const tableRecordsNumber = useRef(props.procedData.specificData && props.procedData.specificData['DescripcionesProcedimiento'] && 
+  props.procedData.specificData['DescripcionesProcedimiento'].length > 0)
+  const subTableRecordsNumber = useRef(props.procedData.specificData && props.procedData.specificData['SubDescripciones'] && 
+    props.procedData.specificData['SubDescripciones'].length > 0)  
 
  useEffect(() => {
   setTimeout(() => {
@@ -18,18 +22,19 @@ export default function DescripcionProcedimiento (props) {
        for(let records of props.procedData.specificData['DescripcionesProcedimiento']) {
         let columnSchema = ['Descripcion']
         let trBody = document.createElement('tr')
+        trBody.className = 'descripProcTr'        
         if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
         for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
         trBody.value=records['ID']
-        trBody.style.backgroundColor = 'rgb(250, 250, 250)'
+        trBody.style.backgroundColor = 'white'
         trBody.style.fontWeight = '400'
-        trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor='rgb(212, 208, 208)'})
-        trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor='rgb(250, 250, 250)'})
         trBody.addEventListener('click',(e)=>{
           if(e.target.parentElement.value){
            selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-          }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
-        })          
+          }else{selectedTableRecord.current = {'record':e.target.parentElement}}
+          let trList = document.getElementsByClassName('descripProcTr')
+          for (let tr of trList){if(tr!=e.target.parentElement){
+            setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } })          
         tBody.appendChild(trBody)
        }}else{
        let tBody = document.getElementsByClassName('subtBody')[0]        
@@ -38,18 +43,19 @@ export default function DescripcionProcedimiento (props) {
        for(let mainDescrip of Object.keys(props.procedData.specificData['SubDescripciones'])) {
         let columnSchema = ['Codigo','mainDescription','SubDescripcion']
         let trBody = document.createElement('tr')
+        trBody.className = 'descripProcTr'        
         for(let subDescripRecords of props.procedData.specificData['SubDescripciones'][mainDescrip]) {
          for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column=='mainDescription'?mainDescrip:subDescripRecords[column];trBody.appendChild(td);trBody.value=subDescripRecords['ID']}
         }
-        trBody.style.backgroundColor = 'rgb(250, 250, 250)'
+        trBody.style.backgroundColor = 'white'
         trBody.style.fontWeight = '400'
-        trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor='rgb(212, 208, 208)'})
-        trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor='rgb(250, 250, 250)'})
         trBody.addEventListener('click',(e)=>{
           if(e.target.parentElement.value){
            selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-          }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
-        })          
+          }else{selectedTableRecord.current = {'record':e.target.parentElement}}
+          let trList = document.getElementsByClassName('descripProcTr')
+          for (let tr of trList){if(tr!=e.target.parentElement){
+            setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } })         
         tBody.appendChild(trBody)
        }
        if(props.procedData.specificData['DescripcionesProcedimiento']){let subDescripButton=document.getElementsByClassName('subDescripProcedAddButton')[0];subDescripButton.style.display='block'}       
@@ -65,15 +71,16 @@ export default function DescripcionProcedimiento (props) {
   let columns = ['Descripciòn']
   var trHead = document.createElement('tr')
   var trBody = document.createElement('tr')
-  trBody.style.backgroundColor = 'rgb(250, 250, 250)'
+  trBody.className = 'descripProcTr'
+  trBody.style.backgroundColor = 'white'
   trBody.style.fontWeight = '400'  
-  trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor='rgb(212, 208, 208)'})
-  trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor='rgb(250, 250, 250)'})
   trBody.addEventListener('click',(e)=>{
     if(e.target.parentElement.value){
      selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-    }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
-  })  
+    }else{selectedTableRecord.current = {'record':e.target.parentElement}}
+    let trList = document.getElementsByClassName('descripProcTr')
+    for (let tr of trList){if(tr!=e.target.parentElement){
+      setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } })  
   let subDescripAddbutton = document.getElementsByClassName('subDescripProcedAddButton')[0]
   errorDataref.current = false
 
@@ -118,10 +125,8 @@ export default function DescripcionProcedimiento (props) {
    let mainDescriptd = document.createElement('td')
    let subDescriptd = document.createElement('td')
    let tr = document.createElement('tr')
-   tr.style.backgroundColor = 'rgb(250, 250, 250)'
+   tr.style.backgroundColor = 'white'
    tr.style.fontWeight = '400'   
-   tr.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor='rgb(212, 208, 208)'})
-   tr.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor='rgb(250, 250, 250)'})
    tr.addEventListener('click',(e)=>{
      if(e.target.parentElement.value){
       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
@@ -146,9 +151,11 @@ export default function DescripcionProcedimiento (props) {
    DescripcionesProcedimiento_DescripcionInput.value = ''
    SubDescripciones_CodigoInput.value = ''
    selectedrecord.current = ''
+   let descripProcTrList = document.getElementsByClassName('descripProcTr')
+   for(let tr of descripProcTrList){tr.style.backgroundColor = 'white'}
   })():void 0
 
-  descripProcedTable.addEventListener('click',(e => {selectedrecord.current = e.target.innerText;e.target.style.backgroundColor = 'rgb(235, 235, 235)'}))
+  descripProcedTable.addEventListener('click',(e => {selectedrecord.current = e.target.innerText}))
   subDescripAddbutton.value = 'Guardar subregistro'
   subDescripCodigoTitle.style.visibility = 'visible'
   SubDescripciones_CodigoInput.style.visibility = 'visible'
@@ -198,7 +205,7 @@ export default function DescripcionProcedimiento (props) {
     <thead className='descripProcedtHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='descripProcedtbody'></tbody>
    </table>
-   <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'2px 0 3px 70.5%','position':'relative'}} onClick={()=>{handleRecordRemove()}}/>
+   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'2px 0 3px 70.5%','position':'relative'}} onClick={()=>{handleRecordRemove()}}/>}
    <table className='subDescripTable' style={{'marginTop':'15px','marginBottom':'3px','visibility':'hidden','marginLeft':'100px','border':'0.5px solid black'}}>
     <thead className='subtHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}>
       <tr>
@@ -209,7 +216,7 @@ export default function DescripcionProcedimiento (props) {
       </thead>
     <tbody className='subtBody'></tbody>
    </table>
-   <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'0 0 3px 75.5%',}} onClick={()=>{handleSubRecordRemove()}}/>
+   {subTableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'0 0 3px 75.5%',}} onClick={()=>{handleSubRecordRemove()}}/>}
 
    <input type='submit' className='descripProcedAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'block'}}/>
    <br/>

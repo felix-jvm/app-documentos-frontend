@@ -13,8 +13,7 @@ export default function ConfirmationModal(props) {
       <input type = 'submit' className = 'modalConfirmationButton' value='Cerrar' onClick={() => {
         props.setConfirmationModal('');
         props.reload==='true'?window.location.reload():(()=>{
-          let procedOutterCont = document.getElementsByClassName('procedOutterCont')[0];
-          if(procedOutterCont){procedOutterCont.style.display = 'none'};
+          setTimeout(()=>{if(props.setProcedData){props.setProcedData(false)}},300)
         })()}}/>
     </div>
   </div> 

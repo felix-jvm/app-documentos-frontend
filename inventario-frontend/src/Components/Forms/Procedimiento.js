@@ -1,9 +1,11 @@
 import './Forms.css'
-import {useEffect,useRef} from 'react';
+import {useEffect,useRef,useState} from 'react';
 
 export default function Procedimiento (props) {
  var selectedTableRecord = useRef(undefined)
  var documentCodes = useRef({})
+ const tableRecordsNumber = useRef(props.procedData.specificData && props.procedData.specificData['DocumentosReferencias'] && 
+ props.procedData.specificData['DocumentosReferencias'].length > 0)
 
  useEffect(() => {
   setTimeout(() => {
@@ -63,16 +65,18 @@ export default function Procedimiento (props) {
       tHead.appendChild(th1)
       for(let records of props.procedData.specificData['DocumentosReferencias']) {
        let trBody = document.createElement('tr')
+       trBody.className = 'docRefTr'
        for(let column of columnSchema) {let td = document.createElement('td');td.innerText=records['IDDocumento'][0]?records['IDDocumento'][0][column]:void 0;trBody.appendChild(td)}
        trBody.value=records['ID']
-       trBody.style.backgroundColor = 'rgb(250, 250, 250)'
+       trBody.style.backgroundColor = 'white'
        trBody.style.fontWeight = '400'   
-       trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor = 'rgb(212, 208, 208)'})
-       trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor = 'rgb(250, 250, 250)'})
        trBody.addEventListener('click',(e)=>{
        if(e.target.parentElement.value){
         selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-       }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
+       }else{selectedTableRecord.current = {'record':e.target.parentElement}}
+       let trList = document.getElementsByClassName('docRefTr')
+       for (let tr of trList){if(tr!=e.target.parentElement){
+        setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }           
        })        
        tBody.appendChild(trBody)
       } 
@@ -87,15 +91,16 @@ export default function Procedimiento (props) {
     let columns = ['Codigo']
     var trHead = document.createElement('tr')
     var trBody = document.createElement('tr')
-    trBody.style.backgroundColor = 'rgb(250, 250, 250)'
+    trBody.className = 'docRefTr'
+    trBody.style.backgroundColor = 'white'
     trBody.style.fontWeight = '400'
-    trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor='rgb(212, 208, 208)'})
-    trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor='rgb(250, 250, 250)'})
     trBody.addEventListener('click',(e)=>{
       if(e.target.parentElement.value){
        selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
       }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
-    })      
+      let trList = document.getElementsByClassName('docRefTr') 
+      for (let tr of trList){if(tr!=e.target.parentElement){
+       setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } })      
     let parsedOptionValue = DocumentosReferencias_IDDocumentoSelect.value?JSON.parse(DocumentosReferencias_IDDocumentoSelect.value):{}
 
     for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
@@ -142,7 +147,7 @@ export default function Procedimiento (props) {
         let currentRecordToCreate = props.backenData.current['DocumentosReferencias'][counter]
         if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['DocumentosReferencias'].splice(counter,1)}
       }}}   
-    if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
+    if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}  
     }
 
  return (
@@ -168,7 +173,7 @@ export default function Procedimiento (props) {
        <thead className='docRefHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
        <tbody className='docRefBody'></tbody>
       </table>
-      <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>      
+       {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}
       <br/>
       <hr/>
      </div>    

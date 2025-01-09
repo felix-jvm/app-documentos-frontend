@@ -18,7 +18,6 @@ export default function Proced (props) {
   var summaryData = useRef({'Procedimiento_alcance':'','Procedimiento_objetivo':'','Procedimiento_codigo':'','DocumentosReferencias':{},'Responsabilidades':{},'TerminologiasDef':{},'DescripcionesProcedimiento':{},'SubDescripciones':{},'Diagrama_flujo':'','Anexos':{},'RevAprobacion':{},'recordsToDelete':{}})
   if(props.procedData.specificProced){backenData.current={'specificProced':props.procedData.specificProced,...backenData.current}}
   useEffect(()=>{if(refreshDataTable.current){
-     console.log('--------------------------_>here')
      props.setTableName('')
      setTimeout(()=>{
       props.setTableName('procedimiento')
@@ -34,11 +33,11 @@ export default function Proced (props) {
     <DiagramaFlujo senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
     <Anexos senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
     <RevAprobacion senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
-    <HistorialCambios senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} setSendData={setSendData} refreshDataTable={refreshDataTable}/>
+    <HistorialCambios senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} setSendData={setSendData} refreshDataTable={refreshDataTable} />
     <button className='saveProcButton' onClick={e=>{e.preventDefault();setSendData(true)}}>Guardar datos</button>
     <button className='saveProcButton' onClick={e=>{
-      props.setProcedData(false);
-      let procedOutterCont = document.getElementsByClassName('procedOutterCont')[0];
+      props.setProcedData(false)
+      let procedOutterCont = document.getElementsByClassName('procedOutterCont')[0]
       if(procedOutterCont){procedOutterCont.style.display = 'none'}}} style={{'display':'block','margin':'3% 0 0 0'}}>Cerrar</button>
     {props.procedData.specificProced && <a className = 'saveProcButton' style={{'display':'block','margin':'6% 0 0 0'}} onClick={e=>{
       fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
@@ -51,9 +50,9 @@ export default function Proced (props) {
         let procedId = res.specificData && res.specificData.RevAprobacion? res.specificData.RevAprobacion[res.specificData.RevAprobacion.length-1]:undefined
         if(typeof(procedId)==='number'){e.target.href=`http://${window.location.hostname}:16900/Report/ViewReport/${procedId}`}})
         }} target='_blank'>Imprimir</a>}
-    {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} message={'Datos guardados correctamente'} 
-    icon={<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
+    {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} setProcedData={props.setProcedData} message={'Datos guardados correctamente'} 
+    reload={'false'} icon={<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-     </svg> } reload={'false'}/>}
+     </svg> }/>}
    </div>
   )}

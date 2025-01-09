@@ -6,6 +6,8 @@ export default function Responsabilidades (props) {
  const [modalErrorData,setModalErrorData] = useState(false); 
  var errorDataref = useRef(false);
  var selectedTableRecord = useRef(undefined)
+ const tableRecordsNumber = useRef(props.procedData.specificData && props.procedData.specificData['Responsabilidades'] && 
+  props.procedData.specificData['Responsabilidades'].length > 0)
 
  useEffect(() => {
   setTimeout(() => {
@@ -33,22 +35,22 @@ export default function Responsabilidades (props) {
      for(let records of props.procedData.specificData['Responsabilidades']) {
       let columnSchema = ['IDPuesto','Descripcion']
       let trBody = document.createElement('tr')
+      trBody.className = 'ResponsTr'
       if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
       for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
       trBody.value=records['ID']
-      trBody.style.backgroundColor = 'rgb(250, 250, 250)'
+      trBody.style.backgroundColor = 'white'
       trBody.style.fontWeight = '400'
-      trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor = 'rgb(212, 208, 208)'})
-      trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor = 'rgb(250, 250, 250)'})
       trBody.addEventListener('click',(e)=>{
       if(e.target.parentElement.value){
        selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-      }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
+      }else{selectedTableRecord.current = {'record':e.target.parentElement}}
+      let trList = document.getElementsByClassName('ResponsTr') 
+      for (let tr of trList){if(tr!=e.target.parentElement){
+       setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
       })      
       tBody.appendChild(trBody)
-     } 
-    }
-  },300)},[])
+     } }  },300)},[])
 
  function HandleAdd() {
   let Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]
@@ -59,15 +61,16 @@ export default function Responsabilidades (props) {
   let columns = ['Puesto','Responsabilidad']
   var trHead = document.createElement('tr')
   var trBody = document.createElement('tr')
-  trBody.style.backgroundColor = 'rgb(250, 250, 250)'
+  trBody.className = 'ResponsTr'  
+  trBody.style.backgroundColor = 'white'
   trBody.style.fontWeight = '400'  
-  trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor='rgb(212, 208, 208)'})
-  trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor='rgb(250, 250, 250)'})
   trBody.addEventListener('click',(e)=>{
     if(e.target.parentElement.value){
-     selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-    }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
-  })  
+      selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
+    }else{selectedTableRecord.current = {'record':e.target.parentElement}}
+    let trList = document.getElementsByClassName('ResponsTr') 
+    for (let tr of trList){if(tr!=e.target.parentElement){
+     setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } } )  
   errorDataref.current = false
 
   for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
@@ -119,7 +122,7 @@ export default function Responsabilidades (props) {
     <thead className='responsHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='responsBody'></tbody>
    </table>
-   <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>
+   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}
    <br/>
    <hr/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
