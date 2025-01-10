@@ -41,7 +41,7 @@ export default function DescripcionProcedimiento (props) {
        let subDescripTable = document.getElementsByClassName('subDescripTable')[0] 
        subDescripTable.style.visibility = 'visible'
        for(let mainDescrip of Object.keys(props.procedData.specificData['SubDescripciones'])) {
-        let columnSchema = ['Codigo','mainDescription','SubDescripcion']
+        let columnSchema = ['mainDescription','SubDescripcion']
         let trBody = document.createElement('tr')
         trBody.className = 'descripProcTr'        
         for(let subDescripRecords of props.procedData.specificData['SubDescripciones'][mainDescrip]) {
@@ -114,14 +114,14 @@ export default function DescripcionProcedimiento (props) {
   let DescripcionesProcedimiento_DescripcionInput = document.getElementsByClassName('DescripcionesProcedimiento_DescripcionInput')[0];
   let subtBody = document.getElementsByClassName('subtBody')[0];
   let subDescripTable = document.getElementsByClassName('subDescripTable')[0];
-  let subDescripCodigoTitle = document.getElementsByClassName('subDescripCodigoTitle')[0];
-  let SubDescripciones_CodigoInput = document.getElementsByClassName('SubDescripciones_CodigoInput')[0];
-  subDescripCodigoTitle.setAttribute('required',true);
+  // let subDescripCodigoTitle = document.getElementsByClassName('subDescripCodigoTitle')[0];
+  // let SubDescripciones_CodigoInput = document.getElementsByClassName('SubDescripciones_CodigoInput')[0];
+  // subDescripCodigoTitle.setAttribute('required',true);
   errorDataref.current = false
 
   subDescripAddbutton.value === 'Guardar subregistro'? (() => {   
    subDescripTable.style.visibility = 'visible'
-   let codigotd = document.createElement('td')
+  //  let codigotd = document.createElement('td')
    let mainDescriptd = document.createElement('td')
    let subDescriptd = document.createElement('td')
    let tr = document.createElement('tr')
@@ -132,24 +132,29 @@ export default function DescripcionProcedimiento (props) {
       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
      }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
    })  
-   if(!selectedrecord.current || !SubDescripciones_CodigoInput.value){
-    (!SubDescripciones_CodigoInput.value && setModalErrorData(`El campo ${SubDescripciones_CodigoInput.className.split('_')[1].replace('Input','').replace('Select','').replace('ID','')} de la Secciòn_Descripciòn_del_Procedimiento es requerido.`)) ||
+  //  if(!selectedrecord.current || !SubDescripciones_CodigoInput.value){
+    if(!selectedrecord.current){
+    // (!SubDescripciones_CodigoInput.value && setModalErrorData(`El campo ${SubDescripciones_CodigoInput.className.split('_')[1].replace('Input','').replace('Select','').replace('ID','')} de la Secciòn_Descripciòn_del_Procedimiento es requerido.`)) ||
     (!selectedrecord.current && setModalErrorData(`Debe elegir una descripciòn principal para poder crear una sub-descripciòn.`));
     return;
   }
   mainDescriptd.innerText = `${selectedrecord.current}`
   subDescriptd.innerText = `${DescripcionesProcedimiento_DescripcionInput.value}`
-   codigotd.innerText = SubDescripciones_CodigoInput.value
-   tr.appendChild(codigotd)
+  //  codigotd.innerText = SubDescripciones_CodigoInput.value
+  //  tr.appendChild(codigotd)
    tr.appendChild(mainDescriptd)
    tr.appendChild(subDescriptd)
    subtBody.appendChild(tr)
-   Object.keys(props.backenData.current['SubDescripciones']).includes(selectedrecord.current)? (() => {
-    props.backenData.current['SubDescripciones'][selectedrecord.current].push({'Codigo':SubDescripciones_CodigoInput.value,'SubDescripcion':DescripcionesProcedimiento_DescripcionInput.value,'elementHtml':tr.innerHTML}) 
-   })():props.backenData.current['SubDescripciones'][selectedrecord.current] = [{'Codigo':SubDescripciones_CodigoInput.value,'SubDescripcion':DescripcionesProcedimiento_DescripcionInput.value,'elementHtml':tr.innerHTML}]
-   props.summaryData.current['SubDescripciones'][tr.innerHTML] = {'codigo':SubDescripciones_CodigoInput,'mainDescription':selectedrecord.current,'subDescription':DescripcionesProcedimiento_DescripcionInput.value} 
+  //  Object.keys(props.backenData.current['SubDescripciones']).includes(selectedrecord.current)? (() => {
+  //   props.backenData.current['SubDescripciones'][selectedrecord.current].push({'Codigo':SubDescripciones_CodigoInput.value,'SubDescripcion':DescripcionesProcedimiento_DescripcionInput.value,'elementHtml':tr.innerHTML}) 
+  //  })():props.backenData.current['SubDescripciones'][selectedrecord.current] = [{'Codigo':SubDescripciones_CodigoInput.value,'SubDescripcion':DescripcionesProcedimiento_DescripcionInput.value,'elementHtml':tr.innerHTML}]
+  //  props.summaryData.current['SubDescripciones'][tr.innerHTML] = {'codigo':SubDescripciones_CodigoInput,'mainDescription':selectedrecord.current,'subDescription':DescripcionesProcedimiento_DescripcionInput.value} 
+  Object.keys(props.backenData.current['SubDescripciones']).includes(selectedrecord.current)? (() => {
+    props.backenData.current['SubDescripciones'][selectedrecord.current].push({'SubDescripcion':DescripcionesProcedimiento_DescripcionInput.value,'elementHtml':tr.innerHTML}) 
+   })():props.backenData.current['SubDescripciones'][selectedrecord.current] = [{'SubDescripcion':DescripcionesProcedimiento_DescripcionInput.value,'elementHtml':tr.innerHTML}]
+   props.summaryData.current['SubDescripciones'][tr.innerHTML] = {'mainDescription':selectedrecord.current,'subDescription':DescripcionesProcedimiento_DescripcionInput.value}  
    DescripcionesProcedimiento_DescripcionInput.value = ''
-   SubDescripciones_CodigoInput.value = ''
+  //  SubDescripciones_CodigoInput.value = ''
    selectedrecord.current = ''
    let descripProcTrList = document.getElementsByClassName('descripProcTr')
    for(let tr of descripProcTrList){tr.style.backgroundColor = 'white'}
@@ -157,8 +162,8 @@ export default function DescripcionProcedimiento (props) {
 
   descripProcedTable.addEventListener('click',(e => {selectedrecord.current = e.target.innerText}))
   subDescripAddbutton.value = 'Guardar subregistro'
-  subDescripCodigoTitle.style.visibility = 'visible'
-  SubDescripciones_CodigoInput.style.visibility = 'visible'
+  // subDescripCodigoTitle.style.visibility = 'visible'
+  // SubDescripciones_CodigoInput.style.visibility = 'visible'
  }
 
  function handleRecordRemove(){
@@ -195,8 +200,8 @@ export default function DescripcionProcedimiento (props) {
   <div className="descripProcedCont"> 
    <h2 className='descripProcedTitle' style={{'marginBottom':'6px','fontWeight':'900'}}>6. Desarrollo o descripciòn del procedimiento:</h2>
 
-   <h4 className='subDescripCodigoTitle' style={{'marginTop':'0','visibility':'hidden'}}>Còdigo:</h4>   
-   <textarea className='SubDescripciones_CodigoInput' placeholder='Còdigo de la subdescripciòn' style={{'marginTop':'0','visibility':'hidden'}}></textarea>
+   {/* <h4 className='subDescripCodigoTitle' style={{'marginTop':'0','visibility':'hidden'}}>Còdigo:</h4>    */}
+   {/* <textarea className='SubDescripciones_CodigoInput' placeholder='Còdigo de la subdescripciòn' style={{'marginTop':'0','visibility':'hidden'}}></textarea> */}
 
    <h4 className='descripProcedDescripciònTitle'>Descripciòn:</h4>   
    <textarea className='DescripcionesProcedimiento_DescripcionInput' placeholder='Descripciòn o Subdescripciòn' required={true}></textarea>
@@ -209,7 +214,7 @@ export default function DescripcionProcedimiento (props) {
    <table className='subDescripTable' style={{'marginTop':'15px','marginBottom':'3px','visibility':'hidden','marginLeft':'100px','border':'0.5px solid black'}}>
     <thead className='subtHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}>
       <tr>
-        <th>Còdigo</th>
+        {/* <th>Còdigo</th> */}
         <th>Descripciòn principal</th>
         <th>Subdescripciòn</th>
       </tr>

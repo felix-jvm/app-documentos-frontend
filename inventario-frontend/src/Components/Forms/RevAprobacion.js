@@ -161,8 +161,8 @@ export default function RevAprobacion (props) {
   return (
    <>
     <h2 style={{'fontWeight':'900'}}>9. Revisión y aprobación:</h2>
-    <h4 className='revAprobacionNombreTitle'>Nombre:</h4>   
-    <textarea className='revAprobacionNombreInput' placeholder='Nombre de la persona'></textarea>
+    <h4 className='revAprobacionNombreTitle AnexosNombreTitle'>Nombre:</h4>   
+    <textarea className='revAprobacionNombreInput Anexos_NombreInput' placeholder='Nombre de la persona'></textarea>
     <br/>
     <br/>
     <h4 className='revAprobacionFirmaTitle'>Firma:</h4>   

@@ -126,7 +126,7 @@ export default function HistorialCambios (props) {
     <thead className='historialCambioHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='historialCambioBody'></tbody>
    </table> 
-   <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'-5px 0 3px 130px'}} onClick={()=>{handleRecordRemove()}}/>
+   {/* <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'-5px 0 3px 130px'}} onClick={()=>{handleRecordRemove()}}/> */}
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
     icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/> </svg>}/>}
