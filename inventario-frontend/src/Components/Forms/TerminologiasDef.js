@@ -1,8 +1,11 @@
 import './Forms.css';
 import ConfirmationModal from '../ConfirmationModal';
 import {useEffect,useState,useRef} from 'react';
+import InlineTermino from './InlineForms/InlineTermino';
+
 export default function TerminologiasDef (props) {
  const [modalErrorData,setModalErrorData] = useState(false); 
+ const [inlineForm,setInlineForm] = useState(false); 
  var errorDataref = useRef(false) 
  var selectedTableRecord = useRef(undefined) 
  const tableRecordsNumber = useRef(props.procedData.specificData && props.procedData.specificData['TerminologiasDef'] && 
@@ -109,9 +112,13 @@ export default function TerminologiasDef (props) {
     if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
     }
 
+   function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}    
+
  return (
   <div className="Secciòn_Definiciòn_Terminologias">
    <h2 className='terminDefTitle' style={{'fontWeight':'900'}}>5. Definiciòn de terminologias:</h2>  
+   <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'termino','TerminologiasDef_IDTermino')}}>Crear nuevo termino</a>   
+   <br/>
    <h4 className='terminDefTerminoTitle'>Termino:</h4>
    <select className='TerminologiasDef_IDTermino' required={true}></select>
    <input type='submit' className='terminDefAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
@@ -123,6 +130,7 @@ export default function TerminologiasDef (props) {
    {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}
    <br/>
    <hr/>
+   {inlineForm && ( (inlineForm.split(',')[0]=='termino' && <InlineTermino inlineForm={inlineForm} setInlineForm={setInlineForm}/>) )}   
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
    icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>

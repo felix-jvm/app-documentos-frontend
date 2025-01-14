@@ -100,7 +100,7 @@ export default function Anexos (props) {
    <br/>
    <h4 className='AnexosCodigoTitle AnexosNombreTitle' style={{'display':'inline-block','position':'relative'}}>Còdigo:</h4>   
    <textarea className='Anexos_CodigoInput Anexos_NombreInput' placeholder='Còdigo del anexo'></textarea>
-   <input type='submit' className='anexoAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
+   <input type='submit' className='anexoAddButton anexoAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
    <table className='AnexosTable'>
     <thead className='AnexosHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='AnexosBody'></tbody>

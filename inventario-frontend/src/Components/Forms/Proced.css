@@ -20,3 +20,20 @@
  color:rgb(96, 1, 156);
  background-color:rgb(255, 255, 255);
 }
+
+@media screen and (max-width:955px) {
+  .saveProcButton {
+    left:75%;
+    top:130px;
+    position:fixed;
+  }
+  .saveProcedureButton {
+    top:130px;
+  }
+  .closeProcedureButton {
+    top:135px;
+  }
+  .printProcedureButton {
+    top:140px;
+  }
+}

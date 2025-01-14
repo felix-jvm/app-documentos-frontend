@@ -289,8 +289,9 @@ export default function Table(props) {
      <table id="table"></table>     
     </div>
 
-    {creationForm==='documentos' && <Documentos route={parseRoute(props)} setCreationForm={setCreationForm}/>}
-
+    {creationForm==='documentos' && <Documentos route={parseRoute(props)} setCreationForm={setCreationForm}/> ||
+    (creationForm==='puestos' && <Puestos route={parseRoute(props)} setCreationForm={setCreationForm}/>) ||
+    (creationForm==='termino' && <Termino route={parseRoute(props)} setCreationForm={setCreationForm}/>)}
    {/* 
 
    <p className = 'recordsMessage'>No hay registros para mostrar</p>

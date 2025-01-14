@@ -1,12 +1,15 @@
 import {useRef,useState,useEffect, cloneElement} from 'react';
 import './Forms.css';
+import InlinePuesto from './InlineForms/InlinePuesto';
+
 export default function RevAprobacion (props) {
   const [image, setImage] = useState(null);
+  const [inlineForm,setInlineForm] = useState(false);
   var tableRecords = useRef(0);
   var personsCounter = useRef(0);
-  var selectedTableRecord = useRef(undefined)
-  var tablePersonsOrder = useRef(-1)
-  var columnSchema = ['Elaborado por:','Revisado por:','Aprobado por:']  
+  var selectedTableRecord = useRef(undefined);
+  var tablePersonsOrder = useRef(-1);
+  var columnSchema = ['Elaborado por:','Revisado por:','Aprobado por:']; 
 
   useEffect(()=>{
     setTimeout(()=>{
@@ -158,6 +161,8 @@ export default function RevAprobacion (props) {
     if(tablePersonsOrder.current>0){tablePersonsOrder.current-=1}
     }
 
+  function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}  
+
   return (
    <>
     <h2 style={{'fontWeight':'900'}}>9. Revisión y aprobación:</h2>
@@ -166,7 +171,7 @@ export default function RevAprobacion (props) {
     <br/>
     <br/>
     <h4 className='revAprobacionFirmaTitle'>Firma:</h4>   
-    <input type="file" accept="image/*" onChange={handleImageUpload} className='revAprobacionFirmaInput' style={{'marginLeft':'3px'}}/>
+    <input type="file" accept="image/*" onChange={handleImageUpload} className='revAprobacionFirmaInput revAprobacionFirmaFileInput' style={{'marginLeft':'3px'}}/>
      {image && (
         <img
           src={image}
@@ -177,10 +182,11 @@ export default function RevAprobacion (props) {
         />
       )}    
     <br/>
+    <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'puestos','revAprobacionPuestoInput')}}>Crear nuevo puesto</a>
     <br/>
     <h4 className='revAprobacionPuestoTitle'>Puesto:</h4>   
     <select className='revAprobacionPuestoInput' style={{'marginTop':'1px'}}></select>
-    <input type='submit' className='descripProcedAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'position':'absolute','left':'30%'}}/>            
+    <input type='submit' className='descripProcedAddButton revAprobAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'position':'absolute','left':'30%'}}/>            
     <br/>
     <table className='RevAprobacionTable'>
      <thead className='RevAprobacionHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
@@ -189,5 +195,6 @@ export default function RevAprobacion (props) {
     <input type='submit' className='responsAddButton' value='Eliminar' style={{'display':'inline-block','position':'relative','margin':'10px 0 0 0'}} onClick={()=>{handleRecordRemove()}}/>
     <br/>
     <hr/>
+   {inlineForm && ( (inlineForm.split(',')[0]=='puestos' && <InlinePuesto inlineForm={inlineForm} setInlineForm={setInlineForm}/>) )}    
    </> 
   )}

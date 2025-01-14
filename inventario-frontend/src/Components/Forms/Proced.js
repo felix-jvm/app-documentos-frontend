@@ -34,12 +34,12 @@ export default function Proced (props) {
     <Anexos senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
     <RevAprobacion senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
     <HistorialCambios senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} setSendData={setSendData} refreshDataTable={refreshDataTable} />
-    <button className='saveProcButton' onClick={e=>{e.preventDefault();setSendData(true)}}>Guardar datos</button>
-    <button className='saveProcButton' onClick={e=>{
+    <button className='saveProcButton saveProcedureButton' onClick={e=>{e.preventDefault();setSendData(true)}}>Guardar datos</button>
+    <button className='saveProcButton closeProcedureButton' onClick={e=>{
       props.setProcedData(false)
       let procedOutterCont = document.getElementsByClassName('procedOutterCont')[0]
       if(procedOutterCont){procedOutterCont.style.display = 'none'}}} style={{'display':'block','margin':'3% 0 0 0'}}>Cerrar</button>
-    {props.procedData.specificProced && <a className = 'saveProcButton' style={{'display':'block','margin':'6% 0 0 0'}} onClick={e=>{
+    {props.procedData.specificProced && <a className = 'saveProcButton printProcedureButton' style={{'display':'block','margin':'6% 0 0 0'}} onClick={e=>{
       fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},

@@ -219,3 +219,31 @@ textarea {
 table th, td {
  border: 1px solid black;    
 }
+
+.inlineFormLabel {
+  margin:0 0 0 0;
+  padding:8px 0 0 0;
+  width:fit-content;   
+}
+
+@media screen and (max-width:1333px) {
+ .anexoAddRecordButton {
+  margin-left:10.5%;
+ } 
+}
+
+@media screen and (max-width:1775px) {
+  .revAprobAddRecordButton {
+    margin-left:7.5%;
+   } 
+  
+   .revAprobacionFirmaFileInput {
+    position: absolute;
+    left:85px;
+   }  
+  
+   .revAprobacionPuestoInput {
+    margin-top:125px;
+    position: relative;
+   }
+ }

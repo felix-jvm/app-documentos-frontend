@@ -79,7 +79,7 @@ export default function Documentos (props) {
       }}
 
     return (
-      <div className='modalMainCont'>
+      <div className='modalMainCont' style={{'backgroundColor':'rgba(1, 1, 1, 0.81)'}}>
         <h1 className='procedAlcanceTitle'>Documentos</h1>
         <form id='documentos' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'850px','maxHeight':'850px','backgroundColor':'rgb(227, 225, 225)','margin':'0 auto 0 auto','borderRadius':'5px','position':'relative'}}>
           <h3>Codigo:</h3>
