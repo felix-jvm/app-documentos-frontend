@@ -5,12 +5,12 @@ import ConfirmationModal from "../ConfirmationModal";
 export default function DescripcionProcedimiento (props) {
  const [modalErrorData,setModalErrorData] = useState(false); 
  var errorDataref = useRef(false); 
- var selectedrecord = useRef('')
- var selectedTableRecord = useRef(undefined)
+ var selectedrecord = useRef('');
+ var selectedTableRecord = useRef(undefined);
  const tableRecordsNumber = useRef(props.procedData.specificData && props.procedData.specificData['DescripcionesProcedimiento'] && 
-  props.procedData.specificData['DescripcionesProcedimiento'].length > 0)
+  props.procedData.specificData['DescripcionesProcedimiento'].length > 0);
   const subTableRecordsNumber = useRef(props.procedData.specificData && props.procedData.specificData['SubDescripciones'] && 
-    props.procedData.specificData['SubDescripciones'].length > 0)  
+    props.procedData.specificData['SubDescripciones'].length > 0);  
 
  useEffect(() => {
   setTimeout(() => {
@@ -61,7 +61,7 @@ export default function DescripcionProcedimiento (props) {
        if(props.procedData.specificData['DescripcionesProcedimiento']){let subDescripButton=document.getElementsByClassName('subDescripProcedAddButton')[0];subDescripButton.style.display='block'}       
       }}          
   }
-  },300)},[])
+  },100)},[])
 
  function HandleAdd() {
   let DescripcionesProcedimiento_DescripcionInput = document.getElementsByClassName('DescripcionesProcedimiento_DescripcionInput')[0]  

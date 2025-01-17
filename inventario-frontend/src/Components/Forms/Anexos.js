@@ -28,7 +28,7 @@ export default function Anexos (props) {
        tBody.appendChild(trBody)
       } 
      }    
-  },300)
+  },100)
  },[]) 
 
  function HandleAdd() {

@@ -31,8 +31,7 @@ export default function HistorialCambios (props) {
        tBody.appendChild(trBody)
       } 
      }    
-   },300) 
-  },[])
+   },100) },[])
 
   function HandleAdd() {
     let HistorialCambios_DescripcionInput = document.getElementsByClassName('HistorialCambios_DescripcionInput')[0]

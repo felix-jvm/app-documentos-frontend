@@ -22,18 +22,19 @@ export default function Table(props) {
 //  let tBody = document.getElementsByClassName('tBody')[0];
 //  let recordsMessage = document.getElementsByClassName('recordsMessage')[0];
 //  var parsedData = ''
- let times = useRef(0)
 //  var actualRoute = useRef('')
 //  var lastCounter = useRef(0)
 //  var updateElementId = useRef(null)
 //  var callMode = useRef(null)
+let times = useRef(0)
  var procedRecordActions = useRef(null)
  var codeToSearchLength = useRef(null)
  const [creationForm,setCreationForm] = useState('');
  const [updateForm, setUpdateForm] = useState('');
  const [confirmationModal,setConfirmationModal] = useState(false);  
- var tableTile = useRef(parseRoute(props))
- var lastSelectedRecord = useRef(undefined) 
+ var confirmationModalMessage = useRef('');
+ var tableTile = useRef(parseRoute(props));
+ var lastSelectedRecord = useRef(undefined);
 //  useEffect(()=>{
 //    if(times.current >=1) {lastCounter.current=times.current+2;actualRoute.current=props.tableName;creationForm.includes('flow')? (()=>{setCreationForm(creationForm.split('_')[0]);times.current=-2})():setCreationForm('');setUpdateForm('')}
 //    times.current += 1 
@@ -80,12 +81,15 @@ export default function Table(props) {
       lastSelectedRecord.current=rowData[0]
       handleSearchRecord(rowData[0])
      }}) 
-    table.on('click', 'tr', function () {
+    table.on('click', 'tr', function (e) {
      let rowData = table.row(this).data()
      if(rowData){
       lastSelectedRecord.current=rowData[0]
-     } }) 
-    }
+     }
+     let trList = document.getElementsByTagName('tr') 
+     for (let tr of trList){if(tr!=e.target.parentElement){
+      setTimeout(()=>{tr.style.backgroundColor = 'rgb(241, 241, 241)'},10)} else {e.target.parentElement.style.backgroundColor = 'rgb(208, 207, 207)'} }     
+     }) }
 
 // if(times.current%2===1 && parseRoute(props)==actualRoute.current && parseRoute(props) !== 'procedimiento') { 
 //   props.data && !props.data.includes('statusEmpty')? (() => { 
@@ -236,10 +240,24 @@ export default function Table(props) {
      .then(res=>res.json())
      .then((res)=>{
       if(res.length===0){notFoundMessage.style.transform='scale(1)';setTimeout(()=>{notFoundMessage.style.transform='scale(0)'},4000)}
-      else {setConfirmationModal(true)}
+      else {confirmationModalMessage.current='Datos eliminados correctamente';setConfirmationModal(true)}
       procedRecordActions.current = undefined
      })}
      codeToSearchLength.current = codeToSearch.length
+  }
+
+  function deleteDocumentRecord() {
+    let documentCodeToDel = lastSelectedRecord.current
+    fetch(`http://${window.location.hostname}:8000/documentos/`,{
+     'method':'POST',
+     'headers':{'Content-Type':'application/json'},
+     body:JSON.stringify({'mode':'deleteRecord','documentCode':documentCodeToDel})
+    })
+    .then(res=>res.json())
+    .then(res=>{
+      if(res.status=='ok' && res.message=='procedDependent'){
+        confirmationModalMessage.current='El documento seleccionado junto con su correspondiente procedimiento han sido eliminados';setConfirmationModal(true)
+      } else if (res.status=='ok' && !res.message){confirmationModalMessage.current='Datos eliminados correctamente';setConfirmationModal(true)} }) 
   }
 
  return (
@@ -259,16 +277,14 @@ export default function Table(props) {
    {parseRoute(props)==='procedimiento' && <button className = 'addRecordButton' style={{'float':'left','margin':'0 10px 5px 0'}} onClick={()=>{
     // let codeBar = document.getElementsByClassName('searchCodeBar')[0]
     // codeBar.value = ''
-    procedRecordActions.current=undefined;
-    handleSearchRecord()  
+    // procedRecordActions.current=undefined;
+    // handleSearchRecord()  
       }} >Modificar</button>}
 
-   {parseRoute(props)==='procedimiento' && <button className = 'addRecordButton' style={{'margin':'0 10px 5px 0','float':'left'}} onClick={(e)=>{if(parseRoute(props)==='procedimiento'){
-    // let codeBar = document.getElementsByClassName('searchCodeBar')[0]
-    // codeBar.value = ''
+   {(parseRoute(props)==='procedimiento' || parseRoute(props)==='documentos') && <button className = 'addRecordButton' style={{'margin':'0 10px 5px 0','float':'left'}} onClick={(e)=>{if(parseRoute(props)==='procedimiento'){
     procedRecordActions.current='DELETE_RECORD';
     handleSearchRecord()
-    }}}>Eliminar</button>}
+    }else if (parseRoute(props)==='documentos'){deleteDocumentRecord()}}}>Eliminar</button>}
 
     {parseRoute(props)==='procedimiento' && <a className = 'addRecordButton' style={{'margin':'0 10px 5px 0','float':'left'}} onClick={e=>{
       fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
@@ -325,7 +341,7 @@ export default function Table(props) {
    (creationForm==='historialcambios' && <HistorialCambios route={parseRoute(props)} setCreationForm={setCreationForm}/>)}
   */}
 
-   {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} message={'Datos eliminados correctamente'} 
+   {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} message={confirmationModalMessage.current} 
      icon={<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
      </svg> } reload={'true'}/>} 

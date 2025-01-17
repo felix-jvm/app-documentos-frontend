@@ -52,7 +52,7 @@ export default function Responsabilidades (props) {
        setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
       })      
       tBody.appendChild(trBody)
-     } }  },300)},[])
+     } }  },100)},[])
 
  function HandleAdd() {
   let Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]

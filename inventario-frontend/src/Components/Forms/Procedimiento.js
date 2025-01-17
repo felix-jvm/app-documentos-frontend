@@ -81,7 +81,7 @@ export default function Procedimiento (props) {
        tBody.appendChild(trBody)
       } 
      }    
-  },300)},[]) 
+  },100)},[]) 
  
  function HandleAdd() {
     let DocumentosReferencias_IDDocumentoSelect = document.getElementsByClassName('DocumentosReferencias_IDDocumentoSelect')[0]

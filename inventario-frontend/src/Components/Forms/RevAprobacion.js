@@ -54,7 +54,7 @@ export default function RevAprobacion (props) {
           tablePersonsOrder.current+=1
           tBody.appendChild(trBody)
          }}}
-    },300)},[])
+    },100)},[])
 
     useEffect(() => {
       setTimeout(() => {

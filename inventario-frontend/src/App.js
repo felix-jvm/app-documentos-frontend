@@ -4,6 +4,7 @@ import Table from './Components/Table';
 import SideMenu from './Components/SideMenu';
 import Proced from './Components/Forms/Proced';
 import Login from './Components/Forms/Login';
+import Navbar from './Components/Navbar';
 import { useState, useEffect, useRef} from 'react';
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
             
             <div id="layoutSidenav_content">
                 <main>
+                    <Navbar userData={userData} setUserData={setUserData} setHome={setHome}/>                  
                     <div className="container-fluid px-4">
                         <div style={{'margin':'0 auto 0 auto','width':'fit-content'}}><h1 className="mt-4">Gestión de Documentos</h1></div>
 

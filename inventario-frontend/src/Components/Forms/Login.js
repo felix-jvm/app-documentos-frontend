@@ -61,7 +61,7 @@ export default function Login(props) {
      {(props.mode=='login' && <a href=''>Olvidó su contraseña?</a>)}
      <br/>
      <button className='loginButton' onClick={(e)=>{handleSend(e)}}>Aceptar</button>
-     {props.mode=='userCreation' && <button className='saveProcButton' onClick={(e)=>{props.setUserCreation(false)}} style={{'float':'right','marginRight':'6px'}}>Cerrar</button>}
+     {props.mode=='userCreation' && <button className='loginButton' onClick={(e)=>{props.setUserCreation(false)}} style={{'float':'right','marginRight':'6px'}}>Cerrar</button>}
     </form>
     {modal && <Modal displayInnerCont={false} mainContColor={'rgb(229, 229, 229,0.1)'}/>}
   </div>

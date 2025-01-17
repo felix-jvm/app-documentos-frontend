@@ -50,7 +50,7 @@ export default function TerminologiasDef (props) {
      for (let tr of trList){if(tr!=e.target.parentElement){
       setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } })      
      tBody.appendChild(trBody)
-    } } },300)}),[])
+    } } },100)}),[])
 
  function HandleAdd() {
     let responsSelectValue = document.getElementsByClassName('TerminologiasDef_IDTermino')[0]
