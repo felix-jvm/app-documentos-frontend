@@ -13,5 +13,8 @@
 }
 
 .card-body {
-  height:810px;
+  position:relative;
+  min-height:70vh;
+  height:70vh;
+  max-height:70vh;
 }
