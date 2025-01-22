@@ -31,7 +31,7 @@ export default function HistorialCambios (props) {
        tBody.appendChild(trBody)
       } 
      }    
-   },100) },[])
+   },250) },[])
 
   function HandleAdd() {
     let HistorialCambios_DescripcionInput = document.getElementsByClassName('HistorialCambios_DescripcionInput')[0]
@@ -115,9 +115,9 @@ export default function HistorialCambios (props) {
     <br/>
     <br/>
    <h4 className='historialCambioVersionTitle'>Versión:</h4>   
-   <input type='number' className='HistorialCambios_VersionInput' placeholder='Versiòn del cambio' step='.01'/>
-   <h4 className='historialCambioDescripcionTitle'>Descripciòn:</h4>   
-   <textarea className='HistorialCambios_DescripcionInput' placeholder='Razòn por la que se realizò el cambio'></textarea>
+   <input type='number' className='HistorialCambios_VersionInput' placeholder='Versión del cambio' step='.01'/>
+   <h4 className='historialCambioDescripcionTitle'>Descripción:</h4>   
+   <textarea className='HistorialCambios_DescripcionInput' placeholder='Razón por la que se realizó el cambio'></textarea>
    <br/>
    <input type='submit' className='historialCambioAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>   
 

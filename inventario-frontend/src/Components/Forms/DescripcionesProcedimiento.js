@@ -61,7 +61,7 @@ export default function DescripcionProcedimiento (props) {
        if(props.procedData.specificData['DescripcionesProcedimiento']){let subDescripButton=document.getElementsByClassName('subDescripProcedAddButton')[0];subDescripButton.style.display='block'}       
       }}          
   }
-  },100)},[])
+  },250)},[])
 
  function HandleAdd() {
   let DescripcionesProcedimiento_DescripcionInput = document.getElementsByClassName('DescripcionesProcedimiento_DescripcionInput')[0]  
@@ -135,7 +135,7 @@ export default function DescripcionProcedimiento (props) {
   //  if(!selectedrecord.current || !SubDescripciones_CodigoInput.value){
     if(!selectedrecord.current){
     // (!SubDescripciones_CodigoInput.value && setModalErrorData(`El campo ${SubDescripciones_CodigoInput.className.split('_')[1].replace('Input','').replace('Select','').replace('ID','')} de la Secciòn_Descripciòn_del_Procedimiento es requerido.`)) ||
-    (!selectedrecord.current && setModalErrorData(`Debe elegir una descripciòn principal para poder crear una sub-descripciòn.`));
+    (!selectedrecord.current && setModalErrorData(`Debe elegir una descripción principal para poder crear una sub-descripción.`));
     return;
   }
   mainDescriptd.innerText = `${selectedrecord.current}`
@@ -198,13 +198,13 @@ export default function DescripcionProcedimiento (props) {
 
  return (
   <div className="descripProcedCont"> 
-   <h2 className='descripProcedTitle' style={{'marginBottom':'6px','fontWeight':'900'}}>6. Desarrollo o descripciòn del procedimiento:</h2>
+   <h2 className='descripProcedTitle' style={{'marginBottom':'6px','fontWeight':'900'}}>6. Desarrollo o descripción del procedimiento:</h2>
 
    {/* <h4 className='subDescripCodigoTitle' style={{'marginTop':'0','visibility':'hidden'}}>Còdigo:</h4>    */}
    {/* <textarea className='SubDescripciones_CodigoInput' placeholder='Còdigo de la subdescripciòn' style={{'marginTop':'0','visibility':'hidden'}}></textarea> */}
 
-   <h4 className='descripProcedDescripciònTitle'>Descripciòn:</h4>   
-   <textarea className='DescripcionesProcedimiento_DescripcionInput' placeholder='Descripciòn o Subdescripciòn' required={true}></textarea>
+   <h4 className='descripProcedDescripciònTitle'>Descripción:</h4>   
+   <textarea className='DescripcionesProcedimiento_DescripcionInput' placeholder='Descripción o Subdescripción' required={true}></textarea>
 
    <table className='descripProcedTable' style={{}}>
     <thead className='descripProcedtHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
@@ -215,8 +215,8 @@ export default function DescripcionProcedimiento (props) {
     <thead className='subtHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}>
       <tr>
         {/* <th>Còdigo</th> */}
-        <th>Descripciòn principal</th>
-        <th>Subdescripciòn</th>
+        <th>Descripción principal</th>
+        <th>Subdescripción</th>
       </tr>
       </thead>
     <tbody className='subtBody'></tbody>

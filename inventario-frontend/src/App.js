@@ -19,7 +19,7 @@ function App() {
     fetch(`http://${window.location.hostname}:8000/${tableName}/`)
       .then(res => res.json())
       .then(res => setData(res))       
-    }else if(tableName.includes('specificProcedRecord')){
+    }else if(tableName.includes('specificProcedRecord')) {
       setTableName('procedimiento')
       let codeToSearch = tableName.split('_')[1].replace(' ','')
       fetch(`http://${window.location.hostname}:8000/procedimiento/`,{

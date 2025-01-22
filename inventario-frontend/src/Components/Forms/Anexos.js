@@ -28,7 +28,7 @@ export default function Anexos (props) {
        tBody.appendChild(trBody)
       } 
      }    
-  },100)
+  },250)
  },[]) 
 
  function HandleAdd() {
@@ -90,16 +90,16 @@ export default function Anexos (props) {
   <div className="anexosCont">
    <h2 className='descripProcedTitle' style={{'fontWeight':'900'}}>8. Anexos:</h2>
 
-   <h4 className='AnexosNumTitle'>Nùmero:</h4>   
-   <input type='number' className='Anexos_NumInput' placeholder='Nùmero del anexo'/>
+   <h4 className='AnexosNumTitle'>Número:</h4>   
+   <input type='number' className='Anexos_NumInput' placeholder='Número del anexo'/>
    <br/>
    <br/>
    <h4 className='AnexosNombreTitle'>Nombre:</h4>   
    <textarea className='Anexos_NombreInput' placeholder='Nombre del anexo'></textarea>
    <br/>
    <br/>
-   <h4 className='AnexosCodigoTitle AnexosNombreTitle' style={{'display':'inline-block','position':'relative'}}>Còdigo:</h4>   
-   <textarea className='Anexos_CodigoInput Anexos_NombreInput' placeholder='Còdigo del anexo'></textarea>
+   <h4 className='AnexosCodigoTitle AnexosNombreTitle' style={{'display':'inline-block','position':'relative'}}>Código:</h4>   
+   <textarea className='Anexos_CodigoInput Anexos_NombreInput' placeholder='Código del anexo'></textarea>
    <input type='submit' className='anexoAddButton anexoAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
    <table className='AnexosTable'>
     <thead className='AnexosHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>

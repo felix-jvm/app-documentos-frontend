@@ -52,7 +52,7 @@ export default function Responsabilidades (props) {
        setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
       })      
       tBody.appendChild(trBody)
-     } }  },100)},[])
+     } }  },250)},[])
 
  function HandleAdd() {
   let Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]
@@ -123,7 +123,7 @@ export default function Responsabilidades (props) {
    <h4 className='responsPuestoTitle'>Puesto:</h4>
    <select className='Responsabilidades_IDPuestoSelect' required={true}></select>
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <textarea className='Responsabilidades_DescripcionInput' placeholder='Descripciòn del puesto' required={true}></textarea>
+   <textarea className='Responsabilidades_DescripcionInput' placeholder='Descripción del puesto' required={true}></textarea>
    <table className='responsTable'>
     <thead className='responsHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='responsBody'></tbody>

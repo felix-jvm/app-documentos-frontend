@@ -16,7 +16,7 @@ export default function DiagramaFlujo(props) {
       const url = URL.createObjectURL(res);
       setImage(url)
     })
-  }},100)}),[])
+  }},250)}),[])
 
  useEffect((() => {
   if(props.senData){

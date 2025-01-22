@@ -50,7 +50,7 @@ export default function TerminologiasDef (props) {
      for (let tr of trList){if(tr!=e.target.parentElement){
       setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } })      
      tBody.appendChild(trBody)
-    } } },100)}),[])
+    } } },250)}),[])
 
  function HandleAdd() {
     let responsSelectValue = document.getElementsByClassName('TerminologiasDef_IDTermino')[0]
@@ -116,13 +116,13 @@ export default function TerminologiasDef (props) {
 
  return (
   <div className="Secciòn_Definiciòn_Terminologias">
-   <h2 className='terminDefTitle' style={{'fontWeight':'900'}}>5. Definiciòn de terminologias:</h2>  
+   <h2 className='terminDefTitle' style={{'fontWeight':'900'}}>5. Definición de terminologias:</h2>  
    <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'termino','TerminologiasDef_IDTermino')}}>Crear nuevo termino</a>   
    <br/>
    <h4 className='terminDefTerminoTitle'>Termino:</h4>
    <select className='TerminologiasDef_IDTermino' required={true}></select>
    <input type='submit' className='terminDefAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
-   <textarea className='TerminologiasDef_DescripcionInput' placeholder='Descripciòn del termino' required={true}></textarea>
+   <textarea className='TerminologiasDef_DescripcionInput' placeholder='Descripción del termino' required={true}></textarea>
    <table className='terminDefTable'>
     <thead className='terminDefHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='terminDefBody'></tbody>

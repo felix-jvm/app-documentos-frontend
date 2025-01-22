@@ -81,7 +81,7 @@ export default function Procedimiento (props) {
        tBody.appendChild(trBody)
       } 
      }    
-  },100)},[]) 
+  },250)},[]) 
  
  function HandleAdd() {
     let DocumentosReferencias_IDDocumentoSelect = document.getElementsByClassName('DocumentosReferencias_IDDocumentoSelect')[0]
@@ -154,7 +154,7 @@ export default function Procedimiento (props) {
      <div className="procedCont">
       <p className='displayDocument' style={{'position':'relative','textAlign':'center','display':'block','width':'100%','fontSize':'3.4vh'}}></p>
       <h2 style={{'fontWeight':'900'}}>Procedimiento</h2>
-      <h3 className='procedCodigoTitle' style={{'position':'relative'}}>Còdigo:</h3>
+      <h3 className='procedCodigoTitle' style={{'position':'relative'}}>Código:</h3>
       <select className='Procedimiento_CodigoSelect' style={{'margin':'5px','position':'absolute'}} onClick={(e)=>{handleCodeClick(e)}}></select>
 
       <h3 className='procedObjetivoTitle' style={{'fontWeight':'900'}}>1. Objetivo:</h3>
