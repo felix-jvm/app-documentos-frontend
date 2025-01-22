@@ -34,28 +34,6 @@ export default function Procedimiento (props) {
         } else {Procedimiento_CodigoSelect.value=''}
     })
 
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
-     {
-       'method':'POST',
-       'headers':{'Content-Type':'application/json'},
-       body:JSON.stringify({'mode':'fillForm'})
-     })    
-    .then(e => e.json())
-    .then(data => {
-    if(props.procedData.specificData && props.procedData.specificData.Procedimiento_Codigo){
-      let displayDocument = document.getElementsByClassName('displayDocument')[0]
-      displayDocument.innerText = documentCodes.current[props.procedData.specificData.Procedimiento_Codigo]
-    }
-    var DocumentosReferencias_IDDocumentoSelect = document.getElementsByClassName('DocumentosReferencias_IDDocumentoSelect')[0]
-    for(let respons of data['DocumentosReferencias-IDDocumento']) {
-     let option = document.createElement('option')
-     option.value = `{"pk":"${respons['ID']}","Codigo":"${respons['Codigo']}"}`
-     option.innerText = `${respons.Codigo} - ${respons.Descripcion}`
-     DocumentosReferencias_IDDocumentoSelect.appendChild(option)
-    }
-    DocumentosReferencias_IDDocumentoSelect.value = ''
-    })
-
     if(props.procedData.specificData && props.procedData.specificData['DocumentosReferencias']) {
       let tHead = document.getElementsByClassName('docRefHead')[0]
       let tBody = document.getElementsByClassName('docRefBody')[0]
@@ -80,8 +58,30 @@ export default function Procedimiento (props) {
        })        
        tBody.appendChild(trBody)
       } 
-     }    
-  },250)},[]) 
+     } },250)
+  setTimeout(()=>{
+    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
+      {
+        'method':'POST',
+        'headers':{'Content-Type':'application/json'},
+        body:JSON.stringify({'mode':'fillForm'})
+      })    
+     .then(e => e.json())
+     .then(data => {
+     if(props.procedData.specificData && props.procedData.specificData.Procedimiento_Codigo){
+       let displayDocument = document.getElementsByClassName('displayDocument')[0]
+       displayDocument.innerText = documentCodes.current[props.procedData.specificData.Procedimiento_Codigo]
+     }
+     var DocumentosReferencias_IDDocumentoSelect = document.getElementsByClassName('DocumentosReferencias_IDDocumentoSelect')[0]
+     for(let respons of data['DocumentosReferencias-IDDocumento']) {
+      let option = document.createElement('option')
+      option.value = `{"pk":"${respons['ID']}","Codigo":"${respons['Codigo']}"}`
+      option.innerText = `${respons.Codigo} - ${respons.Descripcion}`
+      DocumentosReferencias_IDDocumentoSelect.appendChild(option)
+     }
+     DocumentosReferencias_IDDocumentoSelect.value = ''
+     })    
+  },350) },[]) 
  
  function HandleAdd() {
     let DocumentosReferencias_IDDocumentoSelect = document.getElementsByClassName('DocumentosReferencias_IDDocumentoSelect')[0]
