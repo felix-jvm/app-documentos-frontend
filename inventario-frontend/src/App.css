@@ -11,3 +11,7 @@
   z-index:1500;
   background-color:rgb(227, 225, 225);
 }
+
+.card-body {
+  height:810px;
+}
