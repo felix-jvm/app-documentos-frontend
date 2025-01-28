@@ -36,26 +36,28 @@ export default function Termino (props) {
      body:JSON.stringify({ID:props.updateElementId.current,mode:'delete'})})
      .then(()=>window.location.reload())}
 
-  if(props.callMode && props.callMode.current==='update') {
-    fetch(`http://localhost:8000/${props.route}/`,{
-     method:'POST',
-     headers:{'Content-Type':'application/json'},
-     body:JSON.stringify({mode:'requestUpdateData',ID:props.updateElementId})
-    })
-    .then((res)=>res.json())
-    .then((res)=>{
-     let parsedRes=JSON.parse(res)
-     parsedRes=parsedRes.data
-     let deleteButton = document.getElementsByClassName('deleteButton')[0];
-     deleteButton? deleteButton.style.visibility = 'visible':void(0)
-     for(let field of Object.entries(parsedRes)) {
-      let tag = document.getElementsByName(field[0].toLowerCase())[0]
-      tag? ((()=>{tag.value = field[1]}))() : void(0)
-     }
-    })} else {
-     let deleteButton = document.getElementsByClassName('deleteButton')[0];
-     deleteButton? deleteButton.style.visibility = 'hidden':void(0)    
-    }
+    setTimeout(()=>{
+      if(props.callMode && props.callMode.current==='update') {
+        fetch(`http://localhost:8000/${props.route}/`,{
+         method:'POST',
+         headers:{'Content-Type':'application/json'},
+         body:JSON.stringify({mode:'requestUpdateData',ID:props.updateElementId})
+        })
+        .then((res)=>res.json())
+        .then((res)=>{
+         let parsedRes=JSON.parse(res)
+         parsedRes=parsedRes.data
+         let deleteButton = document.getElementsByClassName('deleteButton')[0];
+         deleteButton? deleteButton.style.visibility = 'visible':void(0)
+         for(let field of Object.entries(parsedRes)) {
+          let tag = document.getElementsByName(field[0].toLowerCase())[0]
+          tag? ((()=>{tag.value = field[1]}))() : void(0)
+         }
+        })} else {
+         let deleteButton = document.getElementsByClassName('deleteButton')[0];
+         deleteButton? deleteButton.style.visibility = 'hidden':void(0)    
+        }      
+    },250)
 
   fetch(`http://localhost:8000/${props.route}/`,{
     method:'POST',
@@ -92,7 +94,7 @@ export default function Termino (props) {
     return (
       <div className="modalMainCont" style={{'backgroundColor':'rgba(1, 1, 1, 0.81)'}}>
         <h1 className='procedAlcanceTitle'>Termino</h1>
-        <form id='termino' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'75vh','maxHeight':'75vh','backgroundColor':'rgb(227, 225, 225)','margin':'80px auto 0 auto','borderRadius':'5px','position':'relative','padding':'5px'}}>
+        <form id='termino' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'850px','maxHeight':'850px','backgroundColor':'rgb(227, 225, 225)','margin':'80px auto 0 auto','borderRadius':'5px','position':'relative','padding':'5px'}}>
         <h3>Descripción</h3>
         <textarea required={true} maxLength='50' name='descripcion' className='Procedimiento_ObjetivoInput' style={{'border':'1px solid gray','margin':'-10px 0 5px 2px'}}></textarea>
         <h3>Descripción General</h3>
