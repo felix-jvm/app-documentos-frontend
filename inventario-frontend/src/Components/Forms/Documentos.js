@@ -32,6 +32,27 @@ export default function Documentos (props) {
     .then(res=>{if(res){setConfirmationModal('Datos guardados correctamente')}})
   }
 
+  // if(props.callMode && props.callMode.current==='update') {
+  //   fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
+  //    method:'POST',
+  //    headers:{'Content-Type':'application/json'},
+  //    body:JSON.stringify({mode:'requestUpdateData',ID:props.updateElementId})
+  //   })
+  //   .then((res)=>res.json())
+  //   .then((res)=>{
+  //    let parsedRes=JSON.parse(res)
+  //    parsedRes=parsedRes.data
+  //    let deleteButton = document.getElementsByClassName('deleteButton')[0];
+  //    deleteButton? deleteButton.style.visibility = 'visible':void(0)
+  //    for(let field of Object.entries(parsedRes)) {
+  //     let tag = document.getElementsByName(field[0].toLowerCase())[0]
+  //     tag? ((()=>{tag.value = field[1]}))() : void(0)
+  //    }
+  //   })} else {
+  //    let deleteButton = document.getElementsByClassName('deleteButton')[0];
+  //    deleteButton? deleteButton.style.visibility = 'hidden':void(0)    
+  //   }
+
   // function handleDelete(){
   //   fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
   //    method:'DELETE',
@@ -93,10 +114,10 @@ export default function Documentos (props) {
           <input type='text' className='DocumentosReferencias_IDDocumentoSelect codigoText' style={{'minWidth':'40%','border':'1px solid gray'}} readOnly={true} name='codigoText'/>
           <br/>
           <br/>
-          <h3>Descripciòn:</h3>
+          <h3>Descripción:</h3>
           <textarea required={true} maxLength='100' className='Procedimiento_ObjetivoInput documentosDescription' name='descripcion' placeholder='Descripcion' style={{'margin':'0 0 0 1.5px'}}></textarea>
           <br/>
-          <h3>Versiòn:</h3>
+          <h3>Versión:</h3>
           <input type='number' required={false} maxLength='100' name='version' step='.02' className='DocumentosReferencias_IDDocumentoSelect' style={{'border':'1px solid gray'}}/>
           <br/>
           <h3 style={{'margin':'15px 0 0 3px'}}>Fecha:</h3>
@@ -105,7 +126,7 @@ export default function Documentos (props) {
           <br/>            
           <input type='submit' value='Guardar' className='docRefAddButton' style={{'margin':'-10px 0 0 3px'}}/>
           <br/>
-          <input type='submit' value='Cerrar' className='docRefAddButton' style={{'margin':'0 0 0 3px','padding':'2px 37px 2px 35px'}} onClick={()=>props.setCreationForm('')}/>
+          <input type='submit' value='Cerrar' className='docRefAddButton' style={{'margin':'0 0 0 3px','padding':'2px 37px 2px 35px'}} onClick={()=>props.setCreationForm?props.setCreationForm(''):props.setUpdateForm('')}/>
         </form>    
         {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} message={'Datos guardados correctamente'} 
          icon={<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor" className="bi bi-check-circle-fill" viewBox="0 0 16 16">

@@ -93,14 +93,14 @@ export default function Termino (props) {
       <div className="modalMainCont" style={{'backgroundColor':'rgba(1, 1, 1, 0.81)'}}>
         <h1 className='procedAlcanceTitle'>Termino</h1>
         <form id='termino' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'75vh','maxHeight':'75vh','backgroundColor':'rgb(227, 225, 225)','margin':'80px auto 0 auto','borderRadius':'5px','position':'relative','padding':'5px'}}>
-        <h3>Descripciòn</h3>
+        <h3>Descripción</h3>
         <textarea required={true} maxLength='50' name='descripcion' className='Procedimiento_ObjetivoInput' style={{'border':'1px solid gray','margin':'-10px 0 5px 2px'}}></textarea>
-        <h3>Descripciòn General</h3>
+        <h3>Descripción General</h3>
         <textarea required={false} maxLength='500' name='descripciongeneral' className='Procedimiento_ObjetivoInput' style={{'border':'1px solid gray','margin':'-10px 0 5px 2px'}}></textarea>
         <br/>
         <input type='submit' value='Guardar' className='docRefAddButton' style={{'margin':'-10px 0 0 3px'}}/>
         <br/>
-        <input type='submit' value='Cerrar' className='docRefAddButton' style={{'margin':'0 0 0 3px','padding':'2px 37px 2px 35px'}} onClick={()=>props.setCreationForm('')}/>
+        <input type='submit' value='Cerrar' className='docRefAddButton' style={{'margin':'0 0 0 3px','padding':'2px 37px 2px 35px'}} onClick={()=>props.setCreationForm?props.setCreationForm(''):props.setUpdateForm('')}/>
         </form>
         {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} message={'Datos guardados correctamente'} 
          icon={<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor" className="bi bi-check-circle-fill" viewBox="0 0 16 16">

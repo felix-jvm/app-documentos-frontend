@@ -30,7 +30,7 @@ export default function Responsabilidades (props) {
      }
      Responsabilidades_IDPuestoSelect.value = ''
     })
-
+    console.log('----------------->',props.procedData.specificData && props.procedData.specificData['Responsabilidades']) 
     if(props.procedData.specificData && props.procedData.specificData['Responsabilidades']) {
      let tHead = document.getElementsByClassName('responsHead')[0]
      let tBody = document.getElementsByClassName('responsBody')[0]
@@ -39,7 +39,7 @@ export default function Responsabilidades (props) {
       let trBody = document.createElement('tr')
       trBody.className = 'ResponsTr'
       if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
-      for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
+      for(let column of columnSchema) {console.log('---------------->',records[column],records[column][0]);let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
       trBody.value=records['ID']
       trBody.style.backgroundColor = 'white'
       trBody.style.fontWeight = '400'

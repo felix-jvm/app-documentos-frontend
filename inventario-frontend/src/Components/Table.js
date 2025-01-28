@@ -1,17 +1,17 @@
 import './Table.css';
 // import '../styles.css'
 import {useState, useEffect, useRef} from 'react';
-import Anexos from './Forms/Anexos';
-import HistorialCambios from './Forms/HistorialCambios';
-import DescripcionProcedimiento from './Forms/DescripcionesProcedimiento';
+// import Anexos from './Forms/Anexos';
+// import HistorialCambios from './Forms/HistorialCambios';
+// import DescripcionProcedimiento from './Forms/DescripcionesProcedimiento';
 import Documentos from './Forms/Documentos';
-import DocumentosReferencias from './Forms/DocumentosReferencias';
+// import DocumentosReferencias from './Forms/DocumentosReferencias';
 import Puestos from './Forms/Puestos';
-import Responsabilidades from './Forms/Responsabilidades';
+// import Responsabilidades from './Forms/Responsabilidades';
 import Termino from './Forms/Termino';
-import SubDescripciones from './Forms/SubDescripciones';
-import RevAprobacion from './Forms/RevAprobacion';
-import TerminologiasDef from './Forms/TerminologiasDef';
+// import SubDescripciones from './Forms/SubDescripciones';
+// import RevAprobacion from './Forms/RevAprobacion';
+// import TerminologiasDef from './Forms/TerminologiasDef';
 import ConfirmationModal from './ConfirmationModal';
 import DT from 'datatables.net-dt';
 import DataTable from 'datatables.net-dt';
@@ -24,8 +24,8 @@ export default function Table(props) {
 //  var parsedData = ''
 //  var actualRoute = useRef('')
 //  var lastCounter = useRef(0)
-//  var updateElementId = useRef(null)
-//  var callMode = useRef(null)
+ var updateElementId = useRef(null)
+ var callMode = useRef(null)
 let times = useRef(0)
  var procedRecordActions = useRef(null)
  var codeToSearchLength = useRef(null)
@@ -208,14 +208,13 @@ let times = useRef(0)
 //    },100)}
   
   function handleSearchRecord() {
-
    let codeToSearch = lastSelectedRecord.current
    let notFoundMessage=document.getElementsByClassName('notFoundMessage')[0];
-   if(!codeToSearch){
-    notFoundMessage.style.transform='scale(1)';
-    setTimeout(()=>{notFoundMessage.style.transform='scale(0)'},5000);
-    return
-   }
+  //  if(!codeToSearch){
+  //   notFoundMessage.style.transform='scale(1)';
+  //   setTimeout(()=>{notFoundMessage.style.transform='scale(0)'},5000);
+  //   return
+  //  }
    if(!procedRecordActions.current){
     fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
       'method':'POST',
@@ -243,6 +242,7 @@ let times = useRef(0)
       else {confirmationModalMessage.current='Datos eliminados correctamente';setConfirmationModal(true)}
       procedRecordActions.current = undefined
      })}
+     if(parseRoute(props)!='procedimiento'){updateElementId.current=lastSelectedRecord.current;callMode.current='update';setUpdateForm(parseRoute(props))}
      codeToSearchLength.current = codeToSearch.length
   }
 
@@ -308,6 +308,11 @@ let times = useRef(0)
     {creationForm==='documentos' && <Documentos route={parseRoute(props)} setCreationForm={setCreationForm}/> ||
     (creationForm==='puestos' && <Puestos route={parseRoute(props)} setCreationForm={setCreationForm}/>) ||
     (creationForm==='termino' && <Termino route={parseRoute(props)} setCreationForm={setCreationForm}/>)}
+
+
+    {(updateForm==='puestos' && <Puestos route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode}/>) ||    
+    (updateForm==='termino' && <Termino route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode}/>)}
+
    {/* 
 
    <p className = 'recordsMessage'>No hay registros para mostrar</p>
