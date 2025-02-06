@@ -15,6 +15,7 @@ import Termino from './Forms/Termino';
 import ConfirmationModal from './ConfirmationModal';
 import DT from 'datatables.net-dt';
 import DataTable from 'datatables.net-dt';
+import PuestoDescriMainCont from './Forms/DescripPuesto/PuestoDescriMainCont';
 
 DataTable.use(DT);
 export default function Table(props) {
@@ -33,7 +34,7 @@ let times = useRef(0)
  const [updateForm, setUpdateForm] = useState('');
  const [confirmationModal,setConfirmationModal] = useState(false);  
  var confirmationModalMessage = useRef('');
- var tableTile = useRef(parseRoute(props));
+ var tableTitle = useRef(parseRoute(props));
  var lastSelectedRecord = useRef(undefined);
 //  useEffect(()=>{
 //    if(times.current >=1) {lastCounter.current=times.current+2;actualRoute.current=props.tableName;creationForm.includes('flow')? (()=>{setCreationForm(creationForm.split('_')[0]);times.current=-2})():setCreationForm('');setUpdateForm('')}
@@ -53,11 +54,12 @@ let times = useRef(0)
   return props.tableName
  }
   setTimeout(()=>{
-    tableTile.current=parseRoute(props)
-    if(tableTile.current){
-     tableTile.current=String(tableTile.current).charAt(0).toUpperCase() + String(tableTile.current).slice(1)
+    tableTitle.current=parseRoute(props)
+    if(tableTitle.current){
+     tableTitle.current=String(tableTitle.current).charAt(0).toUpperCase() + String(tableTitle.current).slice(1)
      let tableTitleElement = document.getElementsByClassName('tableTitle')[0]
-     tableTitleElement.innerText = tableTile.current
+     tableTitle.current = tableTitle.current == 'Puestodescripcion'? 'Descripción de Puesto':tableTitle.current
+     tableTitleElement.innerText = tableTitle.current
     }       
     if(props.data){refreshDataTableDinamically(props.data)}
   },100)
@@ -307,11 +309,13 @@ let times = useRef(0)
 
     {creationForm==='documentos' && <Documentos route={parseRoute(props)} setCreationForm={setCreationForm}/> ||
     (creationForm==='puestos' && <Puestos route={parseRoute(props)} setCreationForm={setCreationForm}/>) ||
-    (creationForm==='termino' && <Termino route={parseRoute(props)} setCreationForm={setCreationForm}/>)}
+    (creationForm==='termino' && <Termino route={parseRoute(props)} setCreationForm={setCreationForm}/>) || 
+    (creationForm==='puestodescripcion' && <PuestoDescriMainCont route={parseRoute(props)} setCreationForm={setCreationForm} setTableName={props.setTableName}/>)}
 
 
     {(updateForm==='puestos' && <Puestos route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode}/>) ||    
-    (updateForm==='termino' && <Termino route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode}/>)}
+    (updateForm==='termino' && <Termino route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode}/>) ||
+    (updateForm==='puestodescripcion' && <PuestoDescriMainCont route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode} setTableName={props.setTableName}/>)}
 
    {/* 
 

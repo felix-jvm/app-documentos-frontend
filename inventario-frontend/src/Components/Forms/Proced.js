@@ -32,8 +32,8 @@ export default function Proced (props) {
     <DescripcionProcedimiento senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
     <DiagramaFlujo senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
     <Anexos senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
-    <RevAprobacion senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
-    <HistorialCambios senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} setSendData={setSendData} refreshDataTable={refreshDataTable} />
+    <RevAprobacion senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData} sectionNumber={'9'}/>
+    <HistorialCambios senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} setSendData={setSendData} refreshDataTable={refreshDataTable} sectionNumber={'10'}/>
     <button className='saveProcButton saveProcedureButton' onClick={e=>{e.preventDefault();setSendData(true)}}>Guardar datos</button>
     <button className='saveProcButton closeProcedureButton' onClick={e=>{
       props.setProcedData(false)

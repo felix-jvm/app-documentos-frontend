@@ -5,6 +5,28 @@
  margin:-15px 0 0 0;
 }
 
+.DescripPuestoMainCont {
+  position:fixed;  
+  top:0;
+  left:0;
+  width:99.9vw;  
+  height:99.9vh;
+  z-index: 3000;
+  background-color:rgb(227, 225, 225); 
+  overflow-y:auto;  
+}
+
+.DescripPuestoInnerCont {
+  width:99.7%;
+  height:auto;
+  position:relative;
+  border-radius:5px;
+  border:2px solid rgb(194, 194, 194);
+  padding:25px; 
+  font-weight:600;
+  margin:0 auto 0 auto;  
+}
+
 .procedCodigoTitle, .responsPuestoTitle, .terminDefTerminoTitle, .descripProcedDescripciònTitle, .AnexosNombreTitle, .AnexosNumTitle, .AnexosCodigoTitle, .revAprobacionPuestoTitle, .revAprobacionNombreTitle, .historialCambioVersionTitle, .revAprobacionNombreTitle, .revAprobacionPuestoTitle {
  display:inline-block;
  width:fit-content;

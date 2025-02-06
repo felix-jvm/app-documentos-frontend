@@ -109,7 +109,7 @@ export default function HistorialCambios (props) {
     
  return (
   <>
-   <h2 style={{'fontWeight':'900'}}>10. Historial de cambios:</h2>
+   <h2 style={{'fontWeight':'900'}}>{props.sectionNumber && props.sectionNumber}. Historial de cambios:</h2>
    <h4 className='historialCambioFechaTitle'>Fecha:</h4>   
    <input type='date' className='HistorialCambios_FechaInput'/>
     <br/>

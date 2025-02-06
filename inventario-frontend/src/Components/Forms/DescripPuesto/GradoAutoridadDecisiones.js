@@ -1,15 +1,15 @@
-import './Forms.css';
+import '../Forms.css'
 import {useEffect, useState, useRef} from 'react';
-import ConfirmationModal from '../ConfirmationModal';
-import InlinePuesto from './InlineForms/InlinePuesto';
+import ConfirmationModal from '../../ConfirmationModal';
+// import InlinePuesto from './InlineForms/InlinePuesto';
 
-export default function Responsabilidades (props) {
+export default function GradoAutoridadDecisiones (props) {
  const [modalErrorData,setModalErrorData] = useState(false); 
  const [inlineForm,setInlineForm] = useState(false); 
  var errorDataref = useRef(false);
  var selectedTableRecord = useRef(undefined);
- const tableRecordsNumber = useRef(props.procedData.specificData && props.procedData.specificData['Responsabilidades'] && 
-  props.procedData.specificData['Responsabilidades'].length > 0)
+ const tableRecordsNumber = useRef(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades'] && 
+  props.formsData.specificData['Responsabilidades'].length > 0)
 
  useEffect(() => {
   setTimeout(() => {
@@ -21,7 +21,7 @@ export default function Responsabilidades (props) {
       })
     .then(e => e.json())
     .then(data => {
-     var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]
+     var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Identificacion_IDPuestoSelectReporta')[0]
      for(let respons of data['Puestos']) {
       let option = document.createElement('option')
       option.value = `{"pk":"${respons['ID']}","Descripcion":"${respons['Descripcion']}"}`      
@@ -30,10 +30,10 @@ export default function Responsabilidades (props) {
      }
      Responsabilidades_IDPuestoSelect.value = ''
     }) 
-    if(props.procedData.specificData && props.procedData.specificData['Responsabilidades']) {
+    if(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades']) {
      let tHead = document.getElementsByClassName('responsHead')[0]
      let tBody = document.getElementsByClassName('responsBody')[0]
-     for(let records of props.procedData.specificData['Responsabilidades']) {
+     for(let records of props.formsData.specificData['Responsabilidades']) {
       let columnSchema = ['IDPuesto','Descripcion']
       let trBody = document.createElement('tr')
       trBody.className = 'ResponsTr'
@@ -115,22 +115,17 @@ export default function Responsabilidades (props) {
  function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}  
 
  return (
-  <div className="Secciòn_Responsabilidades">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>4. Responsabilidades:</h2>  
-   <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'puestos','Responsabilidades_IDPuestoSelect')}}>Crear nuevo puesto</a>  
-   <br/>   
-   <h4 className='responsPuestoTitle'>Puesto:</h4>
-   <select className='Responsabilidades_IDPuestoSelect' required={true}></select>
+  <div className="Secciòn_FuncionesDelPuesto">
+   <h5 className='responsTitle' style={{'fontWeight':'900'}}>8.2. Grado de autoridad que ejerce en la toma de decisiones.</h5>
+   <h4 className='responsTitle'>Grado de autoridad:</h4>   
+   <textarea className='FuncionesDelPuesto_ObjetivoPuesto Responsabilidades_DescripcionInput' placeholder='Grado de autoridad'></textarea>   
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <textarea className='Responsabilidades_DescripcionInput' placeholder='Descripción del puesto' required={true}></textarea>
    <table className='responsTable'>
     <thead className='responsHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='responsBody'></tbody>
    </table>
-   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}
-   <br/>
+   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}   
    <hr/>
-   {inlineForm && ( (inlineForm.split(',')[0]=='puestos' && <InlinePuesto inlineForm={inlineForm} setInlineForm={setInlineForm}/>) )}   
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
    icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>

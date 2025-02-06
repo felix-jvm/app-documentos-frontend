@@ -51,7 +51,7 @@
 .tableTitle {
   display:inline-block;
   position:relative;
-  width:180px;
+  width:max-content;
   margin:2px 0 0 0;
 }
 
