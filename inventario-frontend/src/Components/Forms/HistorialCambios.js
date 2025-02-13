@@ -71,7 +71,7 @@ export default function HistorialCambios (props) {
    }   
 
  useEffect((() => {
-  if(props.senData){ 
+  if(props.route && props.route == 'procedimiento' && props.senData){ 
    if(!props.backenData.current['Procedimiento_AlcanceInput'] || !props.backenData.current['Procedimiento_ObjetivoInput'] || !props.backenData.current['Procedimiento_CodigoSelect']) {
     (!props.backenData.current['Procedimiento_AlcanceInput'] && setModalErrorData(`El campo Alcance de la Secciòn_Procedimiento es requerido.`)) ||
     (!props.backenData.current['Procedimiento_ObjetivoInput'] && setModalErrorData(`El campo Objetivo de la Secciòn_Procedimiento es requerido.`)) ||

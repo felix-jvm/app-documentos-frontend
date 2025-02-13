@@ -6,130 +6,119 @@ import ConfirmationModal from '../../ConfirmationModal';
 export default function ActividadesPeriDelPuesto (props) {
  const [modalErrorData,setModalErrorData] = useState(false); 
  const [inlineForm,setInlineForm] = useState(false); 
+ const [displayDeleteRecordButton,setDisplayDeleteRecordButton] = useState(false); 
  var errorDataref = useRef(false);
  var selectedTableRecord = useRef(undefined);
- const tableRecordsNumber = useRef(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades'] && 
-  props.formsData.specificData['Responsabilidades'].length > 0)
 
- useEffect(() => {
-  setTimeout(() => {
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
-      {
-        'method':'POST',
-        'headers':{'Content-Type':'application/json'},
-        body:JSON.stringify({'mode':'fillForm'})
-      })
-    .then(e => e.json())
-    .then(data => {
-     var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Identificacion_IDPuestoSelectReporta')[0]
-     for(let respons of data['Puestos']) {
-      let option = document.createElement('option')
-      option.value = `{"pk":"${respons['ID']}","Descripcion":"${respons['Descripcion']}"}`      
-      option.innerText = `${respons.Descripcion}`
-      Responsabilidades_IDPuestoSelect.appendChild(option)
-     }
-     Responsabilidades_IDPuestoSelect.value = ''
-    }) 
-    if(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades']) {
-     let tHead = document.getElementsByClassName('responsHead')[0]
-     let tBody = document.getElementsByClassName('responsBody')[0]
-     for(let records of props.formsData.specificData['Responsabilidades']) {
-      let columnSchema = ['IDPuesto','Descripcion']
-      let trBody = document.createElement('tr')
-      trBody.className = 'ResponsTr'
-      if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
-      for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
-      trBody.value=records['ID']
-      trBody.style.backgroundColor = 'white'
-      trBody.style.fontWeight = '400'
-      trBody.addEventListener('click',(e)=>{
+  useEffect(() => {
+    setTimeout(() => { 
+      if(props.formsData.current['specificData'] && props.formsData.current['specificData']['ActividadesPeriodicasPuesto']) {
+       let tHead = document.getElementsByClassName('ActividadesPeriodicasDelPuestoHead')[0]
+       let tBody = document.getElementsByClassName('ActividadesPeriodicasDelPuestoBody')[0]
+       for(let records of props.formsData.current['specificData']['ActividadesPeriodicasPuesto']) {
+        let columnSchema = ['Actividad','Resultado final']
+        let trBody = document.createElement('tr')
+        trBody.className = 'ActividadesPeriodicasPuestoTr'
+        if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
+        for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
+        trBody.value=records['ID']
+        trBody.style.backgroundColor = 'white'
+        trBody.style.fontWeight = '400'
+        trBody.addEventListener('click',(e)=>{
+        if(e.target.parentElement.value){
+         selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
+        }else{selectedTableRecord.current = {'record':e.target.parentElement}}
+        let trList = document.getElementsByClassName('ActividadesPeriodicasPuestoTr') 
+        for (let tr of trList){if(tr!=e.target.parentElement){
+         setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
+        })      
+        tBody.appendChild(trBody)
+       } }  
+       updateDeleteRecordButtonStatus()
+      },250) },[])   
+
+  function updateDeleteRecordButtonStatus() {
+        let ActividadesPeriodicasDelPuestoBody = document.getElementsByClassName('ActividadesPeriodicasDelPuestoBody')[0]
+        setDisplayDeleteRecordButton(ActividadesPeriodicasDelPuestoBody && ActividadesPeriodicasDelPuestoBody.children.length? true:false)
+  }
+
+  function HandleAdd() {
+    let ActividadesPeriodicasDelPuesto_Actividades = document.getElementsByClassName('ActividadesPeriodicasDelPuesto_Actividades')[0]
+    let ActividadesPeriodicasDelPuesto_Resultado = document.getElementsByClassName('ActividadesPeriodicasDelPuesto_Resultado')[0]   
+    let ActividadesPeriodicasDelPuestoHead = document.getElementsByClassName('ActividadesPeriodicasDelPuestoHead')[0]    
+    let ActividadesPeriodicasDelPuestoBody = document.getElementsByClassName('ActividadesPeriodicasDelPuestoBody')[0]    
+    let data = [ActividadesPeriodicasDelPuesto_Actividades,ActividadesPeriodicasDelPuesto_Resultado]
+    let columns = ['Actividades ¿Qué Hace?','Resultado Final ¿Por qué?']
+    var trHead = document.createElement('tr')
+    var trBody = document.createElement('tr')
+    trBody.className = 'ActividadesPeriodicasDelPuestoTr'
+    trBody.style.backgroundColor = 'white'
+    trBody.style.fontWeight = '400'  
+    trBody.addEventListener('click',(e)=>{
       if(e.target.parentElement.value){
-       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
+        selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
       }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-      let trList = document.getElementsByClassName('ResponsTr') 
+      let trList = document.getElementsByClassName('ActividadesPeriodicasDelPuestoTr') 
       for (let tr of trList){if(tr!=e.target.parentElement){
-       setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
-      })      
-      tBody.appendChild(trBody)
-     } }  },250)},[])
-
- function HandleAdd() {
-  let Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]
-  let Responsabilidades_DescripcionInput = document.getElementsByClassName('Responsabilidades_DescripcionInput')[0]  
-  let responsHead = document.getElementsByClassName('responsHead')[0]    
-  let responsBody = document.getElementsByClassName('responsBody')[0]    
-  let data = [Responsabilidades_IDPuestoSelect,Responsabilidades_DescripcionInput]
-  let columns = ['Puesto','Responsabilidad']
-  var trHead = document.createElement('tr')
-  var trBody = document.createElement('tr')
-  trBody.className = 'ResponsTr'  
-  trBody.style.backgroundColor = 'white'
-  trBody.style.fontWeight = '400'  
-  trBody.addEventListener('click',(e)=>{
-    if(e.target.parentElement.value){
-      selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-    }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-    let trList = document.getElementsByClassName('ResponsTr') 
-    for (let tr of trList){if(tr!=e.target.parentElement){
-     setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } } )  
-  errorDataref.current = false
-
-  for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
-    let td = document.createElement('td');
-    let th = document.createElement('th');
-    th.innerText = columns[dataCounter];    
-    trHead.appendChild(th)
-    if(data[dataCounter].required && !data[dataCounter].value) {
-      setModalErrorData(`El campo ${data[dataCounter].className.split('_')[1].replace('Input','').replace('Select','').replace('ID','')} de la ${data[dataCounter].parentElement.className} es requerido.`);
-      errorDataref.current = true;
-      trBody.innerHTML = '';
+       setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } } )  
+    errorDataref.current = false
+    for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
+      let td = document.createElement('td');
+      let th = document.createElement('th');
+      th.innerText = columns[dataCounter];    
+      trHead.appendChild(th)
+      if(data[dataCounter].required && !data[dataCounter].value) {
+        setModalErrorData(`El campo ${data[dataCounter].className.split('_')[1].replace('Input','').replace('Select','').replace('ID','')} de la ${data[dataCounter].parentElement.className} es requerido.`);
+        errorDataref.current = true;
+        trBody.innerHTML = '';
+      }
+      if(!errorDataref.current){if(data[dataCounter].className.includes('ID')){td.innerText=JSON.parse(data[dataCounter].value)['Descripcion']}else{td.innerText = data[dataCounter].value};trBody.appendChild(td)}
     }
-    if(!errorDataref.current){if(data[dataCounter].className.includes('ID')){td.innerText=JSON.parse(data[dataCounter].value)['Descripcion']}else{td.innerText = data[dataCounter].value};trBody.appendChild(td)}
-  }
-  if(!errorDataref.current) {
-   let parsedOptionValue = JSON.parse(Responsabilidades_IDPuestoSelect.value)    
-   props.backenData.current['Responsabilidades'].push({'IDPuesto':parsedOptionValue['pk'],'Descripcion':Responsabilidades_DescripcionInput.value,'elementHtml':trBody.innerHTML});
-   props.summaryData.current['Responsabilidades'][trBody.innerHTML] = {'Puesto':parsedOptionValue['Descripcion'],'Descripcion':Responsabilidades_DescripcionInput.value}      
-   Responsabilidades_IDPuestoSelect.value = '';
-   Responsabilidades_DescripcionInput.value = '';
-  }
-  responsBody.appendChild(trBody)
-  !responsHead.children.length?responsHead.appendChild(trHead):void 0
- }
-
- function handleRecordRemove(){
-  if(!selectedTableRecord.current){return}
-  if(Object.keys(selectedTableRecord.current).includes('recordToDeleteId')){
-   props.backenData.current['recordsToDelete'].push({'Responsabilidades':selectedTableRecord.current['recordToDeleteId']})
-   Object.keys(props.summaryData.current['recordsToDelete']).includes('Responsabilidades')? props.summaryData.current['recordsToDelete']['Responsabilidades'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['Responsabilidades']=[selectedTableRecord.current['record']]   
-  }else{
-    if(selectedTableRecord.current['record']){
-      Object.keys(props.summaryData.current['Responsabilidades']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['Responsabilidades'][selectedTableRecord.current['record'].innerHTML]})():void 0      
-     for(let counter=0;counter<=props.backenData.current['Responsabilidades'].length-1;counter++){
-      let currentRecordToCreate = props.backenData.current['Responsabilidades'][counter]
-      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['Responsabilidades'].splice(counter,1)}
-    }}}
-  if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
-  }
-
- function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}  
+    if(!errorDataref.current) {
+    //  let parsedOptionValue = JSON.parse(ActividadesPeriodicasDelPuesto_Actividades.value)    
+     props.backenData.current['ActividadesPeriodicasPuesto'].push({'ActividadesDescri':ActividadesPeriodicasDelPuesto_Actividades.value,'ResultadoFinalDescri':ActividadesPeriodicasDelPuesto_Resultado.value,'elementHtml':trBody.innerHTML});
+     props.summaryData.current['ActividadesPeriodicasPuesto'][trBody.innerHTML] = {'ActividadesDescri':ActividadesPeriodicasDelPuesto_Actividades.value,'ResultadoFinalDescri':ActividadesPeriodicasDelPuesto_Resultado.value}
+     ActividadesPeriodicasDelPuesto_Actividades.value = '';
+     ActividadesPeriodicasDelPuesto_Resultado.value = ''
+    }
+    ActividadesPeriodicasDelPuestoBody.appendChild(trBody)
+    !ActividadesPeriodicasDelPuestoHead.children.length?ActividadesPeriodicasDelPuestoHead.appendChild(trHead):void 0
+    updateDeleteRecordButtonStatus()
+   }
+  
+   function handleRecordRemove(){
+    if(!selectedTableRecord.current){return}
+    if(Object.keys(selectedTableRecord.current).includes('recordToDeleteId')){
+     props.backenData.current['recordsToDelete'].push({'ActividadesPeriodicasPuesto':selectedTableRecord.current['recordToDeleteId']})
+     Object.keys(props.summaryData.current['recordsToDelete']).includes('ActividadesPeriodicasPuesto')? props.summaryData.current['recordsToDelete']['ActividadesPeriodicasPuesto'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['ActividadesPeriodicasPuesto']=[selectedTableRecord.current['record']]   
+    }else{
+      if(selectedTableRecord.current['record']){
+        Object.keys(props.summaryData.current['ActividadesPeriodicasPuesto']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['ActividadesPeriodicasPuesto'][selectedTableRecord.current['record'].innerHTML]})():void 0      
+       for(let counter=0;counter<=props.backenData.current['ActividadesPeriodicasPuesto'].length-1;counter++){
+        let currentRecordToCreate = props.backenData.current['ActividadesPeriodicasPuesto'][counter]
+        if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['ActividadesPeriodicasPuesto'].splice(counter,1)}
+      }}}
+    if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
+    updateDeleteRecordButtonStatus()
+    }
 
  return (
-  <div className="Secciòn_FuncionesDelPuesto">
+  <div className="Sección_ActividadesPeriodicasDelPuesto">
    <h2 className='responsTitle' style={{'fontWeight':'900'}}>5. Actividades Periódicas del Puesto</h2>  
    <h4 className='responsTitle' style={{'display':'inline-block','margin':'0 5px 0 0'}}>Actividades</h4>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>   
    <h6 style={{'display':'inline-block'}}>¿Qué Hace?:</h6>
-   <textarea className='FuncionesDelPuesto_ObjetivoPuesto Responsabilidades_DescripcionInput' placeholder='Actividades'></textarea>
-   <br/>   
+   <textarea className='ActividadesPeriodicasDelPuesto_Actividades' placeholder='Actividades'></textarea>
+   <br/>
    <h4 className='responsTitle' style={{'display':'inline-block','margin':'0 5px 0 0'}}>Resultado Final</h4>
    <h6 style={{'display':'inline-block'}}>¿Por qué?:</h6>
-   <textarea className='FuncionesDelPuesto_ObjetivoPuesto Responsabilidades_DescripcionInput' placeholder='Resultado Final'></textarea>   
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <table className='responsTable'>
-    <thead className='responsHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
-    <tbody className='responsBody'></tbody>
+   <textarea className='ActividadesPeriodicasDelPuesto_Resultado' placeholder='Resultado Final'></textarea>   
+   <table className='ActividadesPeriodicasDelPuestoTable'>
+    <thead className='ActividadesPeriodicasDelPuestoHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
+    <tbody className='ActividadesPeriodicasDelPuestoBody'></tbody>
    </table>
-   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}   
+   {displayDeleteRecordButton && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}
+   <br/>
    <hr/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
    icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">

@@ -6,37 +6,34 @@ import ConfirmationModal from '../../ConfirmationModal';
 export default function RelacionesExternas (props) {
  const [modalErrorData,setModalErrorData] = useState(false); 
  const [inlineForm,setInlineForm] = useState(false); 
+ const [displayDeleteRecordButton,setDisplayDeleteRecordButton] = useState(false);
  var errorDataref = useRef(false);
  var selectedTableRecord = useRef(undefined);
- const tableRecordsNumber = useRef(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades'] && 
-  props.formsData.specificData['Responsabilidades'].length > 0)
 
  useEffect(() => {
   setTimeout(() => {
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
-      {
-        'method':'POST',
-        'headers':{'Content-Type':'application/json'},
-        body:JSON.stringify({'mode':'fillForm'})
-      })
-    .then(e => e.json())
-    .then(data => {
-     var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Identificacion_IDPuestoSelectReporta')[0]
-     for(let respons of data['Puestos']) {
+    let toFill = ['RelacionesExternas_PuestoSelectID']
+    for(let elemName of toFill) {
+     let htmlElem = document.getElementsByClassName(elemName)[0]
+     for(let record of props.formsData.current[elemName]) {
+      let optionInnerText = ''
       let option = document.createElement('option')
-      option.value = `{"pk":"${respons['ID']}","Descripcion":"${respons['Descripcion']}"}`      
-      option.innerText = `${respons.Descripcion}`
-      Responsabilidades_IDPuestoSelect.appendChild(option)
+      option.value = `{"pk":"${record['ID']}","Descripcion":"${record['Descripcion']}"}`      
+      if (elemName == 'Identificacion_CodigoSelect'){optionInnerText = record.Codigo}
+      else if(elemName == 'Identificacion_DepartamentoSelect'){optionInnerText = `${record.Codigo} - ${record.Descripcion}`}
+      else {optionInnerText = record.Descripcion}
+      option.innerText = optionInnerText
+      htmlElem? htmlElem.appendChild(option):void 0    
      }
-     Responsabilidades_IDPuestoSelect.value = ''
-    }) 
-    if(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades']) {
-     let tHead = document.getElementsByClassName('responsHead')[0]
-     let tBody = document.getElementsByClassName('responsBody')[0]
-     for(let records of props.formsData.specificData['Responsabilidades']) {
-      let columnSchema = ['IDPuesto','Descripcion']
+     htmlElem.value = ''
+    } 
+    if(props.formsData.current['specificData'] && props.formsData.current['specificData']['RelacionesExternas']) {
+     let tHead = document.getElementsByClassName('RelacionesExternasHead')[0]
+     let tBody = document.getElementsByClassName('RelacionesExternasBody')[0]
+     for(let records of props.formsData.current['specificData']['RelacionesExternas']) {
+      let columnSchema = ['Puesto','Descripción']
       let trBody = document.createElement('tr')
-      trBody.className = 'ResponsTr'
+      trBody.className = 'RelacionesExternasTr'
       if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
       for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
       trBody.value=records['ID']
@@ -46,34 +43,40 @@ export default function RelacionesExternas (props) {
       if(e.target.parentElement.value){
        selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
       }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-      let trList = document.getElementsByClassName('ResponsTr') 
+      let trList = document.getElementsByClassName('RelacionesExternasTr') 
       for (let tr of trList){if(tr!=e.target.parentElement){
        setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
       })      
       tBody.appendChild(trBody)
-     } }  },250)},[])
+     } } 
+     updateDeleteRecordButtonStatus() 
+    },250)},[])
+
+ function updateDeleteRecordButtonStatus() {
+  let RelacionesExternasBody = document.getElementsByClassName('RelacionesExternasBody')[0]
+  setDisplayDeleteRecordButton(RelacionesExternasBody && RelacionesExternasBody.children.length? true:false)
+ }
 
  function HandleAdd() {
-  let Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]
-  let Responsabilidades_DescripcionInput = document.getElementsByClassName('Responsabilidades_DescripcionInput')[0]  
-  let responsHead = document.getElementsByClassName('responsHead')[0]    
-  let responsBody = document.getElementsByClassName('responsBody')[0]    
-  let data = [Responsabilidades_IDPuestoSelect,Responsabilidades_DescripcionInput]
+  let RelacionesExternas_PuestoSelectID = document.getElementsByClassName('RelacionesExternas_PuestoSelectID')[0]
+  let RelacionesExternas_Objetivo = document.getElementsByClassName('RelacionesExternas_Objetivo')[0]  
+  let RelacionesExternasHead = document.getElementsByClassName('RelacionesExternasHead')[0]    
+  let RelacionesExternasBody = document.getElementsByClassName('RelacionesExternasBody')[0]    
+  let data = [RelacionesExternas_PuestoSelectID,RelacionesExternas_Objetivo]
   let columns = ['Puesto','Responsabilidad']
   var trHead = document.createElement('tr')
   var trBody = document.createElement('tr')
-  trBody.className = 'ResponsTr'  
+  trBody.className = 'RelacionesExternasTr'  
   trBody.style.backgroundColor = 'white'
   trBody.style.fontWeight = '400'  
   trBody.addEventListener('click',(e)=>{
     if(e.target.parentElement.value){
       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
     }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-    let trList = document.getElementsByClassName('ResponsTr') 
+    let trList = document.getElementsByClassName('RelacionesExternasTr') 
     for (let tr of trList){if(tr!=e.target.parentElement){
      setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } } )  
   errorDataref.current = false
-
   for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
     let td = document.createElement('td');
     let th = document.createElement('th');
@@ -87,47 +90,50 @@ export default function RelacionesExternas (props) {
     if(!errorDataref.current){if(data[dataCounter].className.includes('ID')){td.innerText=JSON.parse(data[dataCounter].value)['Descripcion']}else{td.innerText = data[dataCounter].value};trBody.appendChild(td)}
   }
   if(!errorDataref.current) {
-   let parsedOptionValue = JSON.parse(Responsabilidades_IDPuestoSelect.value)    
-   props.backenData.current['Responsabilidades'].push({'IDPuesto':parsedOptionValue['pk'],'Descripcion':Responsabilidades_DescripcionInput.value,'elementHtml':trBody.innerHTML});
-   props.summaryData.current['Responsabilidades'][trBody.innerHTML] = {'Puesto':parsedOptionValue['Descripcion'],'Descripcion':Responsabilidades_DescripcionInput.value}      
-   Responsabilidades_IDPuestoSelect.value = '';
-   Responsabilidades_DescripcionInput.value = '';
+   let parsedOptionValue = JSON.parse(RelacionesExternas_PuestoSelectID.value)    
+   props.backenData.current['RelacionesExternas'].push({'Puesto':parsedOptionValue['pk'],'Descri':RelacionesExternas_Objetivo.value,'elementHtml':trBody.innerHTML});
+   props.summaryData.current['RelacionesExternas'][trBody.innerHTML] = {'Puesto':parsedOptionValue['pk'],'Descri':RelacionesExternas_Objetivo.value}      
+   RelacionesExternas_PuestoSelectID.value = '';
+   RelacionesExternas_Objetivo.value = '';
   }
-  responsBody.appendChild(trBody)
-  !responsHead.children.length?responsHead.appendChild(trHead):void 0
+  RelacionesExternasBody.appendChild(trBody)
+  !RelacionesExternasHead.children.length?RelacionesExternasHead.appendChild(trHead):void 0
+  updateDeleteRecordButtonStatus()
  }
 
  function handleRecordRemove(){
   if(!selectedTableRecord.current){return}
   if(Object.keys(selectedTableRecord.current).includes('recordToDeleteId')){
-   props.backenData.current['recordsToDelete'].push({'Responsabilidades':selectedTableRecord.current['recordToDeleteId']})
-   Object.keys(props.summaryData.current['recordsToDelete']).includes('Responsabilidades')? props.summaryData.current['recordsToDelete']['Responsabilidades'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['Responsabilidades']=[selectedTableRecord.current['record']]   
+   props.backenData.current['recordsToDelete'].push({'RelacionesExternas':selectedTableRecord.current['recordToDeleteId']})
+   Object.keys(props.summaryData.current['recordsToDelete']).includes('RelacionesExternas')? props.summaryData.current['recordsToDelete']['RelacionesExternas'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['RelacionesExternas']=[selectedTableRecord.current['record']]   
   }else{
     if(selectedTableRecord.current['record']){
-      Object.keys(props.summaryData.current['Responsabilidades']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['Responsabilidades'][selectedTableRecord.current['record'].innerHTML]})():void 0      
-     for(let counter=0;counter<=props.backenData.current['Responsabilidades'].length-1;counter++){
-      let currentRecordToCreate = props.backenData.current['Responsabilidades'][counter]
-      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['Responsabilidades'].splice(counter,1)}
+      Object.keys(props.summaryData.current['RelacionesExternas']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['RelacionesExternas'][selectedTableRecord.current['record'].innerHTML]})():void 0      
+     for(let counter=0;counter<=props.backenData.current['RelacionesExternas'].length-1;counter++){
+      let currentRecordToCreate = props.backenData.current['RelacionesExternas'][counter]
+      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['RelacionesExternas'].splice(counter,1)}
     }}}
   if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
+  updateDeleteRecordButtonStatus()
   }
 
  function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}  
 
  return (
-  <div className="Secciòn_FuncionesDelPuesto">
+  <div className="Secciòn_RelacionesExternas">
    <h5 className='responsTitle' style={{'fontWeight':'900'}}>6.2. Relaciones Externas</h5>   
    <h4 className='responsPuestoTitle'>Puesto:</h4>
-   <select className='Identificacion_IDDocSelect Responsabilidades_IDPuestoSelect' required={true}></select>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
+   <select className='RelacionesExternas_PuestoSelectID' required={true}></select>
    <br/>   
    <h4 className='responsTitle'>¿Para qué?</h4>
-   <textarea className='FuncionesDelPuesto_ObjetivoPuesto Responsabilidades_DescripcionInput' placeholder='Utilidad'></textarea>   
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <table className='responsTable'>
-    <thead className='responsHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
-    <tbody className='responsBody'></tbody>
+   <textarea className='RelacionesExternas_Objetivo' placeholder='Utilidad'></textarea>   
+   <table className='RelacionesExternasTable'>
+    <thead className='RelacionesExternasHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
+    <tbody className='RelacionesExternasBody'></tbody>
    </table>
-   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}   
+   {displayDeleteRecordButton && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}
+   <br/>
    <hr/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
    icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">

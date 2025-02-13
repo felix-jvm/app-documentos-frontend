@@ -11,9 +11,12 @@ export default function ConfirmationModal(props) {
         {props.icon}
        </div> 
       <input type = 'submit' className = 'modalConfirmationButton' value='Cerrar' onClick={() => {
-        props.setConfirmationModal('');
         props.reload==='true'?window.location.reload():(()=>{
-          setTimeout(()=>{if(props.setProcedData){props.setProcedData(false)}},300)
+          setTimeout(()=>{
+            props.setConfirmationModal('')
+            if(props.refreshDataTable){props.refreshDataTable.current = true}
+            if(props.formMainCont){props.formMainCont(false)}
+          },100)
         })()}}/>
     </div>
   </div> 

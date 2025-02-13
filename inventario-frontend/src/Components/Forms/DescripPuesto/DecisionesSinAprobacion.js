@@ -6,37 +6,19 @@ import ConfirmationModal from '../../ConfirmationModal';
 export default function DecisionesSinAprobacion (props) {
  const [modalErrorData,setModalErrorData] = useState(false); 
  const [inlineForm,setInlineForm] = useState(false); 
+ const [displayDeleteRecordButton,setDisplayDeleteRecordButton] = useState(false);
  var errorDataref = useRef(false);
  var selectedTableRecord = useRef(undefined);
- const tableRecordsNumber = useRef(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades'] && 
-  props.formsData.specificData['Responsabilidades'].length > 0)
 
  useEffect(() => {
   setTimeout(() => {
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
-      {
-        'method':'POST',
-        'headers':{'Content-Type':'application/json'},
-        body:JSON.stringify({'mode':'fillForm'})
-      })
-    .then(e => e.json())
-    .then(data => {
-     var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Identificacion_IDPuestoSelectReporta')[0]
-     for(let respons of data['Puestos']) {
-      let option = document.createElement('option')
-      option.value = `{"pk":"${respons['ID']}","Descripcion":"${respons['Descripcion']}"}`      
-      option.innerText = `${respons.Descripcion}`
-      Responsabilidades_IDPuestoSelect.appendChild(option)
-     }
-     Responsabilidades_IDPuestoSelect.value = ''
-    }) 
-    if(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades']) {
-     let tHead = document.getElementsByClassName('responsHead')[0]
-     let tBody = document.getElementsByClassName('responsBody')[0]
-     for(let records of props.formsData.specificData['Responsabilidades']) {
-      let columnSchema = ['IDPuesto','Descripcion']
+    if(props.formsData.current['specificData'] && props.formsData.current['specificData']['DecisionesSinAprobacion']) {
+     let tHead = document.getElementsByClassName('DecisionesSinAprobacionHead')[0]
+     let tBody = document.getElementsByClassName('DecisionesSinAprobacionBody')[0]
+     for(let records of props.formsData.current['specificData']['DecisionesSinAprobacion']) {
+      let columnSchema = ['Descripción']
       let trBody = document.createElement('tr')
-      trBody.className = 'ResponsTr'
+      trBody.className = 'DecisionesSinAprobacionTr'
       if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
       for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
       trBody.value=records['ID']
@@ -46,34 +28,39 @@ export default function DecisionesSinAprobacion (props) {
       if(e.target.parentElement.value){
        selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
       }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-      let trList = document.getElementsByClassName('ResponsTr') 
+      let trList = document.getElementsByClassName('DecisionesSinAprobacionTr') 
       for (let tr of trList){if(tr!=e.target.parentElement){
        setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
       })      
       tBody.appendChild(trBody)
-     } }  },250)},[])
+     } }  
+     updateDeleteRecordButtonStatus()
+    },250)},[])
+
+ function updateDeleteRecordButtonStatus() {
+  let DecisionesSinAprobacionBody = document.getElementsByClassName('DecisionesSinAprobacionBody')[0]
+  setDisplayDeleteRecordButton(DecisionesSinAprobacionBody && DecisionesSinAprobacionBody.children.length? true:false)
+ }
 
  function HandleAdd() {
-  let Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]
-  let Responsabilidades_DescripcionInput = document.getElementsByClassName('Responsabilidades_DescripcionInput')[0]  
-  let responsHead = document.getElementsByClassName('responsHead')[0]    
-  let responsBody = document.getElementsByClassName('responsBody')[0]    
-  let data = [Responsabilidades_IDPuestoSelect,Responsabilidades_DescripcionInput]
-  let columns = ['Puesto','Responsabilidad']
+  let DecisionesSinAprobacion_Decisión = document.getElementsByClassName('DecisionesSinAprobacion_Decisión')[0]
+  let DecisionesSinAprobacionHead = document.getElementsByClassName('DecisionesSinAprobacionHead')[0]    
+  let DecisionesSinAprobacionBody = document.getElementsByClassName('DecisionesSinAprobacionBody')[0]    
+  let data = [DecisionesSinAprobacion_Decisión]
+  let columns = ['Descripción de la decisión']
   var trHead = document.createElement('tr')
   var trBody = document.createElement('tr')
-  trBody.className = 'ResponsTr'  
+  trBody.className = 'DecisionesSinAprobacionTr'
   trBody.style.backgroundColor = 'white'
   trBody.style.fontWeight = '400'  
   trBody.addEventListener('click',(e)=>{
     if(e.target.parentElement.value){
       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
     }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-    let trList = document.getElementsByClassName('ResponsTr') 
+    let trList = document.getElementsByClassName('DecisionesSinAprobacionTr') 
     for (let tr of trList){if(tr!=e.target.parentElement){
      setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } } )  
   errorDataref.current = false
-
   for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
     let td = document.createElement('td');
     let th = document.createElement('th');
@@ -87,45 +74,47 @@ export default function DecisionesSinAprobacion (props) {
     if(!errorDataref.current){if(data[dataCounter].className.includes('ID')){td.innerText=JSON.parse(data[dataCounter].value)['Descripcion']}else{td.innerText = data[dataCounter].value};trBody.appendChild(td)}
   }
   if(!errorDataref.current) {
-   let parsedOptionValue = JSON.parse(Responsabilidades_IDPuestoSelect.value)    
-   props.backenData.current['Responsabilidades'].push({'IDPuesto':parsedOptionValue['pk'],'Descripcion':Responsabilidades_DescripcionInput.value,'elementHtml':trBody.innerHTML});
-   props.summaryData.current['Responsabilidades'][trBody.innerHTML] = {'Puesto':parsedOptionValue['Descripcion'],'Descripcion':Responsabilidades_DescripcionInput.value}      
-   Responsabilidades_IDPuestoSelect.value = '';
-   Responsabilidades_DescripcionInput.value = '';
+  //  let parsedOptionValue = JSON.parse(DecisionesSinAprobacion_Decisión.value)    
+   props.backenData.current['DecisionesSinAprobacion'].push({'Descri':DecisionesSinAprobacion_Decisión.value,'elementHtml':trBody.innerHTML});
+   props.summaryData.current['DecisionesSinAprobacion'][trBody.innerHTML] = {'Descri':DecisionesSinAprobacion_Decisión.value}      
+   DecisionesSinAprobacion_Decisión.value = '';
   }
-  responsBody.appendChild(trBody)
-  !responsHead.children.length?responsHead.appendChild(trHead):void 0
+  DecisionesSinAprobacionBody.appendChild(trBody)
+  !DecisionesSinAprobacionHead.children.length?DecisionesSinAprobacionHead.appendChild(trHead):void 0
+  updateDeleteRecordButtonStatus()
  }
 
  function handleRecordRemove(){
   if(!selectedTableRecord.current){return}
   if(Object.keys(selectedTableRecord.current).includes('recordToDeleteId')){
-   props.backenData.current['recordsToDelete'].push({'Responsabilidades':selectedTableRecord.current['recordToDeleteId']})
-   Object.keys(props.summaryData.current['recordsToDelete']).includes('Responsabilidades')? props.summaryData.current['recordsToDelete']['Responsabilidades'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['Responsabilidades']=[selectedTableRecord.current['record']]   
+   props.backenData.current['recordsToDelete'].push({'DecisionesSinAprobacion':selectedTableRecord.current['recordToDeleteId']})
+   Object.keys(props.summaryData.current['recordsToDelete']).includes('DecisionesSinAprobacion')? props.summaryData.current['recordsToDelete']['DecisionesSinAprobacion'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['DecisionesSinAprobacion']=[selectedTableRecord.current['record']]   
   }else{
     if(selectedTableRecord.current['record']){
-      Object.keys(props.summaryData.current['Responsabilidades']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['Responsabilidades'][selectedTableRecord.current['record'].innerHTML]})():void 0      
-     for(let counter=0;counter<=props.backenData.current['Responsabilidades'].length-1;counter++){
-      let currentRecordToCreate = props.backenData.current['Responsabilidades'][counter]
-      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['Responsabilidades'].splice(counter,1)}
+      Object.keys(props.summaryData.current['DecisionesSinAprobacion']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['DecisionesSinAprobacion'][selectedTableRecord.current['record'].innerHTML]})():void 0      
+     for(let counter=0;counter<=props.backenData.current['DecisionesSinAprobacion'].length-1;counter++){
+      let currentRecordToCreate = props.backenData.current['DecisionesSinAprobacion'][counter]
+      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['DecisionesSinAprobacion'].splice(counter,1)}
     }}}
-  if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
+  if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}
+  updateDeleteRecordButtonStatus()    
   }
 
  function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}  
 
  return (
-  <div className="Secciòn_FuncionesDelPuesto">
+  <div className="Sección_DecisionesSinAprobacion">
    <h2 className='responsTitle' style={{'fontWeight':'900'}}>8. Autoridad y Autonomía</h2>   
    <h5 className='responsTitle' style={{'fontWeight':'900'}}>8.1. Decisiones que este puesto puede tomar sin necesidad de aprobación</h5>
-   <h4 className='responsTitle'>Decisiones:</h4>   
-   <textarea className='FuncionesDelPuesto_ObjetivoPuesto Responsabilidades_DescripcionInput' placeholder='Decisiones'></textarea>   
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <table className='responsTable'>
-    <thead className='responsHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
-    <tbody className='responsBody'></tbody>
+   <h4 className='responsTitle'>Decisiones:</h4>   
+   <textarea className='DecisionesSinAprobacion_Decisión' placeholder='Descripción de la decisión'></textarea>   
+   <table className='DecisionesSinAprobacionTable'>
+    <thead className='DecisionesSinAprobacionHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
+    <tbody className='DecisionesSinAprobacionBody'></tbody>
    </table>
-   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}   
+   {displayDeleteRecordButton && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}  
+   <br/>
    <hr/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
    icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">

@@ -6,39 +6,28 @@ import ConfirmationModal from '../../ConfirmationModal';
 export default function FormacionAcademica (props) {
  const [modalErrorData,setModalErrorData] = useState(false); 
  const [inlineForm,setInlineForm] = useState(false); 
+ const [displayDeleteRecordButton,setDisplayDeleteRecordButton] = useState(false);
  var errorDataref = useRef(false);
  var selectedTableRecord = useRef(undefined);
- const tableRecordsNumber = useRef(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades'] && 
-  props.formsData.specificData['Responsabilidades'].length > 0)
 
  useEffect(() => {
   setTimeout(() => {
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
-      {
-        'method':'POST',
-        'headers':{'Content-Type':'application/json'},
-        body:JSON.stringify({'mode':'fillForm'})
-      })
-    .then(e => e.json())
-    .then(data => {
-     var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Identificacion_IDPuestoSelectReporta')[0]
-     for(let respons of data['Puestos']) {
-      let option = document.createElement('option')
-      option.value = `{"pk":"${respons['ID']}","Descripcion":"${respons['Descripcion']}"}`      
-      option.innerText = `${respons.Descripcion}`
-      Responsabilidades_IDPuestoSelect.appendChild(option)
-     }
-     Responsabilidades_IDPuestoSelect.value = ''
-    }) 
-    if(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades']) {
-     let tHead = document.getElementsByClassName('responsHead')[0]
-     let tBody = document.getElementsByClassName('responsBody')[0]
-     for(let records of props.formsData.specificData['Responsabilidades']) {
-      let columnSchema = ['IDPuesto','Descripcion']
+    if(props.formsData.current['specificData'] && props.formsData.current['specificData']['FormacionAcademica']) {
+     let tHead = document.getElementsByClassName('FormacionAcademicaHead')[0]
+     let tBody = document.getElementsByClassName('FormacionAcademicaBody')[0]
+     for(let records of props.formsData.current['specificData']['FormacionAcademica']) {
+      let columnSchema = ['Nivel educativo','Indispensable','Deseable']
       let trBody = document.createElement('tr')
-      trBody.className = 'ResponsTr'
+      trBody.className = 'FormacionAcademicaTr'
       if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
-      for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
+      for(let column of columnSchema) {
+        let td=document.createElement('td')
+        if(['Indispensable','Deseable'].includes(column)){
+          if(records[column]){td.style.fontWeight = '900';td.style.padding = '0 0 0 10px';td.innerText='X'}
+          else{td.innerText=''}
+        }else{td.innerText=records[column]}
+        trBody.appendChild(td) }
+      // for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}      
       trBody.value=records['ID']
       trBody.style.backgroundColor = 'white'
       trBody.style.fontWeight = '400'
@@ -46,34 +35,41 @@ export default function FormacionAcademica (props) {
       if(e.target.parentElement.value){
        selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
       }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-      let trList = document.getElementsByClassName('ResponsTr') 
+      let trList = document.getElementsByClassName('FormacionAcademicaTr') 
       for (let tr of trList){if(tr!=e.target.parentElement){
        setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
       })      
       tBody.appendChild(trBody)
-     } }  },250)},[])
+     } }  
+     updateDeleteRecordButtonStatus()
+    },250)},[])
+
+ function updateDeleteRecordButtonStatus() {
+      let FormacionAcademicaBody = document.getElementsByClassName('FormacionAcademicaBody')[0]
+      setDisplayDeleteRecordButton(FormacionAcademicaBody && FormacionAcademicaBody.children.length? true:false)
+ }
 
  function HandleAdd() {
-  let Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]
-  let Responsabilidades_DescripcionInput = document.getElementsByClassName('Responsabilidades_DescripcionInput')[0]  
-  let responsHead = document.getElementsByClassName('responsHead')[0]    
-  let responsBody = document.getElementsByClassName('responsBody')[0]    
-  let data = [Responsabilidades_IDPuestoSelect,Responsabilidades_DescripcionInput]
-  let columns = ['Puesto','Responsabilidad']
+  let FormacionAcademica_NivelEducativo = document.getElementsByClassName('FormacionAcademica_NivelEducativo')[0]
+  let FormacionAcademicaHead = document.getElementsByClassName('FormacionAcademicaHead')[0]    
+  let FormacionAcademicaBody = document.getElementsByClassName('FormacionAcademicaBody')[0]  
+  let FormacionAcademicaIndispensable = document.getElementsByClassName('FormacionAcademicaIndispensable')[0]    
+  let FormacionAcademicaDeseable = document.getElementsByClassName('FormacionAcademicaDeseable')[0]      
+  let data = [FormacionAcademica_NivelEducativo,FormacionAcademicaIndispensable,FormacionAcademicaDeseable]
+  let columns = ['Nivel Educativo','Indispensable','Deseable']
   var trHead = document.createElement('tr')
   var trBody = document.createElement('tr')
-  trBody.className = 'ResponsTr'  
+  trBody.className = 'FormacionAcademicaTr'  
   trBody.style.backgroundColor = 'white'
   trBody.style.fontWeight = '400'  
   trBody.addEventListener('click',(e)=>{
     if(e.target.parentElement.value){
       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
     }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-    let trList = document.getElementsByClassName('ResponsTr') 
+    let trList = document.getElementsByClassName('FormacionAcademicaTr') 
     for (let tr of trList){if(tr!=e.target.parentElement){
      setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } } )  
   errorDataref.current = false
-
   for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
     let td = document.createElement('td');
     let th = document.createElement('th');
@@ -84,57 +80,69 @@ export default function FormacionAcademica (props) {
       errorDataref.current = true;
       trBody.innerHTML = '';
     }
-    if(!errorDataref.current){if(data[dataCounter].className.includes('ID')){td.innerText=JSON.parse(data[dataCounter].value)['Descripcion']}else{td.innerText = data[dataCounter].value};trBody.appendChild(td)}
-  }
+    if(!errorDataref.current){
+       const TdMarkStyles = (td) => {
+        td.style.fontWeight = '900'
+        td.style.padding = '0 0 0 10px'
+        td.innerText='X'
+       }
+     if(data[dataCounter].className.includes('ID')){td.innerText=JSON.parse(data[dataCounter].value)['Descripcion']}else{
+      td.innerText = data[dataCounter].value
+      if(data[dataCounter].className == 'FormacionAcademicaIndispensable'){FormacionAcademicaIndispensable.checked? TdMarkStyles(td):td.innerText=''}
+      else if(data[dataCounter].className == 'FormacionAcademicaDeseable'){FormacionAcademicaDeseable.checked? TdMarkStyles(td):td.innerText=''} }
+      trBody.appendChild(td)} }
   if(!errorDataref.current) {
-   let parsedOptionValue = JSON.parse(Responsabilidades_IDPuestoSelect.value)    
-   props.backenData.current['Responsabilidades'].push({'IDPuesto':parsedOptionValue['pk'],'Descripcion':Responsabilidades_DescripcionInput.value,'elementHtml':trBody.innerHTML});
-   props.summaryData.current['Responsabilidades'][trBody.innerHTML] = {'Puesto':parsedOptionValue['Descripcion'],'Descripcion':Responsabilidades_DescripcionInput.value}      
-   Responsabilidades_IDPuestoSelect.value = '';
-   Responsabilidades_DescripcionInput.value = '';
+  //  let parsedOptionValue = JSON.parse(FormacionAcademica_NivelEducativo.value)    
+   props.backenData.current['FormacionAcademica'].push({'Descri':FormacionAcademica_NivelEducativo.value,'Indispensable':FormacionAcademicaIndispensable.checked,'Deseable':FormacionAcademicaDeseable.checked,'elementHtml':trBody.innerHTML});
+   props.summaryData.current['FormacionAcademica'][trBody.innerHTML] = {'Descri':FormacionAcademica_NivelEducativo.value,'Indispensable':FormacionAcademicaIndispensable.checked,'Deseable':FormacionAcademicaDeseable.checked,'elementHtml':trBody.innerHTML}
+   FormacionAcademica_NivelEducativo.value = '';
+   FormacionAcademicaIndispensable.checked = false
+   FormacionAcademicaDeseable.checked = false
   }
-  responsBody.appendChild(trBody)
-  !responsHead.children.length?responsHead.appendChild(trHead):void 0
+  FormacionAcademicaBody.appendChild(trBody)
+  !FormacionAcademicaHead.children.length?FormacionAcademicaHead.appendChild(trHead):void 0
+  updateDeleteRecordButtonStatus()
  }
 
  function handleRecordRemove(){
   if(!selectedTableRecord.current){return}
   if(Object.keys(selectedTableRecord.current).includes('recordToDeleteId')){
-   props.backenData.current['recordsToDelete'].push({'Responsabilidades':selectedTableRecord.current['recordToDeleteId']})
-   Object.keys(props.summaryData.current['recordsToDelete']).includes('Responsabilidades')? props.summaryData.current['recordsToDelete']['Responsabilidades'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['Responsabilidades']=[selectedTableRecord.current['record']]   
+   props.backenData.current['recordsToDelete'].push({'FormacionAcademica':selectedTableRecord.current['recordToDeleteId']})
+   Object.keys(props.summaryData.current['recordsToDelete']).includes('FormacionAcademica')? props.summaryData.current['recordsToDelete']['FormacionAcademica'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['FormacionAcademica']=[selectedTableRecord.current['record']]   
   }else{
     if(selectedTableRecord.current['record']){
-      Object.keys(props.summaryData.current['Responsabilidades']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['Responsabilidades'][selectedTableRecord.current['record'].innerHTML]})():void 0      
-     for(let counter=0;counter<=props.backenData.current['Responsabilidades'].length-1;counter++){
-      let currentRecordToCreate = props.backenData.current['Responsabilidades'][counter]
-      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['Responsabilidades'].splice(counter,1)}
+      Object.keys(props.summaryData.current['FormacionAcademica']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['FormacionAcademica'][selectedTableRecord.current['record'].innerHTML]})():void 0      
+     for(let counter=0;counter<=props.backenData.current['FormacionAcademica'].length-1;counter++){
+      let currentRecordToCreate = props.backenData.current['FormacionAcademica'][counter]
+      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['FormacionAcademica'].splice(counter,1)}
     }}}
-  if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
+  if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'} 
+  updateDeleteRecordButtonStatus()   
   }
 
  function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}  
 
  return (
-  <div className="Secciòn_FuncionesDelPuesto">
+  <div className="Secciòn_FormacionAcademica">
    <h2 className='responsTitle' style={{'fontWeight':'900'}}>9. Perfil del Puesto</h2>   
    <h5 className='responsTitle' style={{'fontWeight':'900'}}>9.1. Formación académica</h5>
    <h4 className='responsTitle'>Nivel educativo:</h4>   
-   <input type='text' className='Identificacion_CodigoDepar Anexos_NumInput' placeholder='Nivel educativo'/> 
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
+   <input type='text' className='FormacionAcademica_NivelEducativo' placeholder='Nivel educativo' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}/> 
    <br/>
    <br/>
    <fieldset>
-    <input type='radio' id='Indispensable' name='formacionAcademica' value='Indispensable'/>
-    <label for='Indispensable' style={{'margin':'0 0 0 8px'}}>Indispensable</label>
+    <input type='radio' id='FormacionAcademicaIndispensable' name='FormacionAcademica' value='Indispensable' className='FormacionAcademicaIndispensable'/>
+    <label for='FormacionAcademicaIndispensable' style={{'margin':'0 0 0 8px'}}>Indispensable</label>
     <br/>
-    <input type='radio' id='Deseable' name='formacionAcademica' value='Deseable'/>
-    <label for='Deseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
+    <input type='radio' id='FormacionAcademicaDeseable' name='FormacionAcademica' value='Deseable' className='FormacionAcademicaDeseable'/>
+    <label for='FormacionAcademicaDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
    </fieldset> 
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <table className='responsTable'>
-    <thead className='responsHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
-    <tbody className='responsBody'></tbody>
+   <table className='FormacionAcademicaTable'>
+    <thead className='FormacionAcademicaHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
+    <tbody className='FormacionAcademicaBody'></tbody>
    </table>
-   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}   
+   {displayDeleteRecordButton && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>} 
    <br/>
    <hr/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}

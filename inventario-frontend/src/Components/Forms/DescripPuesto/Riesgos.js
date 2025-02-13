@@ -8,50 +8,50 @@ export default function Riesgos (props) {
  const [inlineForm,setInlineForm] = useState(false); 
  var errorDataref = useRef(false);
  var selectedTableRecord = useRef(undefined);
- const tableRecordsNumber = useRef(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades'] && 
-  props.formsData.specificData['Responsabilidades'].length > 0)
+ const tableRecordsNumber = useRef(props.formsData && props.formsData.specificData && props.formsData.specificData['Riesgos'] && 
+  props.formsData.specificData['Riesgos'].length > 0)
 
- useEffect(() => {
-  setTimeout(() => {
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
-      {
-        'method':'POST',
-        'headers':{'Content-Type':'application/json'},
-        body:JSON.stringify({'mode':'fillForm'})
-      })
-    .then(e => e.json())
-    .then(data => {
-     var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Identificacion_IDPuestoSelectReporta')[0]
-     for(let respons of data['Puestos']) {
-      let option = document.createElement('option')
-      option.value = `{"pk":"${respons['ID']}","Descripcion":"${respons['Descripcion']}"}`      
-      option.innerText = `${respons.Descripcion}`
-      Responsabilidades_IDPuestoSelect.appendChild(option)
-     }
-     Responsabilidades_IDPuestoSelect.value = ''
-    }) 
-    if(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades']) {
-     let tHead = document.getElementsByClassName('responsHead')[0]
-     let tBody = document.getElementsByClassName('responsBody')[0]
-     for(let records of props.formsData.specificData['Responsabilidades']) {
-      let columnSchema = ['IDPuesto','Descripcion']
-      let trBody = document.createElement('tr')
-      trBody.className = 'ResponsTr'
-      if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
-      for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
-      trBody.value=records['ID']
-      trBody.style.backgroundColor = 'white'
-      trBody.style.fontWeight = '400'
-      trBody.addEventListener('click',(e)=>{
-      if(e.target.parentElement.value){
-       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-      }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-      let trList = document.getElementsByClassName('ResponsTr') 
-      for (let tr of trList){if(tr!=e.target.parentElement){
-       setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
-      })      
-      tBody.appendChild(trBody)
-     } }  },250)},[])
+//  useEffect(() => {
+//   setTimeout(() => {
+//     fetch(`http://${window.location.hostname}:8000/procedimiento/`,
+//       {
+//         'method':'POST',
+//         'headers':{'Content-Type':'application/json'},
+//         body:JSON.stringify({'mode':'fillForm'})
+//       })
+//     .then(e => e.json())
+//     .then(data => {
+//      var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Identificacion_IDPuestoSelectReporta')[0]
+//      for(let respons of data['Puestos']) {
+//       let option = document.createElement('option')
+//       option.value = `{"pk":"${respons['ID']}","Descripcion":"${respons['Descripcion']}"}`      
+//       option.innerText = `${respons.Descripcion}`
+//       Responsabilidades_IDPuestoSelect.appendChild(option)
+//      }
+//      Responsabilidades_IDPuestoSelect.value = ''
+//     }) 
+//     if(props.formsData && props.formsData.specificData && props.formsData.specificData['Riesgos']) {
+//      let tHead = document.getElementsByClassName('responsHead')[0]
+//      let tBody = document.getElementsByClassName('responsBody')[0]
+//      for(let records of props.formsData.specificData['Riesgos']) {
+//       let columnSchema = ['IDPuesto','Descripcion']
+//       let trBody = document.createElement('tr')
+//       trBody.className = 'ResponsTr'
+//       if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
+//       for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
+//       trBody.value=records['ID']
+//       trBody.style.backgroundColor = 'white'
+//       trBody.style.fontWeight = '400'
+//       trBody.addEventListener('click',(e)=>{
+//       if(e.target.parentElement.value){
+//        selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
+//       }else{selectedTableRecord.current = {'record':e.target.parentElement}}
+//       let trList = document.getElementsByClassName('ResponsTr') 
+//       for (let tr of trList){if(tr!=e.target.parentElement){
+//        setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
+//       })      
+//       tBody.appendChild(trBody)
+//      } }  },250)},[])
 
  function HandleAdd() {
   let Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]
@@ -88,8 +88,8 @@ export default function Riesgos (props) {
   }
   if(!errorDataref.current) {
    let parsedOptionValue = JSON.parse(Responsabilidades_IDPuestoSelect.value)    
-   props.backenData.current['Responsabilidades'].push({'IDPuesto':parsedOptionValue['pk'],'Descripcion':Responsabilidades_DescripcionInput.value,'elementHtml':trBody.innerHTML});
-   props.summaryData.current['Responsabilidades'][trBody.innerHTML] = {'Puesto':parsedOptionValue['Descripcion'],'Descripcion':Responsabilidades_DescripcionInput.value}      
+   props.backenData.current['Riesgos'].push({'Descri':Responsabilidades_DescripcionInput.value,'elementHtml':trBody.innerHTML});
+   props.summaryData.current['Riesgos'][trBody.innerHTML] = {'Descri':Responsabilidades_DescripcionInput.value}      
    Responsabilidades_IDPuestoSelect.value = '';
    Responsabilidades_DescripcionInput.value = '';
   }
@@ -100,14 +100,14 @@ export default function Riesgos (props) {
  function handleRecordRemove(){
   if(!selectedTableRecord.current){return}
   if(Object.keys(selectedTableRecord.current).includes('recordToDeleteId')){
-   props.backenData.current['recordsToDelete'].push({'Responsabilidades':selectedTableRecord.current['recordToDeleteId']})
-   Object.keys(props.summaryData.current['recordsToDelete']).includes('Responsabilidades')? props.summaryData.current['recordsToDelete']['Responsabilidades'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['Responsabilidades']=[selectedTableRecord.current['record']]   
+   props.backenData.current['recordsToDelete'].push({'Riesgos':selectedTableRecord.current['recordToDeleteId']})
+   Object.keys(props.summaryData.current['recordsToDelete']).includes('Riesgos')? props.summaryData.current['recordsToDelete']['Riesgos'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['Riesgos']=[selectedTableRecord.current['record']]   
   }else{
     if(selectedTableRecord.current['record']){
-      Object.keys(props.summaryData.current['Responsabilidades']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['Responsabilidades'][selectedTableRecord.current['record'].innerHTML]})():void 0      
-     for(let counter=0;counter<=props.backenData.current['Responsabilidades'].length-1;counter++){
-      let currentRecordToCreate = props.backenData.current['Responsabilidades'][counter]
-      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['Responsabilidades'].splice(counter,1)}
+      Object.keys(props.summaryData.current['Riesgos']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['Riesgos'][selectedTableRecord.current['record'].innerHTML]})():void 0      
+     for(let counter=0;counter<=props.backenData.current['Riesgos'].length-1;counter++){
+      let currentRecordToCreate = props.backenData.current['Riesgos'][counter]
+      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['Riesgos'].splice(counter,1)}
     }}}
   if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
   }

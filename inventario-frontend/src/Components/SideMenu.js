@@ -14,7 +14,7 @@ export default function SideMenu(props) {
      <button onClick={() => props.setTableName('puestos')} className='sideMenuButton'>Puestos</button>
      {/* <button onClick={() => props.setTableName('responsabilidades')} className='sideMenuButton'>Responsabilidades</button> */}
      <button onClick={() => props.setTableName('termino')} className='sideMenuButton'>Termino</button>
-     <button onClick={() => props.setTableName('puestodescripcion')} className='sideMenuButton'>Descripción de puesto</button>
+     <button onClick={() => props.setTableName('puestodescripcion')} className='sideMenuButton' style={{'fontSize':'1vw'}}>Descripción de puesto</button>
      {/* <button onClick={() => props.setTableName('terminologiasdef')} className='sideMenuButton'>Terminologias def</button>      */}
      {/* <button onClick={() => props.setTableName('descripcionesprocedimiento')} className='sideMenuButton'>Descripciones proc</button>      */}
      {/* <button onClick={() => props.setTableName('subdescripciones')} className='sideMenuButton'>Subdescripciones</button> */}

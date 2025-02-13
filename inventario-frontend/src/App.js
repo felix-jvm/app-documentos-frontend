@@ -74,7 +74,7 @@ function App() {
                                 Registros
                             </div>
                             <div className="card-body">
-                             {tableName && <Table data={data} tableName={tableName} setTableName={setTableName} setData={setData} setProcedData={setProcedData}/>}                           
+                             {tableName && <Table data={data} tableName={tableName} setTableName={setTableName} setProcedData={setProcedData}/>}                           
                             </div>
                         </div>
                     </div>

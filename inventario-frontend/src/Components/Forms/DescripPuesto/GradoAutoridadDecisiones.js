@@ -6,37 +6,19 @@ import ConfirmationModal from '../../ConfirmationModal';
 export default function GradoAutoridadDecisiones (props) {
  const [modalErrorData,setModalErrorData] = useState(false); 
  const [inlineForm,setInlineForm] = useState(false); 
+ const [displayDeleteRecordButton,setDisplayDeleteRecordButton] = useState(false); 
  var errorDataref = useRef(false);
  var selectedTableRecord = useRef(undefined);
- const tableRecordsNumber = useRef(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades'] && 
-  props.formsData.specificData['Responsabilidades'].length > 0)
 
  useEffect(() => {
   setTimeout(() => {
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,
-      {
-        'method':'POST',
-        'headers':{'Content-Type':'application/json'},
-        body:JSON.stringify({'mode':'fillForm'})
-      })
-    .then(e => e.json())
-    .then(data => {
-     var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Identificacion_IDPuestoSelectReporta')[0]
-     for(let respons of data['Puestos']) {
-      let option = document.createElement('option')
-      option.value = `{"pk":"${respons['ID']}","Descripcion":"${respons['Descripcion']}"}`      
-      option.innerText = `${respons.Descripcion}`
-      Responsabilidades_IDPuestoSelect.appendChild(option)
-     }
-     Responsabilidades_IDPuestoSelect.value = ''
-    }) 
-    if(props.formsData && props.formsData.specificData && props.formsData.specificData['Responsabilidades']) {
-     let tHead = document.getElementsByClassName('responsHead')[0]
-     let tBody = document.getElementsByClassName('responsBody')[0]
-     for(let records of props.formsData.specificData['Responsabilidades']) {
-      let columnSchema = ['IDPuesto','Descripcion']
+    if(props.formsData.current['specificData'] && props.formsData.current['specificData']['GradoAutoridadDecisiones']) {
+     let tHead = document.getElementsByClassName('GradoAutoridadDecisionesHead')[0]
+     let tBody = document.getElementsByClassName('GradoAutoridadDecisionesBody')[0]
+     for(let records of props.formsData.current['specificData']['GradoAutoridadDecisiones']) {
+      let columnSchema = ['Descripción']
       let trBody = document.createElement('tr')
-      trBody.className = 'ResponsTr'
+      trBody.className = 'GradoAutoridadDecisionesTr'
       if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
       for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
       trBody.value=records['ID']
@@ -46,34 +28,39 @@ export default function GradoAutoridadDecisiones (props) {
       if(e.target.parentElement.value){
        selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
       }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-      let trList = document.getElementsByClassName('ResponsTr') 
+      let trList = document.getElementsByClassName('GradoAutoridadDecisionesTr') 
       for (let tr of trList){if(tr!=e.target.parentElement){
        setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
       })      
       tBody.appendChild(trBody)
-     } }  },250)},[])
+     } }  
+     updateDeleteRecordButtonStatus()
+    },250)},[])
+
+ function updateDeleteRecordButtonStatus() {
+  let GradoAutoridadDecisionesBody = document.getElementsByClassName('GradoAutoridadDecisionesBody')[0]
+  setDisplayDeleteRecordButton(GradoAutoridadDecisionesBody && GradoAutoridadDecisionesBody.children.length? true:false)
+ }
 
  function HandleAdd() {
-  let Responsabilidades_IDPuestoSelect = document.getElementsByClassName('Responsabilidades_IDPuestoSelect')[0]
-  let Responsabilidades_DescripcionInput = document.getElementsByClassName('Responsabilidades_DescripcionInput')[0]  
-  let responsHead = document.getElementsByClassName('responsHead')[0]    
-  let responsBody = document.getElementsByClassName('responsBody')[0]    
-  let data = [Responsabilidades_IDPuestoSelect,Responsabilidades_DescripcionInput]
-  let columns = ['Puesto','Responsabilidad']
+  let GradoAutoridadDecisiones_Grado = document.getElementsByClassName('GradoAutoridadDecisiones_Grado')[0]
+  let GradoAutoridadDecisionesHead = document.getElementsByClassName('GradoAutoridadDecisionesHead')[0]    
+  let GradoAutoridadDecisionesBody = document.getElementsByClassName('GradoAutoridadDecisionesBody')[0]    
+  let data = [GradoAutoridadDecisiones_Grado]
+  let columns = ['Grado de autoridad']
   var trHead = document.createElement('tr')
   var trBody = document.createElement('tr')
-  trBody.className = 'ResponsTr'  
+  trBody.className = 'GradoAutoridadDecisionesTr'  
   trBody.style.backgroundColor = 'white'
   trBody.style.fontWeight = '400'  
   trBody.addEventListener('click',(e)=>{
     if(e.target.parentElement.value){
       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
     }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-    let trList = document.getElementsByClassName('ResponsTr') 
+    let trList = document.getElementsByClassName('GradoAutoridadDecisionesTr') 
     for (let tr of trList){if(tr!=e.target.parentElement){
      setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } } )  
   errorDataref.current = false
-
   for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
     let td = document.createElement('td');
     let th = document.createElement('th');
@@ -87,44 +74,46 @@ export default function GradoAutoridadDecisiones (props) {
     if(!errorDataref.current){if(data[dataCounter].className.includes('ID')){td.innerText=JSON.parse(data[dataCounter].value)['Descripcion']}else{td.innerText = data[dataCounter].value};trBody.appendChild(td)}
   }
   if(!errorDataref.current) {
-   let parsedOptionValue = JSON.parse(Responsabilidades_IDPuestoSelect.value)    
-   props.backenData.current['Responsabilidades'].push({'IDPuesto':parsedOptionValue['pk'],'Descripcion':Responsabilidades_DescripcionInput.value,'elementHtml':trBody.innerHTML});
-   props.summaryData.current['Responsabilidades'][trBody.innerHTML] = {'Puesto':parsedOptionValue['Descripcion'],'Descripcion':Responsabilidades_DescripcionInput.value}      
-   Responsabilidades_IDPuestoSelect.value = '';
-   Responsabilidades_DescripcionInput.value = '';
+  //  let parsedOptionValue = JSON.parse(GradoAutoridadDecisiones_Grado.value)
+   props.backenData.current['GradoAutoridadDecisiones'].push({'Descri':GradoAutoridadDecisiones_Grado.value,'elementHtml':trBody.innerHTML});
+   props.summaryData.current['GradoAutoridadDecisiones'][trBody.innerHTML] = {'Descri':GradoAutoridadDecisiones_Grado.value}      
+   GradoAutoridadDecisiones_Grado.value = '';
   }
-  responsBody.appendChild(trBody)
-  !responsHead.children.length?responsHead.appendChild(trHead):void 0
+  GradoAutoridadDecisionesBody.appendChild(trBody)
+  !GradoAutoridadDecisionesHead.children.length?GradoAutoridadDecisionesHead.appendChild(trHead):void 0
+  updateDeleteRecordButtonStatus()
  }
 
  function handleRecordRemove(){
   if(!selectedTableRecord.current){return}
   if(Object.keys(selectedTableRecord.current).includes('recordToDeleteId')){
-   props.backenData.current['recordsToDelete'].push({'Responsabilidades':selectedTableRecord.current['recordToDeleteId']})
-   Object.keys(props.summaryData.current['recordsToDelete']).includes('Responsabilidades')? props.summaryData.current['recordsToDelete']['Responsabilidades'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['Responsabilidades']=[selectedTableRecord.current['record']]   
+   props.backenData.current['recordsToDelete'].push({'GradoAutoridadDecisiones':selectedTableRecord.current['recordToDeleteId']})
+   Object.keys(props.summaryData.current['recordsToDelete']).includes('GradoAutoridadDecisiones')? props.summaryData.current['recordsToDelete']['GradoAutoridadDecisiones'].push(selectedTableRecord.current['record']):props.summaryData.current['recordsToDelete']['GradoAutoridadDecisiones']=[selectedTableRecord.current['record']]   
   }else{
     if(selectedTableRecord.current['record']){
-      Object.keys(props.summaryData.current['Responsabilidades']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['Responsabilidades'][selectedTableRecord.current['record'].innerHTML]})():void 0      
-     for(let counter=0;counter<=props.backenData.current['Responsabilidades'].length-1;counter++){
-      let currentRecordToCreate = props.backenData.current['Responsabilidades'][counter]
-      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['Responsabilidades'].splice(counter,1)}
+      Object.keys(props.summaryData.current['GradoAutoridadDecisiones']).includes(selectedTableRecord.current['record'].innerHTML)? (()=>{delete props.summaryData.current['GradoAutoridadDecisiones'][selectedTableRecord.current['record'].innerHTML]})():void 0      
+     for(let counter=0;counter<=props.backenData.current['GradoAutoridadDecisiones'].length-1;counter++){
+      let currentRecordToCreate = props.backenData.current['GradoAutoridadDecisiones'][counter]
+      if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['GradoAutoridadDecisiones'].splice(counter,1)}
     }}}
   if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
+  updateDeleteRecordButtonStatus()
   }
 
  function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}  
 
  return (
-  <div className="Secciòn_FuncionesDelPuesto">
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>8.2. Grado de autoridad que ejerce en la toma de decisiones.</h5>
-   <h4 className='responsTitle'>Grado de autoridad:</h4>   
-   <textarea className='FuncionesDelPuesto_ObjetivoPuesto Responsabilidades_DescripcionInput' placeholder='Grado de autoridad'></textarea>   
+  <div className="Secciòn_GradoAutoridadDecisiones">
+   <h5 className='responsTitle' style={{'fontWeight':'900'}}>8.2. Grado de autoridad que ejerce en la toma de decisiones</h5>
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <table className='responsTable'>
-    <thead className='responsHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
-    <tbody className='responsBody'></tbody>
+   <h4 className='responsTitle'>Grado de autoridad:</h4>   
+   <textarea className='GradoAutoridadDecisiones_Grado' placeholder='Grado de autoridad'></textarea>   
+   <table className='GradoAutoridadDecisionesTable'>
+    <thead className='GradoAutoridadDecisionesHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
+    <tbody className='GradoAutoridadDecisionesBody'></tbody>
    </table>
-   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}   
+   {displayDeleteRecordButton && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}   
+   <br/>
    <hr/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
    icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
