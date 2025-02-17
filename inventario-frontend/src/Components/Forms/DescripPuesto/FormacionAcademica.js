@@ -138,7 +138,7 @@ export default function FormacionAcademica (props) {
     <input type='radio' id='FormacionAcademicaDeseable' name='FormacionAcademica' value='Deseable' className='FormacionAcademicaDeseable'/>
     <label for='FormacionAcademicaDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
    </fieldset> 
-   <table className='FormacionAcademicaTable'>
+   <table className='FormacionAcademicaTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='FormacionAcademicaHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='FormacionAcademicaBody'></tbody>
    </table>

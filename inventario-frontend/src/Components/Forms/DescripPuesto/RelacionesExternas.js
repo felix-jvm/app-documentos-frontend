@@ -128,7 +128,7 @@ export default function RelacionesExternas (props) {
    <br/>   
    <h4 className='responsTitle'>¿Para qué?</h4>
    <textarea className='RelacionesExternas_Objetivo' placeholder='Utilidad'></textarea>   
-   <table className='RelacionesExternasTable'>
+   <table className='RelacionesExternasTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='RelacionesExternasHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='RelacionesExternasBody'></tbody>
    </table>

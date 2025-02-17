@@ -132,7 +132,7 @@ export default function RelacionesInternas (props) {
    <h4 className='responsTitle'>¿Para qué?</h4>
    <textarea className='RelacionesInternas_Objetivo' placeholder='Utilidad'></textarea>   
    <br/>
-   <table className='RelacionesInternasTable'>
+   <table className='RelacionesInternasTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='RelacionesInternasHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='RelacionesInternasBody'></tbody>
    </table>

@@ -153,7 +153,7 @@ export default function CompeteActituLista (props) {
     <input type='radio' id='CompeteActituListaDeseable' name='CompeteActituLista' value='Deseable' className='CompeteActituListaDeseable'/>
     <label for='CompeteActituListaDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
    </fieldset>
-   <table className='CompeteActituListaTable'>
+   <table className='CompeteActituListaTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='CompeteActituListaHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='CompeteActituListaBody'></tbody>
    </table>

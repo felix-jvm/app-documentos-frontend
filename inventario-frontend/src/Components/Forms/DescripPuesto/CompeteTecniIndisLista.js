@@ -162,7 +162,7 @@ export default function CompeteTecniIndisLista (props) {
     <input type='radio' id='CompeteTecniIndisListaDominioBásico' className='CompeteTecniIndisListaDominioBásico' name='CompeteTecniIndisLista' value='Dominio Básico'/>
     <label for='CompeteTecniIndisListaDominioBásico' style={{'margin':'0 0 0 8px'}}>Dominio Básico</label>   
    </fieldset>
-   <table className='CompeteTecniIndisListaTable'>
+   <table className='CompeteTecniIndisListaTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='CompeteTecniIndisListaHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='CompeteTecniIndisListaBody'></tbody>
    </table>

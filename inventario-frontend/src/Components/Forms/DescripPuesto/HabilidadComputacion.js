@@ -152,7 +152,7 @@ export default function HabilidadComputacion (props) {
     <input type='radio' id='HabilidadComputacionDeseable' name='HabilidadComputacion' value='Deseable' className='HabilidadComputacionDeseable'/>
     <label for='HabilidadComputacionDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
    </fieldset> 
-   <table className='HabilidadComputacionTable'>
+   <table className='HabilidadComputacionTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='HabilidadComputacionHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='HabilidadComputacionBody'></tbody>
    </table>

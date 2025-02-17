@@ -18,6 +18,7 @@ export default function FuncionesDelPuesto (props) {
        for(let records of props.formsData.current['specificData']['FuncionesPuesto']) {
         let columnSchema = ['Función','Resultado final']
         let trBody = document.createElement('tr')
+        trBody.style.margin = '150px'
         trBody.className = 'FuncionesDelPuestoTr'
         if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
         for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
@@ -114,7 +115,7 @@ export default function FuncionesDelPuesto (props) {
    <h4 className='responsTitle' style={{'display':'inline-block','margin':'0 5px 0 0'}}>Resultado Final</h4>
    <h6 style={{'display':'inline-block'}}>¿Para qué?:</h6>
    <textarea className='FuncionesDelPuesto_Resultado' placeholder='Resultado Final'></textarea>   
-   <table className='FuncionesDelPuestoTable'>
+   <table className='FuncionesDelPuestoTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='FuncionesDelPuestoHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='FuncionesDelPuestoBody'></tbody>
    </table>

@@ -167,7 +167,8 @@ export default function RevAprobacion (props) {
    <>
     <h2 style={{'fontWeight':'900'}}>{props.sectionNumber && props.sectionNumber}. Revisión y aprobación:</h2>
     <h4 className='revAprobacionNombreTitle AnexosNombreTitle'>Nombre:</h4>   
-    <textarea className='revAprobacionNombreInput Anexos_NombreInput' placeholder='Nombre de la persona'></textarea>
+    {props.inputWidth && <textarea style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`}} className='revAprobacionNombreInput Anexos_NombreInput' placeholder='Nombre de la persona'></textarea>}
+    {!props.inputWidth && <textarea className='revAprobacionNombreInput Anexos_NombreInput' placeholder='Nombre de la persona'></textarea>}
     <br/>
     <br/>
     <h4 className='revAprobacionFirmaTitle'>Firma:</h4>   
@@ -185,7 +186,8 @@ export default function RevAprobacion (props) {
     <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'puestos','revAprobacionPuestoInput')}}>Crear nuevo puesto</a>
     <br/>
     <h4 className='revAprobacionPuestoTitle'>Puesto:</h4>   
-    <select className='revAprobacionPuestoInput' style={{'marginTop':'1px'}}></select>
+    {props.inputWidth && <select style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`,'marginTop':'1px'}} className='revAprobacionPuestoInput'></select>}
+    {!props.inputWidth && <select className='revAprobacionPuestoInput' style={{'marginTop':'1px'}}></select>}
     <input type='submit' className='descripProcedAddButton revAprobAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'position':'absolute','left':'30%'}}/>            
     <br/>
     <table className='RevAprobacionTable'>

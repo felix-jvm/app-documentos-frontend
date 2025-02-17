@@ -61,8 +61,8 @@ export default function PuestoDescriMainCont (props) {
      <CompeteActituLista formsData={formsData} backenData={backenData} summaryData={summaryData} fullPuestoDescriData={fullPuestoDescriData}/>
      <CompeteTecniIndisLista formsData={formsData} backenData={backenData} summaryData={summaryData} fullPuestoDescriData={fullPuestoDescriData} setConfirmationModal={setConfirmationModal} formMainCont={formMainCont.current} refreshDataTable={refreshDataTable}/>
      <CondicionesFisicas formsData={formsData} backenData={backenData} summaryData={summaryData}/>
-     <RevAprobacion senData={fullPuestoDescriData} procedData={formsData} backenData={backenData} summaryData={summaryData} sectionNumber={'11'}/>
-     <HistorialCambios senData={fullPuestoDescriData} procedData={formsData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} sectionNumber={'12'}/>      
+     <RevAprobacion senData={fullPuestoDescriData} procedData={formsData} backenData={backenData} summaryData={summaryData} sectionNumber={'11'} inputWidth={'15'}/>
+     <HistorialCambios senData={fullPuestoDescriData} procedData={formsData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} sectionNumber={'12'} inputWidth={'15'}/>      
      <button className='saveProcButton saveProcedureButton' onClick={e=>{e.preventDefault();setFullPuestoDescriData(true)}}>Guardar datos</button>
      <button className='saveProcButton closeProcedureButton' onClick={e=>{
        props.callMode && props.callMode.current == 'update'? props.setUpdateForm(false):props.setCreationForm(false)

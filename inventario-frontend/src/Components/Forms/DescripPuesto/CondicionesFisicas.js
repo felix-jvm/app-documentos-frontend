@@ -158,7 +158,7 @@ export default function CondicionesFisicas (props) {
    <input type='text' className='CondicionesFisicas_Descripción' style={{'minWidth':'15%','maxWidth':'15%'}} placeholder='Descripción'/>     
    <br/>
    <br/>
-   <table className='CondicionesFisicasTable'>
+   <table className='CondicionesFisicasTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='CondicionesFisicasHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='CondicionesFisicasBody'></tbody>
    </table>

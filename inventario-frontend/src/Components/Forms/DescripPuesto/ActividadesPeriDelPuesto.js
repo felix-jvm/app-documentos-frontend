@@ -113,7 +113,7 @@ export default function ActividadesPeriDelPuesto (props) {
    <h4 className='responsTitle' style={{'display':'inline-block','margin':'0 5px 0 0'}}>Resultado Final</h4>
    <h6 style={{'display':'inline-block'}}>¿Por qué?:</h6>
    <textarea className='ActividadesPeriodicasDelPuesto_Resultado' placeholder='Resultado Final'></textarea>   
-   <table className='ActividadesPeriodicasDelPuestoTable'>
+   <table className='ActividadesPeriodicasDelPuestoTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='ActividadesPeriodicasDelPuestoHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='ActividadesPeriodicasDelPuestoBody'></tbody>
    </table>

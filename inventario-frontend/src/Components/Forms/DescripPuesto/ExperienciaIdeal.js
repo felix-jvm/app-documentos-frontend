@@ -151,7 +151,7 @@ export default function ExperienciaIdeal (props) {
     <input type='radio' id='ExperienciaIdealDeseable' name='ExperienciaIdeal' value='Deseable' className='ExperienciaIdealDeseable'/>
     <label for='ExperienciaIdealDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
    </fieldset> 
-   <table className='ExperienciaIdealTable'>
+   <table className='ExperienciaIdealTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='ExperienciaIdealHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='ExperienciaIdealBody'></tbody>
    </table>

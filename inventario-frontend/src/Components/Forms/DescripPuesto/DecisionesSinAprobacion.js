@@ -109,7 +109,7 @@ export default function DecisionesSinAprobacion (props) {
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
    <h4 className='responsTitle'>Decisiones:</h4>   
    <textarea className='DecisionesSinAprobacion_Decisión' placeholder='Descripción de la decisión'></textarea>   
-   <table className='DecisionesSinAprobacionTable'>
+   <table className='DecisionesSinAprobacionTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='DecisionesSinAprobacionHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='DecisionesSinAprobacionBody'></tbody>
    </table>

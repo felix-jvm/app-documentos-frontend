@@ -110,12 +110,14 @@ export default function HistorialCambios (props) {
  return (
   <>
    <h2 style={{'fontWeight':'900'}}>{props.sectionNumber && props.sectionNumber}. Historial de cambios:</h2>
-   <h4 className='historialCambioFechaTitle'>Fecha:</h4>   
-   <input type='date' className='HistorialCambios_FechaInput'/>
+   <h4 className='historialCambioFechaTitle'>Fecha:</h4>
+   {props.inputWidth && <input type='date' style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`}} className='HistorialCambios_FechaInput'/>}   
+   {!props.inputWidth && <input type='date' className='HistorialCambios_FechaInput'/>}
     <br/>
     <br/>
    <h4 className='historialCambioVersionTitle'>Versión:</h4>   
-   <input type='number' className='HistorialCambios_VersionInput' placeholder='Versión del cambio' step='.01'/>
+   {props.inputWidth && <input type='number' style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`}} className='HistorialCambios_VersionInput' placeholder='Versión del cambio' step='.01'/>}
+   {!props.inputWidth && <input type='number' className='HistorialCambios_VersionInput' placeholder='Versión del cambio' step='.01'/>}
    <h4 className='historialCambioDescripcionTitle'>Descripción:</h4>   
    <textarea className='HistorialCambios_DescripcionInput' placeholder='Razón por la que se realizó el cambio'></textarea>
    <br/>

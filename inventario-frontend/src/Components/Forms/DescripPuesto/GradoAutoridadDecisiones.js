@@ -108,7 +108,7 @@ export default function GradoAutoridadDecisiones (props) {
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
    <h4 className='responsTitle'>Grado de autoridad:</h4>   
    <textarea className='GradoAutoridadDecisiones_Grado' placeholder='Grado de autoridad'></textarea>   
-   <table className='GradoAutoridadDecisionesTable'>
+   <table className='GradoAutoridadDecisionesTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='GradoAutoridadDecisionesHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='GradoAutoridadDecisionesBody'></tbody>
    </table>
