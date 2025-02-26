@@ -10,6 +10,7 @@ import ResponRecYMateriales from './ResponRecYMateriales';
 import DecisionesSinAprobacion from './DecisionesSinAprobacion';
 import GradoAutoridadDecisiones from './GradoAutoridadDecisiones';
 import FormacionAcademica from './FormacionAcademica';
+import Idiomas from './Idiomas';
 import HabilidadComputacion from './HabilidadComputacion';
 import ExperienciaIdeal from './ExperienciaIdeal';
 import CompeteActituLista from './CompeteActituLista';
@@ -25,7 +26,7 @@ export default function PuestoDescriMainCont (props) {
   var refreshDataTable = useRef(false);
   var formsData = useRef(false);
   var formMainCont = useRef(false);
-  var backenData = useRef({'DescripcionPuesto':{},'FuncionesPuesto':[],'ActividadesPeriodicasPuesto':[],'RelacionesInternas':[],'RelacionesExternas':[],'ResponRecurYMateriales':[],'DecisionesSinAprobacion':[],'GradoAutoridadDecisiones':[],'FormacionAcademica':[],'Idiomas':[],'IdiomasHabilidades':[],'Computacion':[],'ExperienciaIdeal':[],'CompeteActituLista':[],'CompeteTecniIndisLista':[],'CondicionesFisicas':[],'Riesgos':[],'RevAprobacion':[{'empty':false}],'HistorialCambios':[],'recordsToDelete':[]});
+  var backenData = useRef({'DescripcionPuesto':{},'FuncionesPuesto':[],'ActividadesPeriodicasPuesto':[],'RelacionesInternas':[],'RelacionesExternas':[],'ResponRecurYMateriales':[],'DecisionesSinAprobacion':[],'GradoAutoridadDecisiones':[],'FormacionAcademica':[],'Idiomas':{},'IdiomasHabilidades':[],'Computacion':[],'ExperienciaIdeal':[],'CompeteActituLista':[],'CompeteTecniIndisLista':[],'CondicionesFisicas':[],'Riesgos':[],'RevAprobacion':[{'empty':false}],'HistorialCambios':[],'recordsToDelete':[]});
   var summaryData = useRef({'DescripcionPuesto':{},'FuncionesPuesto':[],'ActividadesPeriodicasPuesto':[],'RelacionesInternas':[],'RelacionesExternas':[],'ResponRecurYMateriales':[],'DecisionesSinAprobacion':[],'GradoAutoridadDecisiones':[],'FormacionAcademica':[],'Idiomas':[],'IdiomasHabilidades':[],'Computacion':[],'ExperienciaIdeal':[],'CompeteActituLista':[],'CompeteTecniIndisLista':[],'CondicionesFisicas':[],'Riesgos':[],'RevAprobacion':[{'empty':false}],'HistorialCambios':[],'recordsToDelete':{}});
   // if(props.procedData && props.procedData.specificProced){backenData.current={'specificProced':props.procedData.specificProced,...backenData.current}}
   backenData.current = props.callMode && props.callMode.current == 'update'? {'puestoDescriCode':props.updateElementId.current,...backenData.current}:backenData.current
@@ -56,6 +57,7 @@ export default function PuestoDescriMainCont (props) {
      <DecisionesSinAprobacion formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <GradoAutoridadDecisiones formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <FormacionAcademica formsData={formsData} backenData={backenData} summaryData={summaryData}/>
+     <Idiomas formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <HabilidadComputacion formsData={formsData} backenData={backenData} summaryData={summaryData}/>     
      <ExperienciaIdeal formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <CompeteActituLista formsData={formsData} backenData={backenData} summaryData={summaryData} fullPuestoDescriData={fullPuestoDescriData}/>

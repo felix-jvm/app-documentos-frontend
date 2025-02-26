@@ -125,7 +125,7 @@
  max-width:max-content;
 }
 
-.DocumentosReferencias_IDDocumentoSelect, .Responsabilidades_IDPuestoSelect, .revAprobacionPuestoInput, .TerminologiasDef_IDTermino, .Identificacion_CodigoSelect, .Identificacion_TituloSelect, .Identificacion_ReportaASelect, .Identificacion_DepartamentoSelect, .RelacionesInternas_PuestoSelectID, .RelacionesExternas_PuestoSelectID, .HabilidadComputacion_GradoID, .ExperienciaIdeal_DetalleID, .CondicionesFisicas_TipoID {
+.DocumentosReferencias_IDDocumentoSelect, .Responsabilidades_IDPuestoSelect, .revAprobacionPuestoInput, .TerminologiasDef_IDTermino, .Identificacion_CodigoSelect, .Identificacion_TituloSelect, .Identificacion_ReportaASelect, .Identificacion_DepartamentoSelect, .RelacionesInternas_PuestoSelectID, .RelacionesExternas_PuestoSelectID, .HabilidadComputacion_GradoID, .ExperienciaIdeal_DetalleID, .CondicionesFisicas_TipoID, .Idiomas_GradoID, .Idiomas_HabilidadID {
  display:inline-block; 
  position:absolute;
  margin: 0 0 0 3px;
@@ -207,7 +207,7 @@
  height:fit-content; 
 }
 
-.Anexos_NumInput, .Anexos_NombreInput, .FormacionAcademica_NivelEducativo, .HabilidadComputacion_ProgramaTecnologico, .ExperienciaIdeal_DetalleDescripcion, .CompeteActituLista_Competencia, .CompeteTecniIndisLista_Competencia, .CondicionesFisicas_Descripción, .Identificacion_CodigoDepartamento, .Identificacion_Ubicacion {
+.Anexos_NumInput, .Anexos_NombreInput, .FormacionAcademica_NivelEducativo, .HabilidadComputacion_ProgramaTecnologico, .ExperienciaIdeal_DetalleDescripcion, .CompeteActituLista_Competencia, .CompeteTecniIndisLista_Competencia, .CondicionesFisicas_Descripción, .Identificacion_CodigoDepartamento, .Identificacion_Ubicacion, .Idiomas_Idioma {
  display:inline-block;
  min-width:20%;   
  max-width:20%;   

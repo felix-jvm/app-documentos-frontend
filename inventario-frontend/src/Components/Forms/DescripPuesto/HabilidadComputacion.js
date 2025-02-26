@@ -130,7 +130,6 @@ export default function HabilidadComputacion (props) {
 
  return (
   <div className="Secciòn_HabilidadComputacion">
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>9.2. Conocimientos específicos</h5>
    <h5 className='responsTitle'>Computación</h5>   
    <h4 className='responsTitle'>Programa Tecnológico:</h4>
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
