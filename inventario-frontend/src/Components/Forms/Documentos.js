@@ -88,7 +88,7 @@ export default function Documentos (props) {
     function handleSelect(e){
       let tipoDoc = document.getElementsByClassName('tipoDoc')[0]
       let codigoText = document.getElementsByClassName('codigoText')[0]
-      let code = `${tipoDoc.value.split('-')[0]}-${e.target.value.split('-')[0]}`
+      let code = `${tipoDoc.value.split('-')[0].trim()}-${e.target.value.split('-')[0].trim()}`
       if(tipoDoc.value && e.target.value){
         fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
           method:'POST',

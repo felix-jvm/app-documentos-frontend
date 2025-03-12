@@ -125,7 +125,10 @@
  max-width:max-content;
 }
 
-.DocumentosReferencias_IDDocumentoSelect, .Responsabilidades_IDPuestoSelect, .revAprobacionPuestoInput, .TerminologiasDef_IDTermino, .Identificacion_CodigoSelect, .Identificacion_TituloSelect, .Identificacion_ReportaASelect, .Identificacion_DepartamentoSelect, .RelacionesInternas_PuestoSelectID, .RelacionesExternas_PuestoSelectID, .HabilidadComputacion_GradoID, .ExperienciaIdeal_DetalleID, .CondicionesFisicas_TipoID, .Idiomas_GradoID, .Idiomas_HabilidadID {
+.DocumentosReferencias_IDDocumentoSelect, .Responsabilidades_IDPuestoSelect, .revAprobacionPuestoInput, .TerminologiasDef_IDTermino, .Identificacion_CodigoSelect, 
+.Identificacion_TituloSelect, .Identificacion_ReportaASelect, .Identificacion_DepartamentoSelect, .RelacionesInternas_PuestoSelectID, 
+.RelacionesExternas_PuestoSelectID, .HabilidadComputacion_GradoID, .ExperienciaIdeal_DetalleID, .CondicionesFisicas_TipoID, .Idiomas_GradoID, 
+.Idiomas_HabilidadID, .DescripcionesPuesto_puestoSelect, .ObjetivoGeneralManual_Codigo, .BoundManualesManual, .BoundProcedimiento {
  display:inline-block; 
  position:absolute;
  margin: 0 0 0 3px;
@@ -153,7 +156,14 @@
  height:fit-content;
 }
 
-.Responsabilidades_DescripcionInput, .TerminologiasDef_DescripcionInput, .DescripcionesProcedimiento_DescripcionInput, .HistorialCambios_DescripcionInput, .RelacionesInternas_Objetivo, .RelacionesExternas_Objetivo, .ResponsabilidadesDeRecursosEconómicosYMateriales_Descripcion, .DecisionesSinAprobacion_Decisión, .GradoAutoridadDecisiones_Grado, .CompeteActituLista_Descripcion, .CompeteTecniIndisLista_Descripcion, .FuncionesDelPuesto_Resultado, .FuncionesDelPuesto_Funcion, .ActividadesPeriodicasDelPuesto_Actividades, .ActividadesPeriodicasDelPuesto_Resultado,.Identificacion_OrganigramaDescri, .Identificacion_ObjetivoPuesto {
+.Responsabilidades_DescripcionInput, .TerminologiasDef_DescripcionInput, .DescripcionesProcedimiento_DescripcionInput, .HistorialCambios_DescripcionInput, .RelacionesInternas_Objetivo, .RelacionesExternas_Objetivo,
+.ResponsabilidadesDeRecursosEconómicosYMateriales_Descripcion, .DecisionesSinAprobacion_Decisión, .GradoAutoridadDecisiones_Grado, .CompeteActituLista_Descripcion, .CompeteTecniIndisLista_Descripcion,
+.FuncionesDelPuesto_Resultado, .FuncionesDelPuesto_Funcion, .ActividadesPeriodicasDelPuesto_Actividades, .ActividadesPeriodicasDelPuesto_Resultado, .Identificacion_OrganigramaDescri, .Identificacion_ObjetivoPuesto,
+.ObjetivoGeneralManual_ObjetivoGeneralManualDescri, .ObjetivosEspecíficos_DescripciónOp, .ObjetivosEspecíficos_Objetivo, .ObjetivosEspecíficos_Alcance, .MarcoLegalRegulatorioDescripción, .ObjetivosUnidadNegocio_ObjetivoGeneralDescripción,
+.ObjetivosUnidadNegocio_ObjetivoEspecíficoDescripción, .MapaProceso_DescripcionGeneral, .MapaProceso_EstructuraProcesoDescripcion, .OrganigramaEstructuralFuncional_EstructuralDescri, .OrganigramaEstructuralFuncional_FuncionalDescri,
+.ClienteInterno_Necesidad,  .ClienteInterno_Expectativa, .ClienteExterno_Necesidad, .ClienteExterno_Expectativa, .ComunicacionInterna_tipocomunicacion, .ComunicacionExterna_tipocomunicacion,
+.Presupuesto_DescripcionGeneral, .Presupuesto_SegundaDescripcionGeneral, .Presupuesto_VariableDescripcion, .PresupuestoGastoPartidaDescripcion, .RendicionCuenta_DescripcionGeneral, .RendicionCuenta_SegundaDescripcionGeneral,
+.IndicadoresProceso_GestionRiesgoDescri {
  min-width:99.5%;
  max-width:99.5%;
  min-height:250px;
@@ -207,7 +217,7 @@
  height:fit-content; 
 }
 
-.Anexos_NumInput, .Anexos_NombreInput, .FormacionAcademica_NivelEducativo, .HabilidadComputacion_ProgramaTecnologico, .ExperienciaIdeal_DetalleDescripcion, .CompeteActituLista_Competencia, .CompeteTecniIndisLista_Competencia, .CondicionesFisicas_Descripción, .Identificacion_CodigoDepartamento, .Identificacion_Ubicacion, .Idiomas_Idioma {
+.Anexos_NumInput, .Anexos_NombreInput, .FormacionAcademica_NivelEducativo, .HabilidadComputacion_ProgramaTecnologico, .ExperienciaIdeal_DetalleDescripcion, .CompeteActituLista_Competencia, .CompeteTecniIndisLista_Competencia, .CondicionesFisicas_Descripción, .Identificacion_CodigoDepartamento, .Identificacion_Ubicacion, .Idiomas_Idioma, .ClienteInterno_Cliente, .ClienteExterno_Cliente, .ComunicacionInterna_periodicidad, .ComunicacionExterna_periodicidad, .Presupuesto_VariableSigla, .RendicionCuentaListaElementos_Descri {
  display:inline-block;
  min-width:20%;   
  max-width:20%;   

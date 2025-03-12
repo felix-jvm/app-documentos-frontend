@@ -7,7 +7,6 @@ export default function Idiomas (props) {
  useEffect(() => {
   setTimeout(() => {
     if(props.formsData.current['specificData'] && props.formsData.current['specificData']['Idiomas']) {
-     console.log('-------------------------xxxx>',props.formsData.current['specificData']['Idiomas'])
      let idiomasMainCont = document.getElementsByClassName('Secciòn_Idiomas')[0]
      for(let idioma of Object.keys(props.formsData.current['specificData']['Idiomas'])) {
       createIdiomaTable(idioma,idiomasMainCont,props.formsData.current['specificData']['Idiomas'][idioma])

@@ -25,12 +25,12 @@ export default function PuestoDescriMainCont (props) {
   const [fullPuestoDescriData,setFullPuestoDescriData] = useState(false);   
   var refreshDataTable = useRef(false);
   var formsData = useRef(false);
-  var formMainCont = useRef(false);
   var backenData = useRef({'DescripcionPuesto':{},'FuncionesPuesto':[],'ActividadesPeriodicasPuesto':[],'RelacionesInternas':[],'RelacionesExternas':[],'ResponRecurYMateriales':[],'DecisionesSinAprobacion':[],'GradoAutoridadDecisiones':[],'FormacionAcademica':[],'Idiomas':{},'IdiomasHabilidades':[],'Computacion':[],'ExperienciaIdeal':[],'CompeteActituLista':[],'CompeteTecniIndisLista':[],'CondicionesFisicas':[],'Riesgos':[],'RevAprobacion':[{'empty':false}],'HistorialCambios':[],'recordsToDelete':[]});
   var summaryData = useRef({'DescripcionPuesto':{},'FuncionesPuesto':[],'ActividadesPeriodicasPuesto':[],'RelacionesInternas':[],'RelacionesExternas':[],'ResponRecurYMateriales':[],'DecisionesSinAprobacion':[],'GradoAutoridadDecisiones':[],'FormacionAcademica':[],'Idiomas':[],'IdiomasHabilidades':[],'Computacion':[],'ExperienciaIdeal':[],'CompeteActituLista':[],'CompeteTecniIndisLista':[],'CondicionesFisicas':[],'Riesgos':[],'RevAprobacion':[{'empty':false}],'HistorialCambios':[],'recordsToDelete':{}});
+  // var formMainCont = useRef(false);
   // if(props.procedData && props.procedData.specificProced){backenData.current={'specificProced':props.procedData.specificProced,...backenData.current}}
   backenData.current = props.callMode && props.callMode.current == 'update'? {'puestoDescriCode':props.updateElementId.current,...backenData.current}:backenData.current
-  formMainCont.current = props.callMode && props.callMode.current == 'update'? props.setUpdateForm:props.setCreationForm
+  // formMainCont.current = props.callMode && props.callMode.current == 'update'? props.setUpdateForm:props.setCreationForm
   fetch(`http://${window.location.hostname}:8000/puestodescripcion/`,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -49,8 +49,8 @@ export default function PuestoDescriMainCont (props) {
    <div className='DescripPuestoMainCont'>
     <div className='DescripPuestoInnerCont'>
      <Identificacion formsData={formsData} backenData={backenData} summaryData={summaryData} fullPuestoDescriData={fullPuestoDescriData} updateElementId={props.updateElementId} setFullPuestoDescriData={setFullPuestoDescriData}/>
-     <FuncionesDelPuesto formsData={formsData} backenData={backenData} summaryData={summaryData} fullPuestoDescriData={fullPuestoDescriData}/>
-     <ActividadesPeriDelPuesto formsData={formsData} backenData={backenData} summaryData={summaryData} fullPuestoDescriData={fullPuestoDescriData}/>
+     <FuncionesDelPuesto formsData={formsData} backenData={backenData} summaryData={summaryData}/>
+     <ActividadesPeriDelPuesto formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <RelacionesInternas formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <RelacionesExternas formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <ResponRecYMateriales formsData={formsData} backenData={backenData} summaryData={summaryData}/>
@@ -61,7 +61,7 @@ export default function PuestoDescriMainCont (props) {
      <HabilidadComputacion formsData={formsData} backenData={backenData} summaryData={summaryData}/>     
      <ExperienciaIdeal formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <CompeteActituLista formsData={formsData} backenData={backenData} summaryData={summaryData} fullPuestoDescriData={fullPuestoDescriData}/>
-     <CompeteTecniIndisLista formsData={formsData} backenData={backenData} summaryData={summaryData} fullPuestoDescriData={fullPuestoDescriData} setConfirmationModal={setConfirmationModal} formMainCont={formMainCont.current} refreshDataTable={refreshDataTable}/>
+     <CompeteTecniIndisLista formsData={formsData} backenData={backenData} summaryData={summaryData} fullPuestoDescriData={fullPuestoDescriData} setConfirmationModal={setConfirmationModal} refreshDataTable={refreshDataTable}/>
      <CondicionesFisicas formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <RevAprobacion senData={fullPuestoDescriData} procedData={formsData} backenData={backenData} summaryData={summaryData} sectionNumber={'11'} inputWidth={'15'}/>
      <HistorialCambios senData={fullPuestoDescriData} procedData={formsData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} sectionNumber={'12'} inputWidth={'15'}/>      
