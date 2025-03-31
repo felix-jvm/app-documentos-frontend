@@ -79,7 +79,6 @@ export default function IndicadoresProceso (props) {
           // const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;    
           props.fileFormData.append('manualCode',manualCode)  
           props.fileFormData.append('mode','saveManualFiles') 
-          console.log('--------------->creta')
           fetch(`http://${window.location.hostname}:8000/manual/`,{
           method:'POST',
           body:props.fileFormData
