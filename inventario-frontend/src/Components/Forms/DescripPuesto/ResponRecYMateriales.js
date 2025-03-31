@@ -104,10 +104,12 @@ export default function ResponRecYMateriales (props) {
 
  return (
   <div className="Sección_ResponsabilidadesDeRecursosEconómicosYMateriales">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>7. Responsabilidades de Recursos Económicos y Materiales</h2>   
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <h4 className='responsPuestoTitle'>Recursos Económicos y Materiales:</h4>
-   <textarea className='ResponsabilidadesDeRecursosEconómicosYMateriales_Descripcion' placeholder='Recursos Económicos y Materiales'></textarea>   
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>7. Responsabilidades de Recursos Económicos y Materiales</h2>   
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Recursos Económicos y Materiales:</h4>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'marginLeft':'5px'}}/> 
+   <textarea className='ResponsabilidadesDeRecursosEconómicosYMateriales_Descripcion' placeholder='Recursos Económicos y Materiales'></textarea> 
+   <br/>
+   <br/>  
    <table className='ResponsabilidadesDeRecursosEconómicosYMaterialesTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='ResponsabilidadesDeRecursosEconómicosYMaterialesHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='ResponsabilidadesDeRecursosEconómicosYMaterialesBody'></tbody>

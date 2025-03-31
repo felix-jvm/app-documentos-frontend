@@ -48,7 +48,7 @@ export default function IndicadoresProceso (props) {
       })
       .then((res)=>{setIndicadorProcesoGestionRiesgoFileType(res.headers.get('Content-Type'));return res.blob()})
       .then((res)=>{if(res.type!='text/html'){setIndicadorProcesoGestionRiesgoFile(URL.createObjectURL(res))}})        
-    },500)
+    },1600)
 
     setTimeout(()=>{
       fetch(`http://${window.location.hostname}:8000/manual/`,{
@@ -58,28 +58,39 @@ export default function IndicadoresProceso (props) {
       })
       .then((res)=>{setIndicadorProcesoGestionFileType(res.headers.get('Content-Type'));return res.blob()})
       .then((res)=>{if(res.type!='text/html'){setIndicadorProcesoGestionFile(URL.createObjectURL(res))}})        
-    },600)
-    } },250)},[])  
+    },2000) } },250)},[])  
 
-    function handleImageSave(archive,mode) {
+    function handleImageSave(archive,attr,toSave=false) {
       setTimeout(()=>{
         if (archive) {
-         let manualCode = props.formsData.current['specificData']? props.formsData.current['specificData']['Manual']['ID']:''
-         const formData = new FormData()
-         formData.append('mode',mode)
-         formData.append('manualCode',manualCode)
-         formData.append('file',archive)  
-         fetch(`http://${window.location.hostname}:8000/manual/`,{
-            method:'POST',
-            body:formData
-         })} },400)    
-      }
+         //  let manualCode = props.formsData.current['specificData']? props.formsData.current['specificData']['Manual']['ID']:''
+        //  const formData = new FormData()
+        //  formData.append('mode',mode)
+        //  formData.append('manualCode',manualCode)
+        //  fetch(`http://${window.location.hostname}:8000/manual/`,{
+          //     method:'POST',
+          //     body:formData
+          //  })
+         props.fileFormData.append(`${attr}`,archive)
+        }
+        if(toSave){
+          let manual_CodigoElem = document.getElementsByClassName('ObjetivoGeneralManual_Codigo')[0]
+          let manualCode = JSON.parse(manual_CodigoElem.value)['pk'] || -1      
+          // const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;    
+          props.fileFormData.append('manualCode',manualCode)  
+          props.fileFormData.append('mode','saveManualFiles') 
+          console.log('--------------->creta')
+          fetch(`http://${window.location.hostname}:8000/manual/`,{
+          method:'POST',
+          body:props.fileFormData
+        })}
+      },800) }
 
    useEffect((() => {  
     if(props.fullManualData && props.backenData.current['Manual']['CodigoManual']) { 
      let GestionRiesgoDescri = document.getElementsByClassName('IndicadoresProceso_GestionRiesgoDescri')[0]    
      if(GestionRiesgoDescri.value){props.backenData.current['Manual']['IndicadorProcesoGestionRiesgoDescri']=GestionRiesgoDescri.value}
-     console.log('----->>',props.backenData.current)
+    //  console.log('----->>',props.backenData.current)
      fetch(`http://${window.location.hostname}:8000/manual/`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -91,9 +102,10 @@ export default function IndicadoresProceso (props) {
        setTimeout(()=>{
         props.setConfirmationModal(false)
         props.refreshDataTable(true)
-       },3000)}})
-     setTimeout(()=>{handleImageSave(indicadorProcesoGestionRiesgoArchive,'save_IndicadorProcesoGestionRiesgoFile')},500)
-     setTimeout(()=>{handleImageSave(indicadorProcesoGestionArchive,'save_indicadorProcesoGestionFile')},600)
+       },3000)}})  
+     setTimeout(()=>{handleImageSave(indicadorProcesoGestionRiesgoArchive,'IndicadorProcesoGestionRiesgoFile')},0)
+     setTimeout(()=>{handleImageSave(indicadorProcesoGestionArchive,'IndicadorProcesoGestion',true)},0)
+
     }}),[props.fullManualData])
 
     const handleImageUpload = (event,setImage,setArchive) => {
@@ -107,11 +119,11 @@ export default function IndicadoresProceso (props) {
    
  return (
   <div className="Secciòn_IndicadoresProceso">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>15.Indicadores del Proceso</h2>
-   <h5 style={{'fontWeight':'900','margin':'0 0 10px 0'}}>15.1. De Gestión</h5>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>15.Indicadores del Proceso</h2>
+   <h5 style={{'fontWeight':'900','margin':'0 0 10px 0','letterSpacing':'-1px'}}>15.1. De Gestión</h5>
    {/* <h5 className='responsTitle'>Descripción general:</h5>
    <textarea className='MapaProceso_DescripcionGeneral' placeholder='Descripción'></textarea>    */}
-   <h5 className='responsTitle'>Archivo:</h5>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1px'}}>Archivo:</h5>
    <input type="file" onChange={(e)=>{handleImageUpload(e,setIndicadorProcesoGestionFile,setIndicadorProcesoGestionArchive)}} className='sameLineInput'/>
    {indicadorProcesoGestionFile && indicadorProcesoGestionFileType === 'application/pdf'? (<embed src={indicadorProcesoGestionFile} type="application/pdf" width="90%" height="400" style={{'margin':'5px 0 4px 0'}} onClick={()=>{handleImageClick(setIndicadorProcesoGestionFile)}}/>):(
         indicadorProcesoGestionFile && (<img
@@ -123,10 +135,10 @@ export default function IndicadoresProceso (props) {
         />) )}
    <br/>
    <br/>         
-   <h5 style={{'fontWeight':'900','margin':'0 0 10px 0'}}>15.2. Gestión de riesgos</h5>
-   <h5 className='responsTitle'>Descripción general:</h5>
+   <h5 style={{'fontWeight':'900','margin':'0 0 10px 0','letterSpacing':'-1px'}}>15.2. Gestión de riesgos</h5>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1px'}}>Descripción general:</h5>
    <textarea className='IndicadoresProceso_GestionRiesgoDescri' placeholder='Descripción'></textarea>   
-   <h5 className='responsTitle'>Archivo:</h5>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1px'}}>Archivo:</h5>
    <input type="file" onChange={(e)=>{handleImageUpload(e,setIndicadorProcesoGestionRiesgoFile,setIndicadorProcesoGestionRiesgoArchive)}} className='sameLineInput'/>
    {indicadorProcesoGestionRiesgoFile && indicadorProcesoGestionRiesgoFileType === 'application/pdf'? (<embed src={indicadorProcesoGestionRiesgoFile} type="application/pdf" width="90%" height="400" style={{'margin':'5px 0 4px 0'}} onClick={()=>{handleImageClick(indicadorProcesoGestionRiesgoFile)}}/>):(
         indicadorProcesoGestionRiesgoFile && (<img

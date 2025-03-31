@@ -43,7 +43,7 @@ export default function DiagramaFlujo(props) {
 
  return (
    <>
-    <h2 style={{'fontWeight':'900'}}>7. Diagrama de flujo:</h2>
+    <h2 style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>7. Diagrama de flujo:</h2>
     <div>
       <input type="file" accept="image/*" onChange={handleImageUpload} style={{'marginLeft':'3px'}} className='diagramaFlujoInput'/>
       {image && (

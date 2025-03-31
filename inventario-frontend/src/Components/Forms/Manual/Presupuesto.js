@@ -118,18 +118,20 @@ export default function Presupuesto (props) {
 
  return (
   <div className="Secciòn_Presupuesto">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>12.Presupuesto</h2>
-   <h5 className='responsTitle'>Descripción general:</h5>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>12. Presupuesto</h2>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1px'}}>Descripción general:</h5>
    <textarea className='Presupuesto_DescripcionGeneral' placeholder='Descripción general'></textarea>   
    <br/>
    <br/>
-   <h4 className='responsTitle' style={{'fontWeight':'900'}}>Variable</h4>
-   <h5 className='responsTitle'  style={{'display':'inline-block','marginBottom':'20px'}}>Sigla:</h5>
-   <input type='submit' className='responsAddButton' value='Agregar variable' onClick={()=>{HandleAdd()}}/> 
-   <input type='text' className='Presupuesto_VariableSigla' placeholder='Sigla'  style={{'minWidth':'20%','maxWidth':'20%','display':'inline-block'}}/>  
+   <h4 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>Variable</h4>
+   <h5 className='responsTitle'  style={{'display':'inline-block','marginBottom':'20px','letterSpacing':'-1px','marginTop':'6px'}}>Sigla:</h5>
+   <input type='text' className='Presupuesto_VariableSigla' placeholder='Sigla'  style={{'minWidth':'20%','maxWidth':'20%','display':'inline-block','position':'relative','marginRight':'5px'}}/>  
+   <input type='submit' className='responsAddButton' value='Agregar variable' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'14px'}}/> 
    <br/>
-   <h5 className='responsTitle'>Descripción:</h5>
-   <textarea className='Presupuesto_VariableDescripcion' placeholder='Descripción'></textarea>    
+   <h5 className='responsTitle' style={{'letterSpacing':'-1px'}}>Descripción:</h5>
+   <textarea className='Presupuesto_VariableDescripcion' placeholder='Descripción'></textarea>  
+   <br/>
+   <br/>  
    <table className='PresupuestoTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='PresupuestoHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='PresupuestoBody'></tbody>
@@ -137,7 +139,7 @@ export default function Presupuesto (props) {
    {displayDeleteRecordButton && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}   
    <br/>
    <br/>
-   <h5 className='responsTitle'>Descripción general opcional:</h5>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1px'}}>Descripción general opcional:</h5>
    <textarea className='Presupuesto_SegundaDescripcionGeneral' placeholder='Descripción general opcional'></textarea>   
    <hr/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}

@@ -40,21 +40,24 @@ export default function MapaProceso (props) {
         })
         .then((res)=>{setEstructuraProcesoFileType(res.headers.get('Content-Type'));return res.blob()})
         .then((res)=>{if(res.type!='text/html'){setEstructuraProcesoFile(URL.createObjectURL(res))}})        
-      },200)
+      },500)
  } },250)},[])  
 
-  function handleImageSave(archive,mode) {
+  function handleImageSave(archive,attr) {
     setTimeout(()=>{
       if (archive) {
-       let manualCode = props.formsData.current['specificData']? props.formsData.current['specificData']['Manual']['ID']:''
-       const formData = new FormData()
-       formData.append('mode',mode)
-       formData.append('manualCode',manualCode)
-       formData.append('file',archive)  
-       fetch(`http://${window.location.hostname}:8000/manual/`,{
-          method:'POST',
-          body:formData
-       })} },400)    
+      //  let Manual_Codigo = document.getElementsByClassName('ObjetivoGeneralManual_Codigo')[0]
+      //  let manualCode = JSON.parse(Manual_Codigo.value)['pk'] || -1
+       //  let manualCode = props.formsData.current['specificData']? props.formsData.current['specificData']['Manual']['ID']:''
+      //  const formData = new FormData()
+      //  formData.append('mode',mode)
+      //  formData.append('manualCode',manualCode)
+      //  fetch(`http://${window.location.hostname}:8000/manual/`,{
+        //     method:'POST',
+        //     body:formData
+        //  })
+       props.fileFormData.append(`${attr}`,archive)  
+      } },0)    
     }
 
   useEffect((() => {  
@@ -63,8 +66,8 @@ export default function MapaProceso (props) {
      let EstructuraProcesoDescripcion = document.getElementsByClassName('MapaProceso_EstructuraProcesoDescripcion')[0]         
      if(DescripcionGeneral.value){props.backenData.current['Manual']['MapaProcesoDescri']=DescripcionGeneral.value}
      if(EstructuraProcesoDescripcion.value){props.backenData.current['Manual']['EstructuraProcesoDescri']=EstructuraProcesoDescripcion.value}
-     setTimeout(()=>{handleImageSave(mapaProcesoArchive,'save_mapaProcesoFile')},100)
-     setTimeout(()=>{handleImageSave(estructuraProcesoArchive,'save_estructuraProcesoFile')},200)
+     setTimeout(()=>{handleImageSave(mapaProcesoArchive,'MapaProcesoFile')},0)
+     setTimeout(()=>{handleImageSave(estructuraProcesoArchive,'EstructuraProcesoFile')},0)
    } }),[props.fullManualData])
 
   const handleImageUpload = (event,setImage,setArchive) => {
@@ -78,10 +81,10 @@ export default function MapaProceso (props) {
    
  return (
   <div className="Secciòn_MapaProceso">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>6. Mapa de proceso</h2>
-   <h5 className='responsTitle'>Descripción general:</h5>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>6. Mapa de proceso</h2>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Descripción general:</h5>
    <textarea className='MapaProceso_DescripcionGeneral' placeholder='Descripción'></textarea>   
-   <h5 className='responsTitle'>Archivo:</h5>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Archivo:</h5>
    <input type="file" onChange={(e)=>{handleImageUpload(e,setMapaProcesoFile,setMapaProcesoArchive)}} className='sameLineInput'/>
    {mapaProcesoFile && mapaProcesoFileType === 'application/pdf'? (<embed src={mapaProcesoFile} type="application/pdf" width="90%" height="400" style={{'margin':'5px 0 4px 0'}} onClick={()=>{handleImageClick(mapaProcesoFile)}}/>):(
         mapaProcesoFile && (<img
@@ -93,10 +96,10 @@ export default function MapaProceso (props) {
         />) )}
    <br/> 
    <br/>         
-   <h4 className='responsTitle' style={{'fontWeight':'900'}}>Estructura por procesos</h4>
-   <h5 className='responsTitle'>Descripción general:</h5>
+   <h4 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.5px'}}>Estructura por procesos</h4>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Descripción general:</h5>
    <textarea className='MapaProceso_EstructuraProcesoDescripcion' placeholder='Descripción'></textarea>   
-   <h5 className='responsTitle'>Archivo:</h5>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Archivo:</h5>
    <input type="file" onChange={(e)=>{handleImageUpload(e,setEstructuraProcesoFile,setEstructuraProcesoArchive)}} className='sameLineInput'/>
    {estructuraProcesoFile && estructuraProcesoFileType === 'application/pdf'? (<embed src={estructuraProcesoFile} type="application/pdf" width="90%" height="400" style={{'margin':'5px 0 4px 0'}} onClick={()=>{handleImageClick(estructuraProcesoFile)}}/>):(
         estructuraProcesoFile && (<img

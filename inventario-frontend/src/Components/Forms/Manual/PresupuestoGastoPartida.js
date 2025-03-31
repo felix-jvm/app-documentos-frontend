@@ -114,10 +114,12 @@ export default function PresupuestoGastoPartida (props) {
 
  return (
   <div className="Secciòn_PresupuestoGastoPartida">
-   <h4 className='responsTitle' style={{'fontWeight':'900'}}>Partida</h4>
-   <input type='submit' className='responsAddButton' value='Agregar partida' onClick={()=>{HandleAdd()}}/> 
-   <h5 className='responsTitle'>Descripción:</h5>   
-   <textarea className='PresupuestoGastoPartidaDescripcion' placeholder='Descripción'></textarea>   
+   <h4 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>Partida</h4>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1px','display':'inline-block'}}>Descripción:</h5>   
+   <input type='submit' className='responsAddButton' value='Agregar partida' onClick={()=>{HandleAdd()}} style={{'display':'inline-block'}}/> 
+   <textarea className='PresupuestoGastoPartidaDescripcion' placeholder='Descripción de la partida'></textarea>  
+   <br/>
+   <br/> 
    <table className='PresupuestoGastoPartidaTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='PresupuestoGastoPartidaHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='PresupuestoGastoPartidaBody'></tbody>

@@ -102,10 +102,12 @@ export default function MarcoLegalRegulatorio (props) {
 
  return (
   <div className="Secciòn_MarcoLegalRegulatorio">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>4. Marco legal y regulatorio</h2>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-2px'}}>4. Marco legal y regulatorio</h2>
+   <h5 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-1.7px'}}>Descripción:</h5>   
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <h5 className='responsTitle'>Descripción:</h5>   
-   <textarea className='MarcoLegalRegulatorioDescripción' placeholder='Descripción'></textarea>   
+   <textarea className='MarcoLegalRegulatorioDescripción' placeholder='Descripción'></textarea> 
+   <br/>
+   <br/>  
    <table className='MarcoLegalRegulatorioTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='MarcoLegalRegulatorioHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='MarcoLegalRegulatorioBody'></tbody>

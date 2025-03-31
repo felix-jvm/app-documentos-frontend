@@ -116,14 +116,18 @@ export default function TerminologiasDef (props) {
 
  return (
   <div className="Secciòn_Definiciòn_Terminologias">
-   <h2 className='terminDefTitle' style={{'fontWeight':'900'}}>5. Definición de terminologias:</h2>  
+   <h2 className='terminDefTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>5. Definición de terminologias:</h2>  
    <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'termino','TerminologiasDef_IDTermino')}}>Crear nuevo termino</a>   
    <br/>
-   <h4 className='terminDefTerminoTitle'>Termino:</h4>
-   <select className='TerminologiasDef_IDTermino' required={true}></select>
-   <input type='submit' className='terminDefAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
+   <h4 className='terminDefTerminoTitle' style={{'letterSpacing':'-1.7px'}}>Termino:</h4>
+   <select className='TerminologiasDef_IDTermino' required={true} style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'relative','marginRight':'5px'}}></select>
+   <input type='submit' className='terminDefAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'15px'}}/>
+   <br/>
+   <br/>
    <textarea className='TerminologiasDef_DescripcionInput' placeholder='Descripción del termino' required={true}></textarea>
-   <table className='terminDefTable'>
+   <br/>
+   <br/>
+   <table className='terminDefTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='terminDefHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='terminDefBody'></tbody>
    </table>    

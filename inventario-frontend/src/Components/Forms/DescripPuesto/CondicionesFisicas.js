@@ -48,6 +48,8 @@ export default function CondicionesFisicas (props) {
         tBody.appendChild(trBody)
       } tableSectionsCounter++} } 
       updateDeleteRecordButtonStatus() 
+      let CondicionesFisicas_Tipo = document.getElementsByClassName('CondicionesFisicas_TipoID')[0]   
+      CondicionesFisicas_Tipo.value = ''      
     },250)},[])
 
  function updateDeleteRecordButtonStatus() {
@@ -147,11 +149,11 @@ export default function CondicionesFisicas (props) {
   <div className="Secciòn_CondicionesFisicas">
    <h2 className='responsPuestoTitle' style={{'fontWeight':'900'}}>10. Condiciones de Trabajo Física, Ambientales y Riesgos</h2>
    <h4 className='responsTitle'>Tipo:</h4>   
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
-   <select className='CondicionesFisicas_TipoID' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}>
+   <select className='CondicionesFisicas_TipoID' required={true} style={{'minWidth':'15%','maxWidth':'15%','display':'inline-block','position':'relative','marginRight':'5px'}}>
     <option>Condición física</option>
     <option>Riesgo</option>
    </select>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'zIndex':'5000','display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px'}}/>
    <br/>
    <br/>
    <h4 className='responsTitle'>Descripción de la condición física o el riesgo:</h4>

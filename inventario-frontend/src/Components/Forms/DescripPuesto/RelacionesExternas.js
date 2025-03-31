@@ -121,13 +121,15 @@ export default function RelacionesExternas (props) {
 
  return (
   <div className="Secciòn_RelacionesExternas">
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>6.2. Relaciones Externas</h5>   
-   <h4 className='responsPuestoTitle'>Puesto:</h4>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <select className='RelacionesExternas_PuestoSelectID' required={true}></select>
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>6.2. Relaciones Externas</h5>   
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Puesto:</h4>
+   <select className='RelacionesExternas_PuestoSelectID' required={true} style={{'display':'inline-block','position':'relative','marginRight':'5px'}}></select>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'zIndex':'5000','display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px'}}/> 
    <br/>   
-   <h4 className='responsTitle'>¿Para qué?</h4>
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>¿Para qué?</h4>
    <textarea className='RelacionesExternas_Objetivo' placeholder='Utilidad'></textarea>   
+   <br/>
+   <br/>
    <table className='RelacionesExternasTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='RelacionesExternasHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='RelacionesExternasBody'></tbody>

@@ -9,9 +9,12 @@ export default function Idiomas (props) {
     if(props.formsData.current['specificData'] && props.formsData.current['specificData']['Idiomas']) {
      let idiomasMainCont = document.getElementsByClassName('Secciòn_Idiomas')[0]
      for(let idioma of Object.keys(props.formsData.current['specificData']['Idiomas'])) {
-      createIdiomaTable(idioma,idiomasMainCont,props.formsData.current['specificData']['Idiomas'][idioma])
-     }
-    } },250)},[])
+      createIdiomaTable(idioma,idiomasMainCont,props.formsData.current['specificData']['Idiomas'][idioma]) } }
+      let idiomasHabilidad = document.getElementsByClassName('Idiomas_HabilidadID')[0]
+      let idiomasGrado = document.getElementsByClassName('Idiomas_GradoID')[0]   
+      idiomasHabilidad.value = ''
+      idiomasGrado.value = ''     
+   },250)},[])
 
  function createIdiomaTable(idioma,idiomasMainCont,initialData=false) {
       let idiomaTableHeaders = ['','Grado','Indispensable','Deseable']   
@@ -123,7 +126,13 @@ export default function Idiomas (props) {
       'Descri':idiomasHabilidad.value,
       'Grado':idiomasGrado.value,
       'Indispensable':idiomasHabilidadIndispensable.checked,
-      'Deseable':idiomasHabilidadDeseable.checked} },50) } }
+      'Deseable':idiomasHabilidadDeseable.checked} 
+      idiomasHabilidad.value = ''
+      idiomasGrado.value = ''
+      idiomasHabilidadIndispensable.checked = false
+      idiomasHabilidadDeseable.checked = false
+
+   },50) } }
 
 //  function createIdiomaTable(idioma,idiomasMainCont,initialData=false) {
 //    let idiomaTableHeaders = ['','Grado','Indispensable','Deseable']   
@@ -213,14 +222,13 @@ export default function Idiomas (props) {
 
  return (
   <div className="Secciòn_Idiomas">
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>9.2. Conocimientos específicos</h5>    
-   <h5 className='responsTitle'>Idiomas</h5>   
-   <h4 className='responsTitle'>Idioma:</h4>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>9.2. Conocimientos específicos</h5>    
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Idiomas</h5>   
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Idioma:</h4> 
    <input type='text' className='Idiomas_Idioma' placeholder='Idioma' style={{'minWidth':'15%','maxWidth':'15%'}}/> 
    <br/>
    <br/>
-   <h4 className='responsTitle'>Habilidad:</h4>
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Habilidad:</h4>
    <select className='Idiomas_HabilidadID' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}>
    <option>Leer</option>
     <option>Hablar</option>
@@ -228,7 +236,7 @@ export default function Idiomas (props) {
    </select>  
    <br/> 
    <br/> 
-   <h4 className='responsTitle'>Grado:</h4>   
+   <h4 className='responsTitle' style={{'letterSpacing':'-1px'}}>Grado:</h4>   
    <select className='Idiomas_GradoID' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}>
    <option>A</option>
     <option>B</option>
@@ -242,7 +250,10 @@ export default function Idiomas (props) {
     <br/>
     <input type='radio' id='IdiomasHabilidadDeseable' name='Idiomas' value='Deseable' className='IdiomasHabilidadDeseable'/>
     <label for='IdiomasHabilidadDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
-   </fieldset>    
+   </fieldset>  
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'margin':'15px 0 0 0'}}/>     
+   <br/>
+   <br/>
    <br/>
   </div>  
  )}

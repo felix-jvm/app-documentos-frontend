@@ -118,11 +118,13 @@ export default function BoundManual (props) {
 
  return (
   <div className="Secciòn_BoundManuales">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>13.Documentos asociados al proceso</h2>
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>13.1. Manuales</h5>
-   <h5 className='responsTitle' style={{'display':'inline-block'}}>Manual:</h5>
-   <input type='submit' className='responsAddButton' value='Agregar' style={{'display':'inline-block'}} onClick={()=>{HandleAdd()}}/> 
-   <select className='BoundManualesManual'></select>   
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>13.Documentos asociados al proceso</h2>
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>13.1. Manuales</h5>
+   <h5 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-1px','marginTop':'6px'}}>Manual:</h5>
+   <select className='BoundManualesManual' style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'relative','marginRight':'5px'}}></select>   
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'15px'}}/> 
+   <br/>
+   <br/>
    <table className='BoundManualesTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='BoundManualesHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='BoundManualesBody'></tbody>

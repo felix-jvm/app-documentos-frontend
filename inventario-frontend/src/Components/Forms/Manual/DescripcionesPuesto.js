@@ -122,18 +122,21 @@ export default function ObjetivosEspecíficos (props) {
  
  return (
   <div className="Sección_DescripcionesPuesto">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>9. Descripciones de puesto</h2>  
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>9. Descripciones de puesto</h2>  
    {/* <h5 className='responsTitle' style={{'display':'inline-block'}}>Descripción general:</h5>
    <textarea className='DescripcionesPuesto_DescripcionOp' placeholder='Descripción'></textarea>
    <br/> */}
-   <h5 className='responsTitle' style={{'display':'inline-block'}}>Puestos:</h5>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
-   <select className='DescripcionesPuesto_puestoSelect'></select>
+   <h5 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-1.7px','marginTop':'6px'}}>Puestos:</h5>
+   <select className='DescripcionesPuesto_puestoSelect' style={{'display':'inline-block','position':'relative','marginRight':'5px'}}></select>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px'}}/>
+   <br/>
+   <br/>
    <table className='DescripcionesPuestoTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='DescripcionesPuestoHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='DescripcionesPuestoBody'></tbody>
    </table>
    {displayDeleteRecordButton && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}
+   <br/>
    <hr/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
    icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">

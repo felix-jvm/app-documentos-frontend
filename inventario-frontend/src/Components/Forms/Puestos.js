@@ -94,21 +94,27 @@ export default function Puestos (props) {
    })
 
     return (
-      <div className='modalMainCont' style={{'backgroundColor':'rgba(1, 1, 1, 0.81)'}}>
-        <h1 className='procedAlcanceTitle'>Puestos</h1>
-        <form id='puestos' onSubmit={(data)=>handleSend(data)} style={{'width':'30%','minHeight':'850px','maxHeight':'850px','backgroundColor':'rgb(227, 225, 225)','margin':'80px auto 0 auto','borderRadius':'5px','position':'relative','padding':'5px'}}>
-        <h3>Descripción</h3>
-          <textarea required={true} maxLength='50' name='descripcion' className='Procedimiento_ObjetivoInput' style={{'margin':'-10px 0 5px 0'}}></textarea>
+      <div className='modalMainCont' style={{'minWidth':'100%'}}>
+        <form id='puestos' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'800px','maxHeight':'800px','backgroundColor':'rgb(227, 225, 225)','margin':'50px auto 0 auto','borderRadius':'5px','position':'relative','box-shadow': '1px 1px 6px rgb(171, 163, 163)','paddingLeft':'5px'}}>
+        <br/>          
+          <h2 style={{'fontWeight':'900'}}>Crear nuevo puesto</h2>
+          <br/>
+          <div style={{'width':'fit-content','height':'fit-content','float':'right','marginRight':'10px','marginBottom':'10px'}}>
+          <input type='submit' value='Guardar' className='saveProcButton' style={{'display':'inline-block','position':'relative','top':'0','left':'0'}}/>
+          <br/>
+          <input type='submit' value='Cerrar' className='saveProcButton' style={{'display':'inline-block','position':'relative','top':'5px','left':'0'}} onClick={()=>props.setCreationForm?props.setCreationForm(''):props.setUpdateForm('')}/>                  
+          </div>          
+          <div style={{'display':'inline-block','position':'relative','bottom':'-70px'}}><h3>Descripción</h3></div>
+          <textarea required={true} maxLength='50' name='descripcion' className='Procedimiento_ObjetivoInput' placeholder='Descripción' style={{'margin':'-10px 0 5px 0'}}></textarea>
+          <br/>
           <h3>Unidad Negocio</h3>
-          <input type='number' required={false} name='unidadnegocio' className='DocumentosReferencias_IDDocumentoSelect codigoText' style={{'minWidth':'40%','border':'1px solid gray','margin':'-10px 0 0 0'}}/>
+          <input type='number' required={false} name='unidadnegocio' className='DocumentosReferencias_IDDocumentoSelect codigoText' placeholder='Unidad de negocio' style={{'minWidth':'40%','border':'1px solid gray','margin':'-10px 0 0 0'}}/>
+          <br/>
           <br/>
           <h3 style={{'margin':'0 0 0 3px'}}>Actividad</h3>
-          <input type='number' required={false} name='actividad' className='DocumentosReferencias_IDDocumentoSelect codigoText' style={{'minWidth':'40%','border':'1px solid gray','margin':'-4px 0 0 0'}}/>
+          <input type='number' required={false} name='actividad' className='DocumentosReferencias_IDDocumentoSelect codigoText' placeholder='Actividad' style={{'minWidth':'40%','border':'1px solid gray','margin':'-4px 0 0 0'}}/>
           <br/>
           <br/>          
-          <input type='submit' value='Guardar' className='docRefAddButton' style={{'margin':'-10px 0 0 0'}}/>
-          <br/>
-          <input type='submit' value='Cerrar' className='docRefAddButton' style={{'margin':'0 0 0 0','padding':'2px 37px 2px 35px'}} onClick={()=>props.setCreationForm?props.setCreationForm(''):props.setUpdateForm('')}/>      
         </form>
         {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} message={'Datos guardados correctamente'} 
          icon={<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor" className="bi bi-check-circle-fill" viewBox="0 0 16 16">

@@ -88,20 +88,22 @@ export default function Anexos (props) {
 
  return (
   <div className="anexosCont">
-   <h2 className='descripProcedTitle' style={{'fontWeight':'900'}}>8. Anexos:</h2>
+   <h2 className='descripProcedTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>8. Anexos:</h2>
 
-   <h4 className='AnexosNumTitle'>Número:</h4>   
-   <input type='number' className='Anexos_NumInput' placeholder='Número del anexo'/>
+   <h4 className='AnexosNumTitle' style={{'letterSpacing':'-1.7px'}}>Número:</h4>   
+   <input type='number' className='Anexos_NumInput' placeholder='Número del anexo' style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'relative','marginRight':'5px'}}/>
+   <input type='submit' className='terminDefAddButton anexoAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'15px'}}/>
    <br/>
    <br/>
-   <h4 className='AnexosNombreTitle'>Nombre:</h4>   
+   <h4 className='AnexosNombreTitle' style={{'letterSpacing':'-1.7px'}}>Nombre:</h4>   
    <textarea className='Anexos_NombreInput' placeholder='Nombre del anexo'></textarea>
    <br/>
    <br/>
-   <h4 className='AnexosCodigoTitle AnexosNombreTitle' style={{'display':'inline-block','position':'relative'}}>Código:</h4>   
+   <h4 className='AnexosCodigoTitle AnexosNombreTitle' style={{'display':'inline-block','position':'relative','letterSpacing':'-1.7px'}}>Código:</h4>   
    <textarea className='Anexos_CodigoInput Anexos_NombreInput' placeholder='Código del anexo'></textarea>
-   <input type='submit' className='anexoAddButton anexoAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
-   <table className='AnexosTable'>
+   <br/>
+   <br/>
+   <table className='AnexosTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='AnexosHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='AnexosBody'></tbody>
    </table>

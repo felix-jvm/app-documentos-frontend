@@ -165,13 +165,14 @@ export default function RevAprobacion (props) {
 
   return (
    <>
-    <h2 style={{'fontWeight':'900'}}>{props.sectionNumber && props.sectionNumber}. Revisión y aprobación:</h2>
-    <h4 className='revAprobacionNombreTitle AnexosNombreTitle'>Nombre:</h4>   
-    {props.inputWidth && <textarea style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`}} className='revAprobacionNombreInput Anexos_NombreInput' placeholder='Nombre de la persona'></textarea>}
-    {!props.inputWidth && <textarea className='revAprobacionNombreInput Anexos_NombreInput' placeholder='Nombre de la persona'></textarea>}
+    <h2 style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>{props.sectionNumber && props.sectionNumber}. Revisión y aprobación:</h2>
+    <h4 style={{'letterSpacing':'-1.7px','display':'inline-block','position':'relative','marginRight':'auto'}}>Nombre:</h4>   
+    {props.inputWidth && <textarea style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`,'display':'inline-block','position':'absolute','margin':'0 5px 0 5px','borderRadius':'50px','minHeight':'35px','maxHeight':'35px'}} className='revAprobacionNombreInput' placeholder='Nombre de la persona'></textarea>}
+    {!props.inputWidth && <textarea placeholder='Nombre de la persona' style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'absolute','margin':'0 5px 0 5px','borderRadius':'50px','minHeight':'35px','maxHeight':'35px'}} className='revAprobacionNombreInput'></textarea>}
+    <input type='submit' className='responsAddButton revAprobAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'24%','borderRadius':'115px','padding':'4px 35px 4px 35px'}}/>    
     <br/>
     <br/>
-    <h4 className='revAprobacionFirmaTitle'>Firma:</h4>   
+    <h4 className='revAprobacionFirmaTitle' style={{'letterSpacing':'-1.7px'}}>Firma:</h4>   
     <input type="file" accept="image/*" onChange={handleImageUpload} className='revAprobacionFirmaInput revAprobacionFirmaFileInput' style={{'marginLeft':'3px'}}/>
      {image && (
         <img
@@ -185,16 +186,17 @@ export default function RevAprobacion (props) {
     <br/>
     <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'puestos','revAprobacionPuestoInput')}}>Crear nuevo puesto</a>
     <br/>
-    <h4 className='revAprobacionPuestoTitle'>Puesto:</h4>   
-    {props.inputWidth && <select style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`,'marginTop':'1px'}} className='revAprobacionPuestoInput'></select>}
-    {!props.inputWidth && <select className='revAprobacionPuestoInput' style={{'marginTop':'1px'}}></select>}
-    <input type='submit' className='descripProcedAddButton revAprobAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'position':'absolute','left':'30%'}}/>            
+    <h4 className='revAprobacionPuestoTitle' style={{'marginTop':'8px','letterSpacing':'-1.7px'}}>Puesto:</h4>   
+    {props.inputWidth && <select style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`,'marginTop':'1px','display':'inline-block','position':'relative','marginRight':'5px'}} className='revAprobacionPuestoInput'></select>}
+    {!props.inputWidth && <select className='revAprobacionPuestoInput' style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'relative','marginRight':'5px'}}></select>}
     <br/>
-    <table className='RevAprobacionTable'>
+    <br/>
+    <table className='RevAprobacionTable' style={{'border':'0','borderCollapse':'separate'}}>
      <thead className='RevAprobacionHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
      <tbody className='RevAprobacionBody'></tbody>
-    </table>      
-    <input type='submit' className='responsAddButton' value='Eliminar' style={{'display':'inline-block','position':'relative','margin':'10px 0 0 0'}} onClick={()=>{handleRecordRemove()}}/>
+    </table>
+    <br/>      
+    <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'0'}} onClick={()=>{handleRecordRemove()}}/>
     <br/>
     <hr/>
    {inlineForm && ( (inlineForm.split(',')[0]=='puestos' && <InlinePuesto inlineForm={inlineForm} setInlineForm={setInlineForm}/>) )}    

@@ -104,9 +104,9 @@ export default function GradoAutoridadDecisiones (props) {
 
  return (
   <div className="Secciòn_GradoAutoridadDecisiones">
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>8.2. Grado de autoridad que ejerce en la toma de decisiones</h5>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <h4 className='responsTitle'>Grado de autoridad:</h4>   
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>8.2. Grado de autoridad que ejerce en la toma de decisiones</h5>
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Grado de autoridad:</h4>   
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'marginLeft':'5px'}}/> 
    <textarea className='GradoAutoridadDecisiones_Grado' placeholder='Grado de autoridad'></textarea>   
    <table className='GradoAutoridadDecisionesTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='GradoAutoridadDecisionesHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>

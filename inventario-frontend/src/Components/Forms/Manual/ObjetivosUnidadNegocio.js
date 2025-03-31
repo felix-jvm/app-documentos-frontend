@@ -112,14 +112,16 @@ export default function ObjetivosUnidadNegocio (props) {
 
  return (
   <div className="Secciòn_ObjetivosUnidadNegocio">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>5. Objetivos de la unidad de negocio</h2>
-   <h4 className='responsTitle' style={{'fontWeight':'900'}}>5.1. Objetivo General</h4>   
-   <h5 className='responsTitle'>Descripción:</h5>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-2px'}}>5. Objetivos de la unidad de negocio</h2>
+   <h4 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>5.1. Objetivo General</h4>   
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Descripción:</h5>
    <textarea className='ObjetivosUnidadNegocio_ObjetivoGeneralDescripción' placeholder='Descripción'></textarea>   
-   <h4 className='responsTitle' style={{'fontWeight':'900'}}>5.2. Objetivos Específicos</h4>
+   <h4 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>5.2. Objetivos Específicos</h4>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px','display':'inline-block'}}>Descripción:</h5>
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <h5 className='responsTitle'>Descripción:</h5>
-   <textarea className='ObjetivosUnidadNegocio_ObjetivoEspecíficoDescripción' placeholder='Objetivo Específico'></textarea>    
+   <textarea className='ObjetivosUnidadNegocio_ObjetivoEspecíficoDescripción' placeholder='Objetivo Específico'></textarea> 
+   <br/>
+   <br/>   
    <table className='ObjetivosUnidadNegocioTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='ObjetivosUnidadNegocioHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='ObjetivosUnidadNegocioBody'></tbody>

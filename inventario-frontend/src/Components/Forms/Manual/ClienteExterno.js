@@ -106,15 +106,17 @@ export default function ClienteExterno (props) {
 
  return (
   <div className="Sección_ClienteExterno">  
-   <h5 style={{'fontWeight':'900','margin':'0 0 20px 0'}}>10.2. Clientes Externos</h5>
-   <h5 className='responsTitle' style={{'display':'inline-block'}}>Cliente:</h5>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>   
-   <input type='text' className='ClienteExterno_Cliente' placeholder='Descripción' style={{'minWidth':'21.9%','maxWidth':'21.9%'}}/>   
+   <h5 style={{'fontWeight':'900','margin':'0 0 20px 0','letterSpacing':'-1px'}}>10.2. Clientes Externos</h5>
+   <h5 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-1px','marginTop':'6px'}}>Cliente:</h5>
+   <input type='text' className='ClienteExterno_Cliente' placeholder='Descripción' style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'relative','marginRight':'5px'}}/>   
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'15px'}}/>   
    <br/>
-   <h5 style={{'margin':'18px 0 8px 0'}}>Necesidad:</h5>
+   <h5 style={{'margin':'18px 0 8px 0','letterSpacing':'-1px'}}>Necesidad:</h5>
    <textarea className='ClienteExterno_Necesidad' placeholder='Descripción'></textarea>
-   <h5>Expectativa:</h5>
-   <textarea className='ClienteExterno_Expectativa' placeholder='Descripción'></textarea>   
+   <h5 style={{'letterSpacing':'-1px'}}>Expectativa:</h5>
+   <textarea className='ClienteExterno_Expectativa' placeholder='Descripción'></textarea> 
+   <br/>
+   <br/>  
    <table className='ClientesExternosTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='ClientesExternosHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='ClienteExternoBody'></tbody>

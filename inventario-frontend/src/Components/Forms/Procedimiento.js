@@ -153,22 +153,23 @@ export default function Procedimiento (props) {
  return (
      <div className="procedCont">
       <p className='displayDocument' style={{'position':'relative','textAlign':'center','display':'block','width':'100%','fontSize':'3.4vh'}}></p>
-      <h2 style={{'fontWeight':'900'}}>Procedimiento</h2>
-      <h3 className='procedCodigoTitle' style={{'position':'relative'}}>Código:</h3>
+      <h2 style={{'fontWeight':'900','letterSpacing':'-1.5px'}}>Procedimiento</h2>
+      <br/>
+      <h3 className='procedCodigoTitle' style={{'position':'relative','letterSpacing':'-1px','marginTop':'4px'}}>Código:</h3>
       <select className='Procedimiento_CodigoSelect' style={{'margin':'5px','position':'absolute'}} onClick={(e)=>{handleCodeClick(e)}}></select>
 
-      <h3 className='procedObjetivoTitle' style={{'fontWeight':'900'}}>1. Objetivo:</h3>
+      <h3 className='procedObjetivoTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>1. Objetivo:</h3>
       <textarea className='Procedimiento_ObjetivoInput' placeholder='Objetivo del procedimiento' style={{'marginLeft':'2px'}}></textarea>
 
-      <h3 className='procedAlcanceTitle' style={{'fontWeight':'900'}}>2. Alcance:</h3>
+      <h3 className='procedAlcanceTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>2. Alcance:</h3>
       <textarea className='Procedimiento_AlcanceInput' placeholder='Alcance del procedimiento' style={{'marginLeft':'2px'}}></textarea>      
-      
       <hr/>
-
-      <h2 className='docRefTitle' style={{'fontWeight':'900'}}>3. Documentos de referencias:</h2>      
-      <h4 className='docRefDocumentoTitle'>Documento:</h4>
-      <select className='DocumentosReferencias_IDDocumentoSelect'></select>
-      <input type='submit' className='docRefAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
+      <h2 className='docRefTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>3. Documentos de referencias:</h2>      
+      <h4 className='docRefDocumentoTitle' style={{'letterSpacing':'-1px','marginTop':'2px'}}>Documento:</h4>
+      <select className='DocumentosReferencias_IDDocumentoSelect' style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'relative','marginRight':'5px'}}></select>
+      <input type='submit' className='docRefAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'15px'}}/>
+      <br/>
+      <br/>
       <table className='docRefTable'>
        <thead className='docRefHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
        <tbody className='docRefBody'></tbody>

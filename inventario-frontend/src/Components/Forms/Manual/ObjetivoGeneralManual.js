@@ -48,14 +48,14 @@ export default function ObjetivoGeneralManual (props) {
 
  return (
   <div className="Sección_ObjetivoGeneralManual">
-   <h2 style={{'fontWeight':'900'}}>Manual</h2>    
+   <h2 style={{'fontWeight':'900','letterSpacing':'-2px'}}>Manual</h2>    
    <br/>
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>1. Objetivo general del manual:</h2>  
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-2px'}}>1. Objetivo general del manual:</h2>  
    <br/>
-   <h4 className='responsTitle' style={{'display':'inline-block'}}>Código del manual:</h4>
+   <h4 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-2px','marginTop':'2px'}}>Código del manual:</h4>
    <select className='ObjetivoGeneralManual_Codigo' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}></select>   
    <br/>
-   <h5 className='responsTitle' style={{'display':'inline-block','margin':'15px 0 0 0'}}>Descripción general:</h5>
+   <h5 className='responsTitle' style={{'display':'inline-block','margin':'15px 0 0 0','letterSpacing':'-1.7px'}}>Descripción general:</h5>
    <textarea className='ObjetivoGeneralManual_ObjetivoGeneralManualDescri' placeholder='Descripción'></textarea>
    <br/>  
    <hr/>

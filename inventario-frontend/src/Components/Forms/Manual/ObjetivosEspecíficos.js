@@ -117,21 +117,24 @@ export default function ObjetivosEspecíficos (props) {
  
  return (
   <div className="Sección_ObjetivosEspecíficos">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>2. Objetivos específicos del manual</h2>  
-   <h5 className='responsTitle' style={{'display':'inline-block'}}>Descripción general:</h5>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-2px'}}>2. Objetivos específicos del manual</h2>  
+   <h5 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-2px'}}>Descripción general:</h5>
    <textarea className='ObjetivosEspecíficos_DescripciónOp' placeholder='Descripción'></textarea>
    <br/>   
+   <h5 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-2px'}}>Objetivo específico:</h5>
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
-   <h5 className='responsTitle' style={{'display':'inline-block'}}>Objetivo específico:</h5>
    <textarea className='ObjetivosEspecíficos_Objetivo' placeholder='Descripción'></textarea>
+   <br/>
+   <br/>
    <table className='ObjetivosEspecíficosTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='ObjetivosEspecíficosHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='ObjetivosEspecíficosBody'></tbody>
    </table>
    {displayDeleteRecordButton && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}
+   <br/>
    <hr/>
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>3. Alcance</h2>
-   <h5 className='responsTitle'>Descripción:</h5>   
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-2px'}}>3. Alcance</h2>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Descripción:</h5>   
    <textarea className='ObjetivosEspecíficos_Alcance' placeholder='Descripción'></textarea>
    <hr/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}

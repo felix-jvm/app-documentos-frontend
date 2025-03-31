@@ -119,10 +119,12 @@ export default function BoundProcedimiento (props) {
 
  return (
   <div className="Secciòn_BoundProcedimiento">
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>13.3. Procedimientos</h5>
-   <h5 className='responsTitle' style={{'display':'inline-block'}}>Procedimiento:</h5>
-   <input type='submit' className='responsAddButton' value='Agregar' style={{'display':'inline-block'}} onClick={()=>{HandleAdd()}}/> 
-   <select className='BoundProcedimiento'></select>   
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>13.3. Procedimientos</h5>
+   <h5 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-1px','marginTop':'6px'}}>Procedimiento:</h5>
+   <select className='BoundProcedimiento' style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'relative','marginRight':'5px'}}></select>   
+   <input type='submit' className='responsAddButton' value='Agregar' style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'15px'}} onClick={()=>{HandleAdd()}}/> 
+   <br/>
+   <br/>
    <table className='BoundProcedimientoTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='BoundProcedimientoHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='BoundProcedimientoBody'></tbody>

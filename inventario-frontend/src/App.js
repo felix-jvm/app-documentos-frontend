@@ -67,7 +67,7 @@ function App() {
                 <main>
                     <Navbar userData={userData} setUserData={setUserData} setHome={setHome}/>                  
                     <div className="container-fluid px-4">
-                        <div style={{'margin':'-15px auto -5px auto','width':'fit-content'}}><h1 className="mt-4">Gestión de Documentos</h1></div>
+                        <div style={{'margin':'-15px auto -5px auto','width':'fit-content','letterSpacing':'-2px'}}><h1 className="mt-4">Gestión de Documentos</h1></div>
                         <div className="card mb-4">
                             <div className="card-header">
                                 <i className="fas fa-table me-1"></i>

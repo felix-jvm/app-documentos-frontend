@@ -30,7 +30,7 @@ export default function MapaProceso (props) {
       })
       .then((res)=>{setOrganigramaEstructuralFileType(res.headers.get('Content-Type'));return res.blob()})
       .then((res)=>{if(res.type!='text/html'){setOrganigramaEstructuralFile(URL.createObjectURL(res))}})        
-    },300)
+    },800)
 
     setTimeout(()=>{
       fetch(`http://${window.location.hostname}:8000/manual/`,{
@@ -40,25 +40,24 @@ export default function MapaProceso (props) {
       })
       .then((res)=>{setOrganigramaFuncionalFileType(res.headers.get('Content-Type'));return res.blob()})
       .then((res)=>{if(res.type!='text/html'){setOrganigramaFuncionalFile(URL.createObjectURL(res))}})        
-    },400)
+    },1200) } },250)},[])  
 
-
- 
-    } },250)},[])  
-
-    function handleImageSave(archive,mode) {
+    function handleImageSave(archive,attr) {
       setTimeout(()=>{
         if (archive) {
-         let manualCode = props.formsData.current['specificData']? props.formsData.current['specificData']['Manual']['ID']:''
-         const formData = new FormData()
-         formData.append('mode',mode)
-         formData.append('manualCode',manualCode)
-         formData.append('file',archive)  
-         fetch(`http://${window.location.hostname}:8000/manual/`,{
-            method:'POST',
-            body:formData
-         })} },400)    
-    }
+        //  let Manual_Codigo = document.getElementsByClassName('ObjetivoGeneralManual_Codigo')[0]
+        //  let manualCode = JSON.parse(Manual_Codigo.value)['pk'] || -1
+         //  let manualCode = props.formsData.current['specificData']? props.formsData.current['specificData']['Manual']['ID']:''
+        //  const formData = new FormData()
+        //  formData.append('mode',mode)
+        //  formData.append('manualCode',manualCode)
+        //  fetch(`http://${window.location.hostname}:8000/manual/`,{
+          //     method:'POST',
+          //     body:formData
+          //  })
+         props.fileFormData.append(`${attr}`,archive)  
+        } },0)    
+      }
 
   useEffect((() => {  
     if(props.fullManualData) {
@@ -66,8 +65,8 @@ export default function MapaProceso (props) {
      let EstructuralDescri = document.getElementsByClassName('OrganigramaEstructuralFuncional_EstructuralDescri')[0]         
      if(FuncionalDescri.value){props.backenData.current['Manual']['OrganigramaFuncionalDescri']=FuncionalDescri.value}
      if(EstructuralDescri.value){props.backenData.current['Manual']['OrganigramaEstructuralDescri']=EstructuralDescri.value}
-     setTimeout(()=>{handleImageSave(organigramaEstructuralArchive,'save_organigramaEstructuralFile')},300)
-     setTimeout(()=>{handleImageSave(organigramaFuncionalArchive,'save_organigramaFuncionalFile')},400)
+     setTimeout(()=>{handleImageSave(organigramaEstructuralArchive,'OrganigramaFuncionalFile')},0)
+     setTimeout(()=>{handleImageSave(organigramaFuncionalArchive,'OrganigramaEstructuralFile')},0)
     }
   }),[props.fullManualData])
 
@@ -82,10 +81,10 @@ export default function MapaProceso (props) {
 
  return (
   <div className="Secciòn_OrganigramaEstructuralFuncional">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>7. Organigrama estructural</h2>
-   <h5 className='responsTitle'>Descripción general:</h5>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>7. Organigrama estructural</h2>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Descripción general:</h5>
    <textarea className='OrganigramaEstructuralFuncional_EstructuralDescri' placeholder='Descripción'></textarea>   
-   <h5 className='responsTitle'>Archivo:</h5>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Archivo:</h5>
    <input type="file" onChange={(e)=>{handleImageUpload(e,setOrganigramaEstructuralFile,setOrganigramaEstructuralArchive)}} className='sameLineInput'/>
 
    {organigramaEstructuralFile && organigramaEstructuralFileType === 'application/pdf'? (<embed src={organigramaEstructuralFile} type="application/pdf" width="90%" height="400" style={{'margin':'5px 0 4px 0'}} onClick={()=>{handleImageClick(organigramaEstructuralFile)}}/>):(
@@ -99,10 +98,10 @@ export default function MapaProceso (props) {
 
    <br/> 
    <br/>         
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>8. Organigrama Funcional</h2>
-   <h5 className='responsTitle'>Descripción general:</h5>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>8. Organigrama Funcional</h2>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Descripción general:</h5>
    <textarea className='OrganigramaEstructuralFuncional_FuncionalDescri' placeholder='Descripción'></textarea>   
-   <h5 className='responsTitle'>Archivo:</h5>
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Archivo:</h5>
    <input type="file" onChange={(e)=>{handleImageUpload(e,setOrganigramaFuncionalFile,setOrganigramaFuncionalArchive)}} className='sameLineInput'/>
 
    {organigramaFuncionalFile && organigramaFuncionalFileType === 'application/pdf'? (<embed src={organigramaFuncionalFile} type="application/pdf" width="90%" height="400" style={{'margin':'5px 0 4px 0'}} onClick={()=>{handleImageClick(organigramaFuncionalFile)}}/>):(

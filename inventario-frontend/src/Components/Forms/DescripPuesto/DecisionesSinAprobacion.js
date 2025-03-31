@@ -104,11 +104,13 @@ export default function DecisionesSinAprobacion (props) {
 
  return (
   <div className="Sección_DecisionesSinAprobacion">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>8. Autoridad y Autonomía</h2>   
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>8.1. Decisiones que este puesto puede tomar sin necesidad de aprobación</h5>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
-   <h4 className='responsTitle'>Decisiones:</h4>   
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>8. Autoridad y Autonomía</h2>   
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>8.1. Decisiones que este puesto puede tomar sin necesidad de aprobación</h5>
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Decisiones:</h4>   
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'marginLeft':'5px'}}/> 
    <textarea className='DecisionesSinAprobacion_Decisión' placeholder='Descripción de la decisión'></textarea>   
+   <br/>
+   <br/>
    <table className='DecisionesSinAprobacionTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='DecisionesSinAprobacionHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='DecisionesSinAprobacionBody'></tbody>

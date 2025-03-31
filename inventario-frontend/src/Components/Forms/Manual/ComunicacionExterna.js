@@ -104,11 +104,11 @@ export default function ComunicacionExterna (props) {
 
  return (
   <div className="Sección_ComunicacionExterna">
-   <h5 style={{'fontWeight':'900','margin':'0 0 20px 0'}}>11.2. Externa</h5>
-   <h5 className='responsTitle' style={{'display':'inline-block'}}>Tipo de comunicación:</h5>
+   <h5 style={{'fontWeight':'900','margin':'0 0 20px 0','letterSpacing':'-1px'}}>11.2. Externa</h5>
+   <h5 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-1px'}}>Tipo de comunicación:</h5>
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>   
    <textarea type='text' className='ComunicacionExterna_tipocomunicacion' placeholder='Tipo de comunicación' ></textarea>   
-   <h5 style={{'margin':'0 0 8px 0'}}>Periodicidad:</h5>
+   <h5 style={{'margin':'0 0 8px 0','letterSpacing':'-1px'}}>Periodicidad:</h5>
    <textarea className='ComunicacionExterna_periodicidad' placeholder='Periodicidad'></textarea>  
    <br/>
    <br/>

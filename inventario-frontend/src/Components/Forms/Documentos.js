@@ -100,10 +100,20 @@ export default function Documentos (props) {
       }}
 
     return (
-      <div className='modalMainCont' style={{'backgroundColor':'rgba(1, 1, 1, 0.81)'}}>
-        <h1 className='procedAlcanceTitle'>Documentos</h1>
-        <form id='documentos' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'850px','maxHeight':'850px','backgroundColor':'rgb(227, 225, 225)','margin':'0 auto 0 auto','borderRadius':'5px','position':'relative'}}>
-          <h3>Codigo:</h3>
+      <div className='modalMainCont' style={{'minWidth':'100%'}}>
+        <form id='documentos' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'990px','maxHeight':'990px','backgroundColor':'rgb(227, 225, 225)','margin':'50px auto 0 auto','borderRadius':'5px','position':'relative','box-shadow': '1px 1px 6px rgb(171, 163, 163)','paddingLeft':'5px'}}>
+          <br/>          
+          <h2 style={{'fontWeight':'900'}}>Crear nuevo documento</h2>
+          <br/>
+          <br/>
+          <br/>
+          <div style={{'width':'fit-content','height':'fit-content','float':'right','marginRight':'10px'}}>
+          <input type='submit' value='Guardar' className='saveProcButton' style={{'display':'inline-block','position':'relative','top':'0','left':'0'}}/>
+          <br/>
+          <input type='submit' value='Cerrar' className='saveProcButton' style={{'display':'inline-block','position':'relative','top':'5px','left':'0'}} onClick={()=>props.setCreationForm?props.setCreationForm(''):props.setUpdateForm('')}/>                  
+          </div>
+          <div style={{'display':'inline-block','margin':'0','width':'fit-content'}}><h3>Código:</h3></div>
+          <br/>
           <h5 style={{'margin':'0 0 0 2px'}}>Tipo documento</h5>
           <select className='DocumentosReferencias_IDDocumentoSelect tipoDoc' required={true} style={{'minWidth':'40%'}}></select>
           <br/>
@@ -115,19 +125,16 @@ export default function Documentos (props) {
           <br/>
           <br/>
           <h3>Descripción:</h3>
-          <textarea required={true} maxLength='100' className='Procedimiento_ObjetivoInput documentosDescription' name='descripcion' placeholder='Descripcion' style={{'margin':'0 0 0 1.5px'}}></textarea>
+          <textarea required={true} maxLength='100' className='Procedimiento_ObjetivoInput documentosDescription' name='descripción' placeholder='Descripcion' style={{'margin':'0 0 0 1.5px'}}></textarea>
           <br/>
           <h3>Versión:</h3>
-          <input type='number' required={false} maxLength='100' name='version' step='.02' className='DocumentosReferencias_IDDocumentoSelect' style={{'border':'1px solid gray'}}/>
+          <input type='number' required={false} maxLength='100' name='version' placeholder='Versión' className='DocumentosReferencias_IDDocumentoSelect' style={{'border':'1px solid gray'}}/>
           <br/>
           <h3 style={{'margin':'15px 0 0 3px'}}>Fecha:</h3>
           <input type='date' required={false} maxLength='100' name='fecha' className='HistorialCambios_FechaInput' style={{'margin':'0 0 0 3px'}}/>
           <br/>        
           <br/>            
-          <input type='submit' value='Guardar' className='docRefAddButton' style={{'margin':'-10px 0 0 3px'}}/>
-          <br/>
-          <input type='submit' value='Cerrar' className='docRefAddButton' style={{'margin':'0 0 0 3px','padding':'2px 37px 2px 35px'}} onClick={()=>props.setCreationForm?props.setCreationForm(''):props.setUpdateForm('')}/>
-        </form>    
+        </form>   
         {confirmationModal && <ConfirmationModal setConfirmationModal={setConfirmationModal} message={'Datos guardados correctamente'} 
          icon={<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="currentColor" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>

@@ -28,6 +28,7 @@ export default function ManualMainCont (props) {
   const [fullManualData,setFullManualData] = useState(false);   
   var [refreshDataTable,setrefreshDataTable] = useState(false);
   var formsData = useRef(false);
+  const fileFormData = new FormData()
   var backenData = useRef({'Manual':{},'ObjetivoEspecificoManualLista':[],'MarcoLegal':[],'ObjetivoEspecificoUnidadNegocio':[],'DescripcionPuestoManual':[],'ClienteInterno':[],'ClienteExterno':[],'ComunicacionInterna':[],'ComunicacionExterna':[],'CategorizacionGasto':[],'CategorizacionGastoPartida':[],'BoundManual':[],'BoundProcedimiento':[],'RendicionCuentaLista':[],'RevAprobacion':[{'empty':false}],'HistorialCambios':[],'recordsToDelete':[]});
   var summaryData = useRef({'Manual':{},'ObjetivoEspecificoManualLista':[],'MarcoLegal':[],'ObjetivoEspecificoUnidadNegocio':[],'DescripcionPuestoManual':[],'ClienteInterno':[],'ClienteExterno':[],'ComunicacionInterna':[],'ComunicacionExterna':[],'CategorizacionGasto':[],'CategorizacionGastoPartida':[],'BoundManual':[],'BoundProcedimiento':[],'RendicionCuentaLista':[],'RevAprobacion':[{'empty':false}],'HistorialCambios':[],'recordsToDelete':{}});
   backenData.current = props.callMode && props.callMode.current == 'update'? {'CodigoManual':props.updateElementId.current,...backenData.current}:backenData.current
@@ -38,7 +39,7 @@ export default function ManualMainCont (props) {
     // body:props.updateElementId? JSON.stringify({'mode':'fillForm'}):JSON.stringify({'mode':'fillForm'})
    })
    .then(re=>re.json())
-   .then(re=>{console.log('----xxxx---->',re['payload']);formsData.current = re['payload']})
+   .then(re=>{formsData.current = re['payload']})
   useEffect(()=>{
     if(refreshDataTable){
      props.setTableName('')
@@ -58,8 +59,8 @@ export default function ManualMainCont (props) {
      <ObjetivoEspecificos formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData}/>
      <MarcoLegalRegulatorio formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <ObjetivosUnidadNegocio formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData}/>     
-     <MapaProceso formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData}/>     
-     <OrganigramaEstructuralFuncional formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData}/>
+     <MapaProceso formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData} fileFormData={fileFormData}/>     
+     <OrganigramaEstructuralFuncional formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData} fileFormData={fileFormData}/>
      <DescripcionesPuesto formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData}/>     
      <ClienteInterno formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <ClienteExterno formsData={formsData} backenData={backenData} summaryData={summaryData}/>
@@ -70,8 +71,7 @@ export default function ManualMainCont (props) {
      <BoundManuales formsData={formsData} backenData={backenData} summaryData={summaryData}/>
      <BoundProcedimiento formsData={formsData} backenData={backenData} summaryData={summaryData}/>     
      <RendicionCuenta formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData}/>
-     <IndicadoresProceso formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData} setConfirmationModal={setConfirmationModal} refreshDataTable={setrefreshDataTable}/>
-
+     <IndicadoresProceso formsData={formsData} backenData={backenData} summaryData={summaryData} fullManualData={fullManualData} setConfirmationModal={setConfirmationModal} refreshDataTable={setrefreshDataTable} fileFormData={fileFormData}/>
      <RevAprobacion senData={fullManualData} procedData={formsData} backenData={backenData} summaryData={summaryData} sectionNumber={'16'} inputWidth={'15'}/>
      <HistorialCambios senData={fullManualData} procedData={formsData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} sectionNumber={'17'} inputWidth={'15'}/>      
      <button className='saveProcButton saveProcedureButton' onClick={e=>{e.preventDefault();setFullManualData(true)}}>Guardar datos</button>

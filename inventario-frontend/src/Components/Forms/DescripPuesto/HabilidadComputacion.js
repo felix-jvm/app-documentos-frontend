@@ -41,6 +41,8 @@ export default function HabilidadComputacion (props) {
       tBody.appendChild(trBody)
      } }  
      updateDeleteRecordButtonStatus()
+     let HabilidadComputacion_Grado = document.getElementsByClassName('HabilidadComputacion_GradoID')[0]   
+     HabilidadComputacion_Grado.value = ''     
     },250)},[])
 
  function updateDeleteRecordButtonStatus() {
@@ -130,13 +132,12 @@ export default function HabilidadComputacion (props) {
 
  return (
   <div className="Secciòn_HabilidadComputacion">
-   <h5 className='responsTitle'>Computación</h5>   
-   <h4 className='responsTitle'>Programa Tecnológico:</h4>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
+   <h5 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Computación</h5>   
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Programa Tecnológico:</h4> 
    <input type='text' className='HabilidadComputacion_ProgramaTecnologico' placeholder='Programa Tecnológico' style={{'minWidth':'15%','maxWidth':'15%'}}/> 
    <br/>
    <br/>
-   <h4 className='responsTitle'>Grado:</h4>
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Grado:</h4>
    <select className='HabilidadComputacion_GradoID' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}>
    <option>A</option>
     <option>B</option>
@@ -151,6 +152,9 @@ export default function HabilidadComputacion (props) {
     <input type='radio' id='HabilidadComputacionDeseable' name='HabilidadComputacion' value='Deseable' className='HabilidadComputacionDeseable'/>
     <label for='HabilidadComputacionDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
    </fieldset> 
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'margin':'15px 0 0 0'}}/>
+   <br/>
+   <br/>
    <table className='HabilidadComputacionTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='HabilidadComputacionHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='HabilidadComputacionBody'></tbody>

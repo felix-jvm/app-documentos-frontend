@@ -198,37 +198,34 @@ export default function DescripcionProcedimiento (props) {
 
  return (
   <div className="descripProcedCont"> 
-   <h2 className='descripProcedTitle' style={{'marginBottom':'6px','fontWeight':'900'}}>6. Desarrollo o descripción del procedimiento:</h2>
+   <h2 className='descripProcedTitle' style={{'marginBottom':'6px','fontWeight':'900','letterSpacing':'-1.7px'}}>6. Desarrollo o descripción del procedimiento:</h2>
 
    {/* <h4 className='subDescripCodigoTitle' style={{'marginTop':'0','visibility':'hidden'}}>Còdigo:</h4>    */}
    {/* <textarea className='SubDescripciones_CodigoInput' placeholder='Còdigo de la subdescripciòn' style={{'marginTop':'0','visibility':'hidden'}}></textarea> */}
 
-   <h4 className='descripProcedDescripciònTitle'>Descripción:</h4>   
+   <h4 className='descripProcedDescripciònTitle' style={{'letterSpacing':'-1.7px','display':'inline-block','position':'relative'}}>Descripción:</h4>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','margin':'0 0 5px 5px','padding':'4px 35px 4px 30px','borderRadius':'15px'}}/>   
    <textarea className='DescripcionesProcedimiento_DescripcionInput' placeholder='Descripción o Subdescripción' required={true}></textarea>
-
-   <table className='descripProcedTable' style={{}}>
+   <br/>
+   <br/>
+   <table className='descripProcedTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='descripProcedtHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='descripProcedtbody'></tbody>
    </table>
-   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'2px 0 3px 70.5%','position':'relative'}} onClick={()=>{handleRecordRemove()}}/>}
-   <table className='subDescripTable' style={{'marginTop':'15px','marginBottom':'3px','visibility':'hidden','marginLeft':'100px','border':'0.5px solid black'}}>
-    <thead className='subtHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}>
+   {tableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'2px 0 3px 0','position':'relative'}} onClick={()=>{handleRecordRemove()}}/>}
+   <br/>
+   <br/>
+   <input type='submit' className='subDescripProcedAddButton' value='Agregar subregistro' style={{'display':'none','position':'relative','margin':'0 0 0 100px','padding':'6px 33px 6px 35px','borderRadius':'15px'}} onClick={()=>{addSubRecord()}}/>   
+   <table className='subDescripTable' style={{'margin':'15px 0 3px 100px','visibility':'hidden','border':'0.5px solid black','border':'0','borderCollapse':'separate'}}>
+    <thead className='subtHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}> 
       <tr>
-        {/* <th>Còdigo</th> */}
         <th>Descripción principal</th>
         <th>Subdescripción</th>
       </tr>
       </thead>
     <tbody className='subtBody'></tbody>
    </table>
-   {subTableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'0 0 3px 75.5%',}} onClick={()=>{handleSubRecordRemove()}}/>}
-
-   <input type='submit' className='descripProcedAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'block'}}/>
-   <br/>
-
-   <input type='submit' className='subDescripProcedAddButton' value='Agregar subregistro' style={{'display':'none', 'marginLeft':'2px', 'marginTop':'12px'}} onClick={()=>{addSubRecord()}}/>   
-   <br/>
-   <br/>
+   {subTableRecordsNumber.current && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'0 0 3px 0',}} onClick={()=>{handleSubRecordRemove()}}/>}
    <br/>
    <hr/>   
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}

@@ -104,12 +104,12 @@ export default function ComunicacionInterna (props) {
 
  return (
   <div className="Sección_ComunicacionInterna">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>11.Comunicación interna y externa</h2>  
-   <h5 style={{'fontWeight':'900','margin':'0 0 20px 0'}}>11.1. Interna</h5>
-   <h5 className='responsTitle' style={{'display':'inline-block'}}>Tipo de comunicación:</h5>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>11.Comunicación interna y externa</h2>  
+   <h5 style={{'fontWeight':'900','margin':'0 0 20px 0','letterSpacing':'-1px'}}>11.1. Interna</h5>
+   <h5 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-1px'}}>Tipo de comunicación:</h5>
    <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>   
    <textarea type='text' className='ComunicacionInterna_tipocomunicacion' placeholder='Tipo de comunicación' ></textarea>   
-   <h5 style={{'margin':'0 0 8px 0'}}>Periodicidad:</h5>
+   <h5 style={{'margin':'0 0 8px 0','letterSpacing':'-1px'}}>Periodicidad:</h5>
    <textarea className='ComunicacionInterna_periodicidad' placeholder='Periodicidad'></textarea>  
    <br/>
    <br/>
@@ -118,6 +118,7 @@ export default function ComunicacionInterna (props) {
     <tbody className='ComunicacionInternaBody'></tbody>
    </table>
    {displayDeleteRecordButton && <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'3px 0 3px 0'}} onClick={()=>{handleRecordRemove()}}/>}
+   <br/>
    <br/>
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
    icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">

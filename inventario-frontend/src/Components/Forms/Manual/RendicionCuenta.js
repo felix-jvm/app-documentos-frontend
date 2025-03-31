@@ -114,16 +114,17 @@ export default function RendicionCuenta (props) {
 
  return (
   <div className="Secciòn_RendicionCuenta">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>14.Rendición de cuenta</h2>
-   <h5 className='responsTitle'>Descripción general:</h5>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>14.Rendición de cuenta</h2>
+   <h5 className='responsTitle'style={{'letterSpacing':'-1px'}}>Descripción general:</h5>
    <textarea className='RendicionCuenta_DescripcionGeneral' placeholder='Descripción general'></textarea>   
    <br/>
    <br/>
-   <h4 className='responsTitle' style={{'fontWeight':'900'}}>Lista de elementos a contener en el informe</h4>
-   <h5 className='responsTitle'  style={{'display':'inline-block','marginBottom':'20px'}}>Descripción:</h5>
-   <input type='submit' className='responsAddButton' value='Agregar variable' onClick={()=>{HandleAdd()}}/> 
-   <input type='text' className='RendicionCuentaListaElementos_Descri' placeholder='Descripción'  style={{'minWidth':'20%','maxWidth':'20%','display':'inline-block'}}/>  
+   <h4 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>Lista de elementos a contener en el informe</h4>
+   <h5 className='responsTitle'  style={{'display':'inline-block','marginBottom':'20px','letterSpacing':'-1px','marginTop':'6px'}}>Descripción:</h5>
+   <input type='text' className='RendicionCuentaListaElementos_Descri' placeholder='Descripción'  style={{'minWidth':'20%','maxWidth':'20%','display':'inline-block','position':'relative','marginRight':'5px'}}/>  
+   <input type='submit' className='responsAddButton' value='Agregar variable' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'15px'}}/> 
    <br/>  
+   <br/>
    <table className='RendicionCuentaTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='RendicionCuentaHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='RendicionCuentaBody'></tbody>

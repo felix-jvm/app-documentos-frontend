@@ -137,14 +137,12 @@ export default function CompeteActituLista (props) {
 
  return (
   <div className="Secciòn_CompeteActituLista">
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>9.4. Lista de Competencias</h5>
-   <h4 className='responsPuestoTitle'>9.4.1. Competencias Actitudinales del Puesto:</h4>
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>9.4. Lista de Competencias</h5>
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>9.4.1. Competencias Actitudinales del Puesto:</h4>
    <textarea className='CompeteActituLista_Descripcion' placeholder='Descripción de competencias actitudinales del puesto'></textarea>   
-   <h4 className='responsTitle'>Competencia Actitudinal:</h4>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Competencia Actitudinal:</h4> 
    <input type='text' className='CompeteActituLista_Competencia' style={{'minWidth':'15%','maxWidth':'15%'}} placeholder='Competencia Actitudinal'/>   
    <br/>   
-   <br/>
    <br/>
    <fieldset>
     <input type='radio' id='CompeteActituListaIndispensable' name='CompeteActituLista' value='Grado Indispensable' className='CompeteActituListaIndispensable'/>
@@ -153,6 +151,9 @@ export default function CompeteActituLista (props) {
     <input type='radio' id='CompeteActituListaDeseable' name='CompeteActituLista' value='Deseable' className='CompeteActituListaDeseable'/>
     <label for='CompeteActituListaDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
    </fieldset>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'margin':'15px 0 0 0'}}/>
+   <br/>
+   <br/>
    <table className='CompeteActituListaTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='CompeteActituListaHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='CompeteActituListaBody'></tbody>

@@ -102,45 +102,45 @@ export default function Identificacion (props) {
 
  return (
   <div className="Sección_Identificacion">
-   <h2 style={{'fontWeight':'900'}}>Descripción de puesto</h2>    
+   <h2 style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>Descripción de puesto</h2>    
    <br/>
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>1. Identificación:</h2>  
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>1. Identificación:</h2>  
    {/* <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'puestos','Responsabilidades_IDPuestoSelect')}}>Crear nuevo puesto</a>   */}
    <br/>   
-   <h4 className='responsPuestoTitle'>Código del puesto:</h4>
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Código del puesto:</h4>
    <br/>
    <select className='Identificacion_CodigoSelect Identificacion_CodigoPuesto' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}></select>
    <br/>
    <br/>
-   <h4 className='responsPuestoTitle'>Título del puesto:</h4>
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Título del puesto:</h4>
    <br/>
    <select className='Identificacion_TituloSelect Identificacion_TituloPuesto' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}></select>    
    <br/>
    <br/>
-   <h4 className='responsPuestoTitle'>Reporta a:</h4>
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Reporta a:</h4>
    <br/>
    <select className='Identificacion_ReportaASelect Identificacion_ReportaA' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}></select>       
    <br/>
    <br/>
-   <h4 className='responsPuestoTitle'>Departamento:</h4>
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Departamento:</h4>
    <br/>
    <select className='Identificacion_DepartamentoSelect Identificacion_Departamento' required={true} style={{'minWidth':'15%','maxWidth':'15%'}} onClick={((e)=>{updateDeparmentCode(e)})}></select>       
    <br/>
    <br/>
-   <h4 className='responsPuestoTitle'>Código del departamento:</h4>     
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Código del departamento:</h4>     
    <br/>
    <input type='text' className='Identificacion_CodigoDepartamento' placeholder='Código del Departamento' readOnly={true} style={{'minWidth':'15%','maxWidth':'15%'}}/>
    <br/>
    <br/>
-   <h4 className='responsPuestoTitle'>Ubicación:</h4>     
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Ubicación:</h4>     
    <br/>
    <input type='text' className='Identificacion_Ubicacion' placeholder='Ubicación' style={{'minWidth':'15%','maxWidth':'15%'}}/>    
    <br/>
    <hr/>
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>2. Objetivo del puesto</h2>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>2. Objetivo del puesto</h2>
    <textarea className='Identificacion_ObjetivoPuesto' placeholder='Objetivo del puesto'></textarea>
    <br/>   
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>3. Organigrama</h2>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>3. Organigrama</h2>
    <textarea className='Identificacion_OrganigramaDescri' placeholder='Descripción del organigrama'></textarea>
    <br/>
    <input type="file" onChange={handleImageUpload} className='sameLineInput'/>

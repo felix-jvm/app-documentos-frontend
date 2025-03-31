@@ -17,7 +17,7 @@ export default function ConfirmationModal(props) {
             if(props.refreshDataTable){props.refreshDataTable.current = true}
             if(props.formMainCont){props.formMainCont(false)}
           },100)
-        })()}}/>
+        })()}} style={{'borderRadius':'18px'}}/>
     </div>
   </div> 
  )   

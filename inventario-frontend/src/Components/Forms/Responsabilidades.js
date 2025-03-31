@@ -116,14 +116,18 @@ export default function Responsabilidades (props) {
 
  return (
   <div className="Secciòn_Responsabilidades">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>4. Responsabilidades:</h2>  
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>4. Responsabilidades:</h2>  
    <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'puestos','Responsabilidades_IDPuestoSelect')}}>Crear nuevo puesto</a>  
-   <br/>   
-   <h4 className='responsPuestoTitle'>Puesto:</h4>
-   <select className='Responsabilidades_IDPuestoSelect' required={true}></select>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
+   <br/>
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Puesto:</h4>
+   <select className='Responsabilidades_IDPuestoSelect' required={true} style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'relative','marginRight':'5px'}}></select>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'15px'}}/>
+   <br/> 
+   <br/>
    <textarea className='Responsabilidades_DescripcionInput' placeholder='Descripción del puesto' required={true}></textarea>
-   <table className='responsTable'>
+   <br/>
+   <br/>
+   <table className='responsTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='responsHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='responsBody'></tbody>
    </table>

@@ -106,15 +106,17 @@ export default function FuncionesDelPuesto (props) {
  
  return (
   <div className="Sección_FuncionesDelPuesto">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>4. Funciones del Puesto</h2>  
-   <h4 className='responsTitle' style={{'display':'inline-block','margin':'0 5px 0 0'}}>Función</h4>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>
-   <h6 style={{'display':'inline-block'}}>¿Qué Hace?:</h6>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>4. Funciones del Puesto</h2>  
+   <h4 className='responsTitle' style={{'display':'inline-block','margin':'0 5px 0 0','letterSpacing':'-1.7px'}}>Función</h4>
+   <h6 style={{'display':'inline-block','letterSpacing':'-0.7px'}}>¿Qué Hace?:</h6>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'margin':'0 5px 0 5px'}}/>
    <textarea className='FuncionesDelPuesto_Funcion' placeholder='Función'></textarea>
    <br/>   
-   <h4 className='responsTitle' style={{'display':'inline-block','margin':'0 5px 0 0'}}>Resultado Final</h4>
-   <h6 style={{'display':'inline-block'}}>¿Para qué?:</h6>
-   <textarea className='FuncionesDelPuesto_Resultado' placeholder='Resultado Final'></textarea>   
+   <h4 className='responsTitle' style={{'display':'inline-block','margin':'0 5px 0 0','letterSpacing':'-1.7px'}}>Resultado Final</h4>
+   <h6 style={{'display':'inline-block','letterSpacing':'-1px'}}>¿Para qué?:</h6>
+   <textarea className='FuncionesDelPuesto_Resultado' placeholder='Resultado Final'></textarea>  
+   <br/>
+   <br/> 
    <table className='FuncionesDelPuestoTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='FuncionesDelPuestoHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='FuncionesDelPuestoBody'></tbody>

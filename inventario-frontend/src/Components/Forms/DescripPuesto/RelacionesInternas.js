@@ -123,14 +123,15 @@ export default function RelacionesInternas (props) {
 
  return (
   <div className="Sección_RelacionesInternas">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>6. Naturaleza y Alcance</h2>  
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>6.1. Relaciones Internas</h5>   
-   <h4 className='responsPuestoTitle'>Puesto:</h4>
-   <input type='submit' className='responsAddButton' value='Agregar' style={{'zIndex':'5000'}} onClick={()=>{HandleAdd()}}/> 
-   <select className='RelacionesInternas_PuestoSelectID' required={true}></select>
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>6. Naturaleza y Alcance</h2>  
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.2px'}}>6.1. Relaciones Internas</h5>   
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Puesto:</h4>
+   <select className='RelacionesInternas_PuestoSelectID' required={true} style={{'display':'inline-block','position':'relative','marginRight':'5px'}}></select>
+   <input type='submit' className='responsAddButton' value='Agregar' style={{'zIndex':'5000','display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px'}} onClick={()=>{HandleAdd()}}/> 
    <br/>   
-   <h4 className='responsTitle'>¿Para qué?</h4>
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>¿Para qué?</h4>
    <textarea className='RelacionesInternas_Objetivo' placeholder='Utilidad'></textarea>   
+   <br/>
    <br/>
    <table className='RelacionesInternasTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='RelacionesInternasHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>

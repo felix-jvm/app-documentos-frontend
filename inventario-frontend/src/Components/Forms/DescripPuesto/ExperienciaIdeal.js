@@ -41,6 +41,8 @@ export default function ExperienciaIdeal (props) {
       tBody.appendChild(trBody)
      } }  
      updateDeleteRecordButtonStatus()
+     let ExperienciaIdeal_Detalle = document.getElementsByClassName('ExperienciaIdeal_DetalleID')[0]   
+     ExperienciaIdeal_Detalle.value = ''
     },250)},[])
 
  function updateDeleteRecordButtonStatus() {
@@ -129,9 +131,8 @@ export default function ExperienciaIdeal (props) {
 
  return (
   <div className="Secciòn_ExperienciaIdeal">
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>9.3. Experiencia ideal</h5>
-   <h4 className='responsTitle'>Detalle:</h4>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.3px'}}>9.3. Experiencia ideal</h5>
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Detalle:</h4> 
    <select className='ExperienciaIdeal_DetalleID' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}>
     <option>Tiempo de labor</option>
     <option>Puesto/s</option>
@@ -139,10 +140,9 @@ export default function ExperienciaIdeal (props) {
    </select>
    <br/>
    <br/>   
-   <h4 className='responsTitle'>Especificación del Detalle:</h4>
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Especificación del Detalle:</h4>
    <input type='text' className='ExperienciaIdeal_DetalleDescripcion' placeholder='Especificación del Detalle' style={{'minWidth':'15%','maxWidth':'15%'}}/>   
    <br/>   
-   <br/>
    <br/>
    <fieldset>
     <input type='radio' id='ExperienciaIdealIndispensable' name='ExperienciaIdeal' value='Indispensable' className='ExperienciaIdealIndispensable'/>
@@ -151,6 +151,9 @@ export default function ExperienciaIdeal (props) {
     <input type='radio' id='ExperienciaIdealDeseable' name='ExperienciaIdeal' value='Deseable' className='ExperienciaIdealDeseable'/>
     <label for='ExperienciaIdealDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
    </fieldset> 
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'margin':'15px 0 0 0'}}/>
+   <br/>
+   <br/>
    <table className='ExperienciaIdealTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='ExperienciaIdealHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='ExperienciaIdealBody'></tbody>

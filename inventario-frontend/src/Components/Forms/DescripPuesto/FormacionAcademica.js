@@ -124,10 +124,9 @@ export default function FormacionAcademica (props) {
 
  return (
   <div className="Secciòn_FormacionAcademica">
-   <h2 className='responsTitle' style={{'fontWeight':'900'}}>9. Perfil del Puesto</h2>   
-   <h5 className='responsTitle' style={{'fontWeight':'900'}}>9.1. Formación académica</h5>
-   <h4 className='responsTitle'>Nivel educativo:</h4>   
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>9. Perfil del Puesto</h2>   
+   <h5 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1px'}}>9.1. Formación académica</h5>
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Nivel educativo:</h4>   
    <input type='text' className='FormacionAcademica_NivelEducativo' placeholder='Nivel educativo' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}/> 
    <br/>
    <br/>
@@ -138,6 +137,9 @@ export default function FormacionAcademica (props) {
     <input type='radio' id='FormacionAcademicaDeseable' name='FormacionAcademica' value='Deseable' className='FormacionAcademicaDeseable'/>
     <label for='FormacionAcademicaDeseable' style={{'margin':'0 0 0 8px'}}>Deseable</label>   
    </fieldset> 
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'margin':'15px 0 0 0'}}/> 
+   <br/>
+   <br/>
    <table className='FormacionAcademicaTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='FormacionAcademicaHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='FormacionAcademicaBody'></tbody>

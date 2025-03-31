@@ -12,7 +12,7 @@
   width:99.9vw;  
   height:99.9vh;
   z-index: 3000;
-  background-color:rgb(227, 225, 225); 
+  background-color:rgb(0, 0, 0); 
   overflow-y:auto;  
 }
 
@@ -20,8 +20,9 @@
   width:99.7%;
   height:auto;
   position:relative;
-  border-radius:5px;
-  border:2px solid rgb(194, 194, 194);
+  border-radius:25px;
+  border:2px solid rgb(122, 122, 122);
+  background-color:rgb(227, 225, 225);
   padding:25px; 
   font-weight:600;
   margin:0 auto 0 auto;  
@@ -48,7 +49,7 @@
  width:fit-content;
 }
 
-.Procedimiento_CodigoSelect, .Anexos_CodigoInput, .HistorialCambios_FechaInput, .HistorialCambios_VersionInput, .SubDescripciones_CodigoInput, .revAprobacionNombreInput {
+.Procedimiento_CodigoSelect, .Anexos_CodigoInput, .HistorialCambios_FechaInput, .HistorialCambios_VersionInput, .SubDescripciones_CodigoInput {
  display:inline-block;
  margin: 0 10px 0 5px;
  border-radius:5px;
@@ -128,26 +129,30 @@
 .DocumentosReferencias_IDDocumentoSelect, .Responsabilidades_IDPuestoSelect, .revAprobacionPuestoInput, .TerminologiasDef_IDTermino, .Identificacion_CodigoSelect, 
 .Identificacion_TituloSelect, .Identificacion_ReportaASelect, .Identificacion_DepartamentoSelect, .RelacionesInternas_PuestoSelectID, 
 .RelacionesExternas_PuestoSelectID, .HabilidadComputacion_GradoID, .ExperienciaIdeal_DetalleID, .CondicionesFisicas_TipoID, .Idiomas_GradoID, 
-.Idiomas_HabilidadID, .DescripcionesPuesto_puestoSelect, .ObjetivoGeneralManual_Codigo, .BoundManualesManual, .BoundProcedimiento {
+.Idiomas_HabilidadID, .DescripcionesPuesto_puestoSelect, .ObjetivoGeneralManual_Codigo, .BoundManualesManual, .BoundProcedimiento,.HistorialCambios_VersionInput,
+.HistorialCambios_FechaInput, .Procedimiento_CodigoSelect {
  display:inline-block; 
  position:absolute;
  margin: 0 0 0 3px;
  border-radius:5px;  
  min-width:22%;
  max-width:22%; 
- min-height:31px;
- max-height:31px;  
-
+ min-height:35px;
+ max-height:35px;  
+ border-radius:22px;
+ border:2px solid rgb(119, 118, 118); 
 }
 
 .docRefAddButton, .responsAddButton, .terminDefAddButton, .diagramaFlujoAddButton, .subDescripProcedAddButton {
  display:inline-block; 
- position:absolute;
- margin-left: 22.4%;
- border-radius:5px;
- padding:2px 30px 2px 30px;
+ /* position:absolute; */
+ /* margin-left: 22.4%; */
+ margin-left: 10%;
+ border-radius:25px;
+ padding:2.3px 35px 2px 35px;
  font-weight:900;
- border: 1px solid rgb(119, 118, 118);
+ border: 2px solid rgb(96, 1, 156);
+ color:rgb(96, 1, 156);
 }
 
 .Secciòn_Responsabilidades {
@@ -163,12 +168,13 @@
 .ObjetivosUnidadNegocio_ObjetivoEspecíficoDescripción, .MapaProceso_DescripcionGeneral, .MapaProceso_EstructuraProcesoDescripcion, .OrganigramaEstructuralFuncional_EstructuralDescri, .OrganigramaEstructuralFuncional_FuncionalDescri,
 .ClienteInterno_Necesidad,  .ClienteInterno_Expectativa, .ClienteExterno_Necesidad, .ClienteExterno_Expectativa, .ComunicacionInterna_tipocomunicacion, .ComunicacionExterna_tipocomunicacion,
 .Presupuesto_DescripcionGeneral, .Presupuesto_SegundaDescripcionGeneral, .Presupuesto_VariableDescripcion, .PresupuestoGastoPartidaDescripcion, .RendicionCuenta_DescripcionGeneral, .RendicionCuenta_SegundaDescripcionGeneral,
-.IndicadoresProceso_GestionRiesgoDescri {
+.IndicadoresProceso_GestionRiesgoDescri, .Procedimiento_ObjetivoInput, .Procedimiento_AlcanceInput {
  min-width:99.5%;
  max-width:99.5%;
  min-height:250px;
  max-height:250px;  
- border-radius:5px;
+ border-radius:22px;
+ border:2px solid rgb(119, 118, 118); 
 }
 
 .Secciòn_Definiciòn_Terminologias {
@@ -217,13 +223,16 @@
  height:fit-content; 
 }
 
-.Anexos_NumInput, .Anexos_NombreInput, .FormacionAcademica_NivelEducativo, .HabilidadComputacion_ProgramaTecnologico, .ExperienciaIdeal_DetalleDescripcion, .CompeteActituLista_Competencia, .CompeteTecniIndisLista_Competencia, .CondicionesFisicas_Descripción, .Identificacion_CodigoDepartamento, .Identificacion_Ubicacion, .Idiomas_Idioma, .ClienteInterno_Cliente, .ClienteExterno_Cliente, .ComunicacionInterna_periodicidad, .ComunicacionExterna_periodicidad, .Presupuesto_VariableSigla, .RendicionCuentaListaElementos_Descri {
+.Anexos_NumInput, .Anexos_NombreInput, .FormacionAcademica_NivelEducativo, .HabilidadComputacion_ProgramaTecnologico, .ExperienciaIdeal_DetalleDescripcion, 
+.CompeteActituLista_Competencia, .CompeteTecniIndisLista_Competencia, .CondicionesFisicas_Descripción, .Identificacion_CodigoDepartamento, .Identificacion_Ubicacion, 
+.Idiomas_Idioma, .ClienteInterno_Cliente, .ClienteExterno_Cliente, .ComunicacionInterna_periodicidad, .ComunicacionExterna_periodicidad, .Presupuesto_VariableSigla, 
+.RendicionCuentaListaElementos_Descri {
  display:inline-block;
  min-width:20%;   
  max-width:20%;   
- min-height:30px;
- max-height:30px;
- border-radius:5px;
+ min-height:35px;
+ max-height:35px;
+ border-radius:15px;
  position:absolute;
  border: 1px solid rgb(107, 105, 105); 
  margin:0 0 0 5px;

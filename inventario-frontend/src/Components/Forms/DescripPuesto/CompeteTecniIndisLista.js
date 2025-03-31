@@ -147,13 +147,11 @@ export default function CompeteTecniIndisLista (props) {
 
  return (
   <div className="Secciòn_CompeteTecniIndisLista">
-   <h4 className='responsPuestoTitle'>9.4.2. Competencias Técnicas Indispensables:</h4>
+   <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>9.4.2. Competencias Técnicas Indispensables:</h4>
    <textarea className='CompeteTecniIndisLista_Descripcion' placeholder='Descripción de competencias técnicas indispensables'></textarea>   
-   <h4 className='responsTitle'>Indispensable para ocupar la posición:</h4>
-   <input type='text' className='CompeteTecniIndisLista_Competencia' style={{'minWidth':'15%','maxWidth':'15%'}} placeholder='Descripción'/>   
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/> 
+   <h4 className='responsTitle' style={{'letterSpacing':'-1.7px'}}>Indispensable para ocupar la posición:</h4>
+   <input type='text' className='CompeteTecniIndisLista_Competencia' style={{'minWidth':'15%','maxWidth':'15%'}} placeholder='Descripción'/>    
    <br/>   
-   <br/>
    <br/>
    <fieldset>
     <input type='radio' id='CompeteTecniIndisListaBuenDominio' className='CompeteTecniIndisListaBuenDominio' name='CompeteTecniIndisLista' value='Buen Dominio'/>
@@ -162,6 +160,9 @@ export default function CompeteTecniIndisLista (props) {
     <input type='radio' id='CompeteTecniIndisListaDominioBásico' className='CompeteTecniIndisListaDominioBásico' name='CompeteTecniIndisLista' value='Dominio Básico'/>
     <label for='CompeteTecniIndisListaDominioBásico' style={{'margin':'0 0 0 8px'}}>Dominio Básico</label>   
    </fieldset>
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'margin':'15px 0 0 0'}}/>   
+   <br/>
+   <br/>
    <table className='CompeteTecniIndisListaTable' style={{'border':'0','borderCollapse':'separate'}}>
     <thead className='CompeteTecniIndisListaHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
     <tbody className='CompeteTecniIndisListaBody'></tbody>

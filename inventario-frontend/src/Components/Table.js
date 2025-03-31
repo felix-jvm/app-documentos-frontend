@@ -265,7 +265,7 @@ let times = useRef(0)
 
  return (
   <>
-   <h3 className='tableTitle'></h3>
+   <h3 className='tableTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}></h3>
    {/* {parseRoute(props)==='procedimiento' && <input className='searchCodeBar' placeholder='Buscar por còdigo' onKeyDown={(e)=>{if(e.target.value.length===0 && codeToSearchLength.current){props.setTableName('');codeToSearchLength.current=0;setTimeout(()=>{props.setTableName('procedimiento')},100)}}}/>}
    {parseRoute(props)==='procedimiento' && <input type='submit' className='searchCodeButton' value='Buscar' onClick={()=>{handleSearchRecord()}}/>}
    <br/>

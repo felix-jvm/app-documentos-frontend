@@ -121,7 +121,7 @@ export default function HistorialCambios (props) {
    <h4 className='historialCambioDescripcionTitle'>Descripción:</h4>   
    <textarea className='HistorialCambios_DescripcionInput' placeholder='Razón por la que se realizó el cambio'></textarea>
    <br/>
-   <input type='submit' className='historialCambioAddButton' value='Agregar' onClick={()=>{HandleAdd()}}/>   
+   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'marginLeft':'0'}}/>   
 
    <table className='RevAprobacionTable' style={{'marginBottom':'10px'}}>
     <thead className='historialCambioHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
