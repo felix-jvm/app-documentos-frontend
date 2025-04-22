@@ -100,8 +100,8 @@ export default function Documentos (props) {
       }}
 
     return (
-      <div className='modalMainCont' style={{'minWidth':'100%'}}>
-        <form id='documentos' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'990px','maxHeight':'990px','backgroundColor':'rgb(227, 225, 225)','margin':'50px auto 0 auto','borderRadius':'5px','position':'relative','box-shadow': '1px 1px 6px rgb(171, 163, 163)','paddingLeft':'5px'}}>
+      <div className='modalMainCont' style={{'minWidth':'100%','overflowY':'auto'}}>
+        <form id='documentos' onSubmit={(data)=>handleSend(data)} style={{'width':'40%','minHeight':'990px','maxHeight':'990px','backgroundColor':'rgb(227, 225, 225)','margin':'50px auto 0 auto','borderRadius':'5px','position':'relative','boxShadow': '1px 1px 6px rgb(171, 163, 163)','paddingLeft':'5px'}}>
           <br/>          
           <h2 style={{'fontWeight':'900'}}>Crear nuevo documento</h2>
           <br/>

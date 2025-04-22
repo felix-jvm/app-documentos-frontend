@@ -17,6 +17,7 @@ import DT from 'datatables.net-dt';
 import DataTable from 'datatables.net-dt';
 import PuestoDescriMainCont from './Forms/DescripPuesto/PuestoDescriMainCont';
 import ManualMainCont from './Forms/Manual/ManualMainCont';
+import PoliticaMainCont from './Forms/Politica/PoliticaMainCont';
 
 DataTable.use(DT);
 export default function Table(props) {
@@ -312,14 +313,15 @@ let times = useRef(0)
     (creationForm==='puestos' && <Puestos route={parseRoute(props)} setCreationForm={setCreationForm}/>) ||
     (creationForm==='termino' && <Termino route={parseRoute(props)} setCreationForm={setCreationForm}/>) || 
     (creationForm==='puestodescripcion' && <PuestoDescriMainCont route={parseRoute(props)} setCreationForm={setCreationForm} setTableName={props.setTableName}/>) ||
-    (creationForm==='manual' && <ManualMainCont route={parseRoute(props)} setCreationForm={setCreationForm} setTableName={props.setTableName}/>)}
+    (creationForm==='manual' && <ManualMainCont route={parseRoute(props)} setCreationForm={setCreationForm} setTableName={props.setTableName}/>) ||
+    (creationForm==='politica' && <PoliticaMainCont route={parseRoute(props)} setCreationForm={setCreationForm} setTableName={props.setTableName}/>)}
 
 
     {(updateForm==='puestos' && <Puestos route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode}/>) ||    
     (updateForm==='termino' && <Termino route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode}/>) ||
     (updateForm==='puestodescripcion' && <PuestoDescriMainCont route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode} setTableName={props.setTableName}/>) ||
-    (updateForm==='manual' && <ManualMainCont route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode} setTableName={props.setTableName}/>)}
-
+    (updateForm==='manual' && <ManualMainCont route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode} setTableName={props.setTableName}/>) ||
+    (updateForm==='politica' && <PoliticaMainCont route={parseRoute(props)} updateElementId={updateElementId} setUpdateForm={setUpdateForm} callMode={callMode} setTableName={props.setTableName}/>)}
    {/* 
 
    <p className = 'recordsMessage'>No hay registros para mostrar</p>

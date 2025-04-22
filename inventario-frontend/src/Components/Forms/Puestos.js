@@ -103,8 +103,10 @@ export default function Puestos (props) {
           <input type='submit' value='Guardar' className='saveProcButton' style={{'display':'inline-block','position':'relative','top':'0','left':'0'}}/>
           <br/>
           <input type='submit' value='Cerrar' className='saveProcButton' style={{'display':'inline-block','position':'relative','top':'5px','left':'0'}} onClick={()=>props.setCreationForm?props.setCreationForm(''):props.setUpdateForm('')}/>                  
-          </div>          
-          <div style={{'display':'inline-block','position':'relative','bottom':'-70px'}}><h3>Descripción</h3></div>
+          </div>   
+          <br/>
+          <br/>       
+          <div style={{'display':'inline-block','position':'relative'}}><h3>Descripción</h3></div>
           <textarea required={true} maxLength='50' name='descripcion' className='Procedimiento_ObjetivoInput' placeholder='Descripción' style={{'margin':'-10px 0 5px 0'}}></textarea>
           <br/>
           <h3>Unidad Negocio</h3>

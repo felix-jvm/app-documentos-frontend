@@ -116,7 +116,7 @@ export default function Procedimiento (props) {
     DocumentosReferencias_IDDocumentoSelect.value = ''
     responsBody.appendChild(trBody)
     !responsHead.children.length?responsHead.appendChild(trHead):void 0
- } 
+ }
 
  useEffect((() => {
   if(props.senData){

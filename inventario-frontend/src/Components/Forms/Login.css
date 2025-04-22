@@ -24,7 +24,7 @@
 
 .loginInput {
     margin:0;
-    border-radius:5px;
+    border-radius:22px;
     min-width:99.4%;
     max-width:99.4%;
     min-height:50px;
@@ -34,16 +34,17 @@
     overflow-y:hidden;
 }
 
-.loginButton {
-    border-radius:5px;
-    border:1px solid rgb(96, 1, 156);
-    padding:5px 10% 5px 10%;  
-    font-size:1.1vw;
-    font-weight:900;
+.loginButton { 
     position:relative;
-    color:rgb(96, 1, 156);
     margin: 20px 0 0 1px;
-    background-color:rgb(255, 255, 255);
+    padding:10px 45px 10px 45px;  
+    background-color: rgb(236, 236, 236);
+    text-shadow: 0.5px 0.5px 0.5px rgb(96, 1, 156);
+    border-radius:18px;
+    border:2px solid rgb(96, 1, 156);
+    font-size:1.1vw;
+    font-weight:800;
+    color:rgb(96, 1, 156);
 }
 
 @media screen and (max-width:1300px){

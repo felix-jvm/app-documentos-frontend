@@ -101,8 +101,10 @@ export default function Termino (props) {
           <input type='submit' value='Guardar' className='saveProcButton' style={{'display':'inline-block','position':'relative','top':'0','left':'0'}}/>
           <br/>
           <input type='submit' value='Cerrar' className='saveProcButton' style={{'display':'inline-block','position':'relative','top':'5px','left':'0'}} onClick={()=>props.setCreationForm?props.setCreationForm(''):props.setUpdateForm('')}/>                  
-          </div>          
-        <div style={{'display':'inline-block','position':'relative','bottom':'-70px'}}><h3>Descripción</h3></div>
+          </div>  
+          <br/>
+          <br/>                  
+        <div style={{'display':'inline-block','position':'relative'}}><h3>Descripción</h3></div>
         <textarea required={true} maxLength='50' name='descripcion' placeholder='Descripción' className='Procedimiento_ObjetivoInput' style={{'border':'1px solid gray','margin':'-10px 0 5px 2px'}}></textarea>
         <h3>Descripción General</h3>
         <textarea required={false} maxLength='500' name='descripciongeneral' placeholder='Descripción general' className='Procedimiento_ObjetivoInput' style={{'border':'1px solid gray','margin':'-10px 0 5px 2px'}}></textarea>

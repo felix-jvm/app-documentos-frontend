@@ -1,4 +1,4 @@
-import '../Forms.css'
+import '../Forms.css';
 import {useState,useRef,useEffect} from 'react';
 import ConfirmationModal from '../../ConfirmationModal';
 import ObjetivoGeneralManual from './ObjetivoGeneralManual';
@@ -18,8 +18,6 @@ import BoundManuales from './BoundManuales.js';
 import BoundProcedimiento from './BoundProcedimiento.js';
 import RendicionCuenta from './RendicionCuenta.js';
 import IndicadoresProceso from './IndicadoresProceso.js';
-
-
 import RevAprobacion from '../RevAprobacion';
 import HistorialCambios from '../HistorialCambios';
 

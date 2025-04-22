@@ -36,20 +36,20 @@
     overflow-y:hidden;
 }
 
-.inlineSaveProcButton {
-    border-radius:5px;
-    border:1px solid rgb(96, 1, 156);
-    padding:7px 0 8px 0;  
-    width:15%;  
-    font-size:0.9vw;
-    font-weight:900;
+.inlineSaveProcButton { 
     position:sticky;
     float:right;
     top:0;
     margin: 0 0 0 3px;
     z-index:3000;
-    color:rgb(96, 1, 156);
     background-color:rgb(255, 255, 255);
+    padding:10px 45px 10px 45px;  
+    text-shadow: 0.5px 0.5px 0.5px rgb(96, 1, 156);
+    border-radius:18px;
+    border:2px solid rgb(96, 1, 156);
+    font-size:1.1vw;
+    font-weight:800;
+    color:rgb(96, 1, 156);
 }
 
 .inlineSaveProcButton:hover {

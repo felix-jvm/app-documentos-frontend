@@ -49,7 +49,7 @@
  width:fit-content;
 }
 
-.Procedimiento_CodigoSelect, .Anexos_CodigoInput, .HistorialCambios_FechaInput, .HistorialCambios_VersionInput, .SubDescripciones_CodigoInput {
+.Anexos_CodigoInput, .HistorialCambios_FechaInput, .HistorialCambios_VersionInput, .SubDescripciones_CodigoInput {
  display:inline-block;
  margin: 0 10px 0 5px;
  border-radius:5px;
@@ -130,7 +130,8 @@
 .Identificacion_TituloSelect, .Identificacion_ReportaASelect, .Identificacion_DepartamentoSelect, .RelacionesInternas_PuestoSelectID, 
 .RelacionesExternas_PuestoSelectID, .HabilidadComputacion_GradoID, .ExperienciaIdeal_DetalleID, .CondicionesFisicas_TipoID, .Idiomas_GradoID, 
 .Idiomas_HabilidadID, .DescripcionesPuesto_puestoSelect, .ObjetivoGeneralManual_Codigo, .BoundManualesManual, .BoundProcedimiento,.HistorialCambios_VersionInput,
-.HistorialCambios_FechaInput, .Procedimiento_CodigoSelect {
+.HistorialCambios_FechaInput, .Procedimiento_CodigoSelect, .ObjetivoPolitica_CodigoPolitica, .ObjetivoPolitica_DocumentosReferenciasPolitica, .ResponsabilidadesPolitica_Puesto,
+ .PoliticaClasificacion_Categoria, .PoliticaClasificacion_TipoMaterial, .Proveedores_Procedimientos, .TerminologiaDefinicionesPolitica_Termino {
  display:inline-block; 
  position:absolute;
  margin: 0 0 0 3px;
@@ -168,7 +169,8 @@
 .ObjetivosUnidadNegocio_ObjetivoEspecíficoDescripción, .MapaProceso_DescripcionGeneral, .MapaProceso_EstructuraProcesoDescripcion, .OrganigramaEstructuralFuncional_EstructuralDescri, .OrganigramaEstructuralFuncional_FuncionalDescri,
 .ClienteInterno_Necesidad,  .ClienteInterno_Expectativa, .ClienteExterno_Necesidad, .ClienteExterno_Expectativa, .ComunicacionInterna_tipocomunicacion, .ComunicacionExterna_tipocomunicacion,
 .Presupuesto_DescripcionGeneral, .Presupuesto_SegundaDescripcionGeneral, .Presupuesto_VariableDescripcion, .PresupuestoGastoPartidaDescripcion, .RendicionCuenta_DescripcionGeneral, .RendicionCuenta_SegundaDescripcionGeneral,
-.IndicadoresProceso_GestionRiesgoDescri, .Procedimiento_ObjetivoInput, .Procedimiento_AlcanceInput {
+.IndicadoresProceso_GestionRiesgoDescri, .Procedimiento_ObjetivoInput, .Procedimiento_AlcanceInput, .ObjetivoPolitica_ObjetivoDescri, .ObjetivoPolitica_AlcanceDescri, .ResponsabilidadesPolitica_Descri, .PoliticaClasificacion_Descri,
+.PoliticaClasificacion_PoliticaClasificacionDescri, .Politica_PrecioCompra, .HorarioRecibo_Descri, .Proveedores_Descri, .Pago_Descri, .TerminologiaDefinicionesPolitica_Descri {
  min-width:99.5%;
  max-width:99.5%;
  min-height:250px;
@@ -226,7 +228,7 @@
 .Anexos_NumInput, .Anexos_NombreInput, .FormacionAcademica_NivelEducativo, .HabilidadComputacion_ProgramaTecnologico, .ExperienciaIdeal_DetalleDescripcion, 
 .CompeteActituLista_Competencia, .CompeteTecniIndisLista_Competencia, .CondicionesFisicas_Descripción, .Identificacion_CodigoDepartamento, .Identificacion_Ubicacion, 
 .Idiomas_Idioma, .ClienteInterno_Cliente, .ClienteExterno_Cliente, .ComunicacionInterna_periodicidad, .ComunicacionExterna_periodicidad, .Presupuesto_VariableSigla, 
-.RendicionCuentaListaElementos_Descri {
+.RendicionCuentaListaElementos_Descri, .ResponsabilidadesPolitica_Indice, .AnexosPolitica_Codigo, .AnexosPolitica_Descri, .AnexosPolitica_Numero {
  display:inline-block;
  min-width:20%;   
  max-width:20%;   

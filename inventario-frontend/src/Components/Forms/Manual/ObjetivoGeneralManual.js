@@ -22,17 +22,7 @@ export default function ObjetivoGeneralManual (props) {
      if(props.formsData.current['specificData']) {
       let htmlElem = document.getElementsByClassName('ObjetivoGeneralManual_ObjetivoGeneralManualDescri')[0] 
       htmlElem.innerText = props.formsData.current['specificData']['Manual']['ObjetivoGeneralManualDescri']      
-     }
-    //  if(props.formsData.current['specificData']) {
-    //   fetch(`http://${window.location.hostname}:8000/puestodescripcion/`,{
-    //     'method':'POST',
-    //     'headers':{'Content-Type':'application/json'},
-    //     body:JSON.stringify({'mode':'request_ficha_tecnica','puestoDescriCode':props.updateElementId.current})
-    //   })    
-    //   .then((res)=>{setOrganigramaFileType(res.headers.get('Content-Type'));return res.blob()})
-    //   .then((res)=>{setImage(URL.createObjectURL(res))})
-    //  } 
-    },250) },[])
+     } },250) },[])
 
  useEffect((() => {  
   if(props.fullManualData) {
@@ -50,12 +40,12 @@ export default function ObjetivoGeneralManual (props) {
   <div className="Sección_ObjetivoGeneralManual">
    <h2 style={{'fontWeight':'900','letterSpacing':'-2px'}}>Manual</h2>    
    <br/>
-   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-2px'}}>1. Objetivo general del manual:</h2>  
+   <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-2px'}}>1. Objetivo general del manual</h2>  
    <br/>
    <h4 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-2px','marginTop':'2px'}}>Código del manual:</h4>
    <select className='ObjetivoGeneralManual_Codigo' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}></select>   
    <br/>
-   <h5 className='responsTitle' style={{'display':'inline-block','margin':'15px 0 0 0','letterSpacing':'-1.7px'}}>Descripción general:</h5>
+   <h5 className='responsTitle' style={{'display':'inline-block','margin':'15px 0 10px 0','letterSpacing':'-1.7px'}}>Descripción general:</h5>
    <textarea className='ObjetivoGeneralManual_ObjetivoGeneralManualDescri' placeholder='Descripción'></textarea>
    <br/>  
    <hr/>
