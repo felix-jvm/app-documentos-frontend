@@ -15,12 +15,15 @@ export default function ObjetivoPolitica (props) {
      for(let record of props.formsData.current[elemName]) {
       let option = document.createElement('option')
       option.value = `{"pk":"${record['ID']}","Descripcion":"${record['Descripcion']}"}`
-      option.innerText = record['Codigo']   
+      option.innerText = `${record['Codigo']} ,  ${record['Descripcion']}`   
       if(elemName=='ObjetivoPolitica_DocumentosReferenciasPolitica'){option.innerText = `${record['Codigo']}__${record['Descripcion']}`}
       htmlElem? htmlElem.appendChild(option):void 0    
       props.formsData.current['specificData'] && props.formsData.current['specificData']['Politica']['CodigoPolitica'] == record['ID']?
-      option.selected=true:htmlElem.value = ''
-     } }
+      (()=>{
+        option.selected=true
+        let titlElem = document.getElementsByClassName('politicaTitleDocument')[0]
+        titlElem.innerText = record['Descripcion']
+      })():htmlElem.value = '' } }
      if(props.formsData.current['specificData']) {
       let ObjetivoDescri = document.getElementsByClassName('ObjetivoPolitica_ObjetivoDescri')[0]
       let AlcanceDescri = document.getElementsByClassName('ObjetivoPolitica_AlcanceDescri')[0]
@@ -70,6 +73,12 @@ function updateDeleteRecordButtonStatus() {
   let ObjetivoPoliticaBody = document.getElementsByClassName('ObjetivoPoliticaBody')[0]
   setDisplayDeleteRecordButton(ObjetivoPoliticaBody && ObjetivoPoliticaBody.children.length? true:false)
  }
+
+ function updateTitle(selectElem, titleElem) {
+  let titlElem = document.getElementsByClassName(`${titleElem}`)[0]
+  if(selectElem.value) {
+    let selectedText = selectElem.children[selectElem.selectedIndex].innerText.split(' ,  ')
+    if(selectedText) {titlElem.innerText = selectedText[1]} } }
 
  function HandleAdd() {
   let ObjetivoPolitica_DocumentosReferenciasPolitica = document.getElementsByClassName('ObjetivoPolitica_DocumentosReferenciasPolitica')[0]  
@@ -133,10 +142,11 @@ function updateDeleteRecordButtonStatus() {
 
  return (
   <div className="Sección_ObjetivoPolitica">
+      <p className='politicaTitleDocument' style={{'position':'relative','textAlign':'center','display':'block','width':'100%','fontSize':'3.4vh'}}></p>    
       <h2 style={{'fontWeight':'900','letterSpacing':'-1.5px'}}>Politica</h2>
       <br/>
       <h4 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-2px','marginTop':'2px'}}>Código de la politica:</h4>
-      <select className='ObjetivoPolitica_CodigoPolitica' style={{'minWidth':'15%','maxWidth':'15%'}}></select>
+      <select className='ObjetivoPolitica_CodigoPolitica' style={{'minWidth':'15%','maxWidth':'15%'}} onClick={(e)=>updateTitle(e.target,'politicaTitleDocument')}></select>
       <br/>
       <br/>
       <h3 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-2px'}}>1. Objetivo</h3>

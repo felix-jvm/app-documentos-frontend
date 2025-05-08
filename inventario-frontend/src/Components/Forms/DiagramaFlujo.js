@@ -28,9 +28,7 @@ export default function DiagramaFlujo(props) {
      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
       method:'POST',
       body:formData
-    })
-   },500)
-  }}),[props.senData])
+    }) },500) }}),[props.senData])
 
  const handleImageUpload = (event) => {
   const file = event.target.files[0];

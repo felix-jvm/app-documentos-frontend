@@ -16,48 +16,27 @@ export default function IndicadoresProceso (props) {
  useEffect(() => {
   setTimeout(() => {
     if(props.formsData.current['specificData'] && props.formsData.current['specificData']['ObjetivoEspecificoManualLista']) {
-    //  let tHead = document.getElementsByClassName('ObjetivosUnidadNegocioHead')[0]
-    //  let tBody = document.getElementsByClassName('ObjetivosUnidadNegocioBody')[0]
-    //  for(let records of props.formsData.current['specificData']['ObjetivoEspecificoManualLista']) {
-    //   let columnSchema = ['Descripción']
-    //   let trBody = document.createElement('tr')
-    //   trBody.className = 'ObjetivosUnidadNegocioTr'
-    //   if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
-    //   for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
-    //   trBody.value=records['ID']
-    //   trBody.style.backgroundColor = 'white'
-    //   trBody.style.fontWeight = '400'
-    //   trBody.addEventListener('click',(e)=>{
-    //   if(e.target.parentElement.value){
-    //    selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-    //   }else{selectedTableRecord.current = {'record':e.target.parentElement}}
-    //   let trList = document.getElementsByClassName('ObjetivosUnidadNegocioTr') 
-    //   for (let tr of trList){if(tr!=e.target.parentElement){
-    //    setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} }          
-    //   })      
-    //   tBody.appendChild(trBody)
-    //  } 
-    let manualCode = props.formsData.current['specificData']? props.formsData.current['specificData']['Manual']['ID']:''
-    let IndicadoresProceso_GestionRiesgoDescrihtmlElem = document.getElementsByClassName('IndicadoresProceso_GestionRiesgoDescri')[0] 
-    IndicadoresProceso_GestionRiesgoDescrihtmlElem.innerText = props.formsData.current['specificData']['Manual']['IndicadorProcesoGestionRiesgoDescri']  
-    setTimeout(()=>{
-      fetch(`http://${window.location.hostname}:8000/manual/`,{
-        'method':'POST',
-        'headers':{'Content-Type':'application/json'},
-        body:JSON.stringify({'mode':'request_IndicadorProcesoGestionRiesgoFile','manualCode':manualCode})
-      })
-      .then((res)=>{setIndicadorProcesoGestionRiesgoFileType(res.headers.get('Content-Type'));return res.blob()})
-      .then((res)=>{if(res.type!='text/html'){setIndicadorProcesoGestionRiesgoFile(URL.createObjectURL(res))}})        
-    },1600)
+      let manualCode = props.formsData.current['specificData']? props.formsData.current['specificData']['Manual']['ID']:''
+      let IndicadoresProceso_GestionRiesgoDescrihtmlElem = document.getElementsByClassName('IndicadoresProceso_GestionRiesgoDescri')[0] 
+      IndicadoresProceso_GestionRiesgoDescrihtmlElem.innerText = props.formsData.current['specificData']['Manual']['IndicadorProcesoGestionRiesgoDescri']  
+      setTimeout(()=>{
+        fetch(`http://${window.location.hostname}:8000/manual/`,{
+          'method':'POST',
+          'headers':{'Content-Type':'application/json'},
+          body:JSON.stringify({'mode':'request_IndicadorProcesoGestionRiesgoFile','manualCode':manualCode})
+        })
+        .then((res)=>{setIndicadorProcesoGestionRiesgoFileType(res.headers.get('Content-Type'));return res.blob()})
+        .then((res)=>{console.log('----------------------<',res);if(res.type!='text/html'){setIndicadorProcesoGestionRiesgoFile(URL.createObjectURL(res))}})        
+      },1600)
 
-    setTimeout(()=>{
-      fetch(`http://${window.location.hostname}:8000/manual/`,{
-        'method':'POST',
-        'headers':{'Content-Type':'application/json'},
-        body:JSON.stringify({'mode':'request_IndicadorProcesoGestionFile','manualCode':manualCode})
-      })
-      .then((res)=>{setIndicadorProcesoGestionFileType(res.headers.get('Content-Type'));return res.blob()})
-      .then((res)=>{if(res.type!='text/html'){setIndicadorProcesoGestionFile(URL.createObjectURL(res))}})        
+      setTimeout(()=>{
+        fetch(`http://${window.location.hostname}:8000/manual/`,{
+          'method':'POST',
+          'headers':{'Content-Type':'application/json'},
+          body:JSON.stringify({'mode':'request_IndicadorProcesoGestionFile','manualCode':manualCode})
+        })
+        .then((res)=>{setIndicadorProcesoGestionFileType(res.headers.get('Content-Type'));return res.blob()})
+        .then((res)=>{if(res.type!='text/html'){setIndicadorProcesoGestionFile(URL.createObjectURL(res))}})        
     },2000) } },250)},[])  
 
     function handleImageSave(archive,attr,toSave=false) {
@@ -75,21 +54,19 @@ export default function IndicadoresProceso (props) {
         }
         if(toSave){
           let manual_CodigoElem = document.getElementsByClassName('ObjetivoGeneralManual_Codigo')[0]
-          let manualCode = JSON.parse(manual_CodigoElem.value)['pk'] || -1      
+          let manualCode = JSON.parse(manual_CodigoElem.value)['pk'] || -1
           // const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;    
           props.fileFormData.append('manualCode',manualCode)  
           props.fileFormData.append('mode','saveManualFiles') 
           fetch(`http://${window.location.hostname}:8000/manual/`,{
           method:'POST',
           body:props.fileFormData
-        })}
-      },800) }
+        })} },800) }
 
    useEffect((() => {  
     if(props.fullManualData && props.backenData.current['Manual']['CodigoManual']) { 
      let GestionRiesgoDescri = document.getElementsByClassName('IndicadoresProceso_GestionRiesgoDescri')[0]    
      if(GestionRiesgoDescri.value){props.backenData.current['Manual']['IndicadorProcesoGestionRiesgoDescri']=GestionRiesgoDescri.value}
-    //  console.log('----->>',props.backenData.current)
      fetch(`http://${window.location.hostname}:8000/manual/`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -101,7 +78,7 @@ export default function IndicadoresProceso (props) {
        setTimeout(()=>{
         props.setConfirmationModal(false)
         props.refreshDataTable(true)
-       },3000)}})  
+       },2000)}})  
      setTimeout(()=>{handleImageSave(indicadorProcesoGestionRiesgoArchive,'IndicadorProcesoGestionRiesgoFile')},0)
      setTimeout(()=>{handleImageSave(indicadorProcesoGestionArchive,'IndicadorProcesoGestion',true)},0)
 

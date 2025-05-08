@@ -2,8 +2,9 @@ import './Forms.css'
 import {useEffect,useRef,useState} from 'react';
 
 export default function Procedimiento (props) {
- var selectedTableRecord = useRef(undefined)
- var documentCodes = useRef({})
+  let selectedTableRecord = useRef(undefined);
+ let documentCodes = useRef({});
+ let initialProcedSectionData = useRef({});
  const tableRecordsNumber = useRef(props.procedData.specificData && props.procedData.specificData['DocumentosReferencias'] && 
  props.procedData.specificData['DocumentosReferencias'].length > 0)
 
@@ -24,15 +25,18 @@ export default function Procedimiento (props) {
         for(let respons of data['procedimiento_Codigo']){
           documentCodes.current[respons.Codigo] = respons.Descripcion
           let option = document.createElement('option')
+          option.id = `${respons.ID}`
           option.innerText = `${respons.Codigo}`
           Procedimiento_CodigoSelect.appendChild(option)
         }
         if(props.procedData.specificData){
           Procedimiento_ObjetivoInput.value = props.procedData.specificData['Procedimiento_Objetivo']
-          Procedimiento_AlcanceInput.value = props.procedData.specificData['Procedimiento_Alcance']         
-          Procedimiento_CodigoSelect.value=props.procedData.specificData['Procedimiento_Codigo']
-        } else {Procedimiento_CodigoSelect.value=''}
-    })
+          Procedimiento_AlcanceInput.value = props.procedData.specificData['Procedimiento_Alcance']
+          Procedimiento_CodigoSelect.value = props.procedData.specificData['Procedimiento_Codigo']
+          initialProcedSectionData.current['Procedimiento_Objetivo'] = props.procedData.specificData['Procedimiento_Objetivo']
+          initialProcedSectionData.current['Procedimiento_Alcance'] = props.procedData.specificData['Procedimiento_Alcance']
+          initialProcedSectionData.current['Procedimiento_Codigo'] = props.procedData.specificData['Procedimiento_Codigo']
+        } else {Procedimiento_CodigoSelect.value=''} })
 
     if(props.procedData.specificData && props.procedData.specificData['DocumentosReferencias']) {
       let tHead = document.getElementsByClassName('docRefHead')[0]
@@ -126,6 +130,13 @@ export default function Procedimiento (props) {
    props.backenData.current['Procedimiento_CodigoSelect'] = Procedimiento_CodigoSelect.value
    props.backenData.current['Procedimiento_ObjetivoInput'] = Procedimiento_ObjetivoInput.value
    props.backenData.current['Procedimiento_AlcanceInput'] = Procedimiento_AlcanceInput.value
+
+   initialProcedSectionData.current['Procedimiento_Codigo'] != Procedimiento_CodigoSelect.value? 
+     props.summaryData.current['Procedimiento_codigo'] = initialProcedSectionData.current['Procedimiento_Codigo']:void 0
+   initialProcedSectionData.current['Procedimiento_Objetivo'] != Procedimiento_ObjetivoInput.value? 
+     props.summaryData.current['Procedimiento_objetivo'] = initialProcedSectionData.current['Procedimiento_Objetivo']:void 0
+   initialProcedSectionData.current['Procedimiento_Alcance'] != Procedimiento_AlcanceInput.value? 
+     props.summaryData.current['Procedimiento_alcance'] = initialProcedSectionData.current['Procedimiento_Alcance']:void 0
   }}),[props.senData])
 
   function handleCodeClick(e) {
@@ -170,7 +181,7 @@ export default function Procedimiento (props) {
       <input type='submit' className='docRefAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'auto','padding':'4px 35px 4px 35px','borderRadius':'15px'}}/>
       <br/>
       <br/>
-      <table className='docRefTable'>
+      <table className='docRefTable' style={{'border':'0','borderCollapse':'separate'}}>
        <thead className='docRefHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
        <tbody className='docRefBody'></tbody>
       </table>

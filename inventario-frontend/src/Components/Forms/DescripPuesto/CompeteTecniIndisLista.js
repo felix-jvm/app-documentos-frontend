@@ -140,7 +140,7 @@ export default function CompeteTecniIndisLista (props) {
        setTimeout(()=>{
         props.setConfirmationModal(false)
         props.refreshDataTable.current = true
-       },3000)}})
+       },2000)}})
     }}),[props.fullPuestoDescriData])
 
   function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}  

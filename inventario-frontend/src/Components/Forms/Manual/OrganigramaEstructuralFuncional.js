@@ -55,7 +55,7 @@ export default function MapaProceso (props) {
           //     method:'POST',
           //     body:formData
           //  })
-         props.fileFormData.append(`${attr}`,archive)  
+         props.fileFormData.append(`${attr}`,archive)
         } },0)    
       }
 

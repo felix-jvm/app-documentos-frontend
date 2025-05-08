@@ -4,200 +4,241 @@ import InlinePuesto from './InlineForms/InlinePuesto';
 
 export default function RevAprobacion (props) {
   const [image, setImage] = useState(null);
+  const [archive, setArchive] = useState(null);
   const [inlineForm,setInlineForm] = useState(false);
-  var tableRecords = useRef(0);
-  var personsCounter = useRef(0);
-  var selectedTableRecord = useRef(undefined);
-  var tablePersonsOrder = useRef(-1);
-  var columnSchema = ['Elaborado por:','Revisado por:','Aprobado por:']; 
+  const formData = new FormData();
+  let revAprobacionBackendData = useRef({});
+  let selectedDocumentKey = useRef('');
+  let imagesPropMapping = useRef({});
+  let rowMapping = {'Elaborado por':0,'Revisado por':1,'Aprobado por':2,'Elaborado':0,'Revisado':1,'Aprobado':2}
+  let columnMapping = {'Nombre':1,'Firma':2,'Puesto':3,'por':1}
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      let revAprobTableHead = document.getElementsByClassName('RevAprobacionHead')[0] 
-      let trHead = document.createElement('tr')
-      let empty = document.createElement('th')
-      let thNombre = document.createElement('th')
-      let thFirma = document.createElement('th')
-      let thPuesto = document.createElement('th')
-  
-      thNombre.innerText = 'Nombre'
-      thFirma.innerText = 'Firma'
-      thPuesto.innerText = 'Puesto'
-  
-      empty.style.width = '125px'
-      trHead.appendChild(empty)
-      trHead.appendChild(thNombre)
-      trHead.appendChild(thFirma)
-      trHead.appendChild(thPuesto)
-    
-      revAprobTableHead.appendChild(trHead)
-      if(props.procedData.specificData && props.procedData.specificData['RevAprobacion']) {       
-        let tBody = document.getElementsByClassName('RevAprobacionBody')[0]
-        for(let columnCounter=0;columnCounter<=columnSchema.length-1;columnCounter++) {
-         let trBody = document.createElement('tr')
-         let tdPor = document.createElement('td')
-         if(columnCounter<=props.procedData.specificData['RevAprobacion'].length-1){
-          let personRecord = props.procedData.specificData['RevAprobacion'][columnCounter]
-          tdPor.innerText = columnSchema[columnCounter]
-          trBody.appendChild(tdPor)
-          trBody.value = props.procedData.specificData['RevAprobacion'][props.procedData.specificData['RevAprobacion'].length-1]
-          for(let personDetails of Object.values(personRecord)){let td = document.createElement('td');td.innerText=personDetails;trBody.appendChild(td)}
-          trBody.style.fontWeight = '400'
-          trBody.style.backgroundColor = 'rgb(250, 250, 250)'          
-          trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor = 'rgb(212, 208, 208)'})
-          trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor = 'rgb(250, 250, 250)'})
-          trBody.addEventListener('click',(e)=>{
-          if(e.target.parentElement.value){
-           selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-          }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
-          })             
-          tablePersonsOrder.current+=1
-          tBody.appendChild(trBody)
-         }}}
-    },250)},[])
-
-    useEffect(() => {
+  useEffect(() => {
       setTimeout(() => {
-        fetch(`http://${window.location.hostname}:8000/procedimiento/`,
-          {
-            'method':'POST',
-            'headers':{'Content-Type':'application/json'},
-            body:JSON.stringify({'mode':'fillForm'})
-          })
+        selectedDocumentKey.current=document.getElementsByClassName(`${props.documentCodeSelectName}`)[0]
+        if(props.keyLocation=='select') {
+          selectedDocumentKey.current=JSON.parse(selectedDocumentKey.current.value)['pk']
+        } else if(props.keyLocation=='option') {
+          selectedDocumentKey.current=selectedDocumentKey.current.children[selectedDocumentKey.current.selectedIndex].id
+        }
+        fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+          'method':'POST',
+          'headers':{'Content-Type':'application/json'},
+          'body':JSON.stringify({'mode':'requestRecord','documentKey':selectedDocumentKey.current,'formName':props.formName})
+         })
         .then(e => e.json())
         .then(data => {
-         var Responsabilidades_IDPuestoSelect = document.getElementsByClassName('revAprobacionPuestoInput')[0]
-         for(let respons of data['Puestos']) {
+         let revAprobacionBody = document.getElementsByClassName('RevAprobacionBody')[0]
+         let revAprobacionPuestoInput = document.getElementsByClassName('revAprobacionPuestoInput')[0]
+         let revAprobacionSeccionInput = document.getElementsByClassName('revAprobacionSeccionInput')[0]
+         let revAprobacionApartadoEspecificoInput = document.getElementsByClassName('revAprobacionApartadoEspecificoInput')[0]
+         for(let puestoRecord of data.payload['Puestos']) {
           let option = document.createElement('option')
-          option.innerText = `${respons.Descripcion}`
-          Responsabilidades_IDPuestoSelect.appendChild(option)
+          option.innerText = puestoRecord['Descripcion']
+          revAprobacionPuestoInput.appendChild(option)
          }
-         Responsabilidades_IDPuestoSelect.value = ''
-        })},200)},[])    
+         if(data.payload['revAprobacion']) {
+          for(let revAprobSection of Object.keys(data.payload['revAprobacion'])) {
+           const [action,name] = revAprobSection.split(' ')
+           let specificTd = revAprobacionBody.children[ rowMapping[action] ]
+           specificTd = specificTd.children[ columnMapping[name] ]
+           specificTd.innerText = data.payload['revAprobacion'][`${action} ${name}`]
+         }}
+         revAprobacionPuestoInput.value = ''
+         revAprobacionSeccionInput.value = ''
+         revAprobacionApartadoEspecificoInput.value = ''
+        })
+        fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+          'method':'POST',
+          'headers':{'Content-Type':'application/json'},
+          'body':JSON.stringify({'mode':'requestFirmaElaboradoFile','documentKey':selectedDocumentKey.current,'formName':props.formName})
+         })
+         .then(e => e.blob())
+         .then(data => {
+          if(data.size > 100) {
+            let imageFilerow = document.getElementsByClassName('RevAprobacionBody')[0].children[0]
+            let imageFileColumn = imageFilerow.children[2]
+            let imageTag = imageFileColumn.children[0]
+            let imageFileUrl = URL.createObjectURL(data)
+            imageTag.src = imageFileUrl
+          } })
+
+         fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+          'method':'POST',
+          'headers':{'Content-Type':'application/json'},
+          'body':JSON.stringify({'mode':'requestFirmaRevisadoFile','documentKey':selectedDocumentKey.current,'formName':props.formName})
+         })
+         .then(e => e.blob())
+         .then(data => {
+          if(data.size > 100) {
+            let imageFilerow = document.getElementsByClassName('RevAprobacionBody')[0].children[1]
+            let imageFileColumn = imageFilerow.children[2]
+            let imageTag = imageFileColumn.children[0]
+            let imageFileUrl = URL.createObjectURL(data)
+            imageTag.src = imageFileUrl
+          } })
+         
+         fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+          'method':'POST',
+          'headers':{'Content-Type':'application/json'},
+          'body':JSON.stringify({'mode':'requestFirmaAprobadoFile','documentKey':selectedDocumentKey.current,'formName':props.formName})
+         })
+         .then(e => e.blob())
+         .then(data => {
+          if(data.size > 100) {
+            let imageFilerow = document.getElementsByClassName('RevAprobacionBody')[0].children[2]
+            let imageFileColumn = imageFilerow.children[2]
+            let imageTag = imageFileColumn.children[0]
+            let imageFileUrl = URL.createObjectURL(data)
+            imageTag.src = imageFileUrl
+          } }) },500) },[])
+  
+  useEffect(() => {
+   if(props.fullData) {
+    revAprobacionBackendData.current['FormName'] = props.formName
+    revAprobacionBackendData.current['DocumentKey'] = selectedDocumentKey.current
+    fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+        'method':'POST',
+        'headers':{'Content-Type':'application/json'},
+        'body':JSON.stringify({'mode':'saveRecord','documentKey':selectedDocumentKey.current,'formName':props.formName,'payload':revAprobacionBackendData.current})
+    })
+    setTimeout(() => {
+     for(let key of Object.keys(imagesPropMapping.current)) {formData.append(`${key}`,imagesPropMapping.current[key])}
+     formData.append('formName',props.formName)
+     formData.append('documentKey',selectedDocumentKey.current)
+     formData.append('mode','saveImageFile')
+     fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+      method:'POST',
+      body:formData
+   }) },600) } },[props.fullData])
 
   function handleImageUpload(event)  {
     const file = event.target.files[0];
     if (file) {
         const imageUrl = URL.createObjectURL(file);
         setImage(imageUrl);
+        setArchive(file);
   }}
   
-  function handleImageClick() {if (image) {window.open(image, '_blank')}}
-  
   function HandleAdd() {
+    let revAprobacionSeccionInput = document.getElementsByClassName('revAprobacionSeccionInput')[0]
+    let revAprobacionApartadoEspecificoInput = document.getElementsByClassName('revAprobacionApartadoEspecificoInput')[0]
+    if(!revAprobacionSeccionInput.value && !revAprobacionApartadoEspecificoInput.value){return}
+    let revAprobacionPuestoInput = document.getElementsByClassName('revAprobacionPuestoInput')[0]
+    let revAprobacionFirmaInput = document.getElementsByClassName('revAprobacionFirmaInput')[0]
+    let revAprobacionDescripcion = document.getElementsByClassName('revAprobacionDescripcion')[0]
+    let RevAprobacionBody = document.getElementsByClassName('RevAprobacionBody')[0]
+    let tdToModify = RevAprobacionBody.children[ rowMapping[revAprobacionSeccionInput.value] ].children[ columnMapping[revAprobacionApartadoEspecificoInput.value] ]
+    switch(revAprobacionApartadoEspecificoInput.value) {
+      case 'Nombre':
+        tdToModify.innerText = revAprobacionDescripcion.value
+        revAprobacionBackendData.current[tdToModify.id] = revAprobacionDescripcion.value
+        break
+      case 'Firma':
+        tdToModify.children[0].src = image
+        imagesPropMapping.current[`${tdToModify.id}`] = archive
+        break
+      case 'Puesto':
+        tdToModify.innerText = revAprobacionPuestoInput.value
+        revAprobacionBackendData.current[tdToModify.id] = revAprobacionPuestoInput.value
+        break
+    } 
+    revAprobacionApartadoEspecificoInput.value = ''
+    revAprobacionSeccionInput.value = ''
+    revAprobacionPuestoInput.value = ''
+    revAprobacionFirmaInput.src = ''
+}
 
-    let revAprobacionNombreInput = document.getElementsByClassName('revAprobacionNombreInput')[0]
-    let revAprobacionFirmaInput = document.getElementsByClassName('revAprobacionFirmaInput')[0] 
-    let revAprobacionPuestoInput = document.getElementsByClassName('revAprobacionPuestoInput')[0]  
-    let RevAprobacionBody = document.getElementsByClassName('RevAprobacionBody')[0]  
-    let tr = document.createElement('tr')
-    let personTd = document.createElement('td')    
-    let data = [revAprobacionNombreInput,revAprobacionFirmaInput,revAprobacionPuestoInput]
-    personTd.innerText = columnSchema[tablePersonsOrder.current]
-    tr.appendChild(personTd)
-    if((RevAprobacionBody.children && RevAprobacionBody.children.length >= 3)){return}
-   if (personsCounter.current<=2){
-    if(personsCounter.current===0) {
-      props.backenData.current['RevAprobacion'][0].ElaboradoPor = revAprobacionNombreInput.value
-      props.backenData.current['RevAprobacion'][0].FirmaElaborado = revAprobacionFirmaInput.value
-      props.backenData.current['RevAprobacion'][0].PuestoElaborado = revAprobacionPuestoInput.value
-    }
-    else if(personsCounter.current===1) {
-      props.backenData.current['RevAprobacion'][0].RevisadoPor = revAprobacionNombreInput.value
-      props.backenData.current['RevAprobacion'][0].FirmaRevisado = revAprobacionFirmaInput.value
-      props.backenData.current['RevAprobacion'][0].PuestoRevisado = revAprobacionPuestoInput.value
-    }
-    else if(personsCounter.current===2) {
-      props.backenData.current['RevAprobacion'][0].AprobadoPor = revAprobacionNombreInput.value
-      props.backenData.current['RevAprobacion'][0].FirmaAprobado = revAprobacionFirmaInput.value
-      props.backenData.current['RevAprobacion'][0].PuestoAprobado = revAprobacionPuestoInput.value
-    }}
-
-    for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
-      let personColumn = tablePersonsOrder[tablePersonsOrder.current]
-      let td = document.createElement('td')
-      td.style.backgroundColor = 'rgb(250, 250, 250)'
-      td.innerText = data[dataCounter].value
-      tr.appendChild(td)
-      data[dataCounter].value = ''
-      setImage('')    
-    }
-    tr.style.fontWeight = '400'
-    tr.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor='rgb(212, 208, 208)'})
-    tr.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor='rgb(250, 250, 250)'})
-    tr.addEventListener('click',(e)=>{
-      if(e.target.parentElement.value){
-       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-      }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
-    })
-    RevAprobacionBody.appendChild(tr)         
-    tableRecords.current+=1
-    personsCounter.current+=1
-    if(tablePersonsOrder.current<=1){tablePersonsOrder.current+=1}      
-    // props.backenData.current['RevAprobacion'][0]['empty']=false
-   }
-   
-   function handleRecordRemove(){
-    let revAprobacionBody = document.getElementsByClassName('RevAprobacionBody')[0]    
-    if(!selectedTableRecord.current){return}
-    if(Object.keys(selectedTableRecord.current).includes('recordToDeleteId')){
-     props.backenData.current['recordsToDelete'].push({'RevAprobacion':selectedTableRecord.current['recordToDeleteId']})
-    }else{
-      if(selectedTableRecord.current['record']){
-      //  let anyValue = true 
-       for(let recordTd of selectedTableRecord.current['record'].children){
-        if(recordTd){
-          for(let recordKey of Object.keys(props.backenData.current['RevAprobacion'][0])){
-            // if(props.backenData.current['RevAprobacion'][0][recordKey] == recordTd.innerText){if(Object.keys(props.backenData.current['RevAprobacion'][0]).includes(recordKey)){props.backenData.current['RevAprobacion'][0][recordKey]=''}}
-            // if(props.backenData.current['RevAprobacion'][0][recordKey]){anyValue=false}  
-          }
-        }
-       }
-      //  if(anyValue){props.backenData.current['RevAprobacion'][0]['empty']=true}
-    }
-  }
-    if(selectedTableRecord.current['record']){revAprobacionBody.removeChild(selectedTableRecord.current['record'])}       
-    // if(!revAprobacionBody.children){props.backenData.current['RevAprobacion'][0]['empty']=true}
-    if(tablePersonsOrder.current>0){tablePersonsOrder.current-=1}
-    }
+  function handleApartadoEspecificoChange(e) {
+    if(e.target.value) {
+     let revAprobacionFirmaDiv = document.getElementsByClassName('revAprobacionFirmaDiv')[0]
+     let revAprobacionPuestoDiv = document.getElementsByClassName('revAprobacionPuestoDiv')[0]
+     let revAprobacionDescripcion = document.getElementsByClassName('revAprobacionDescripcion')[0]
+     let RevAprobacionDescripBreaker = document.getElementsByClassName('RevAprobacionDescripBreaker')[0]
+     switch(e.target.value) {
+      case 'Puesto':
+        revAprobacionPuestoDiv.style.display = 'block'
+        revAprobacionFirmaDiv.style.display = 'none'
+        RevAprobacionDescripBreaker.style.display = 'block'
+        revAprobacionDescripcion.disabled = true
+        break
+      case 'Firma':
+        revAprobacionPuestoDiv.style.display = 'none'
+        revAprobacionFirmaDiv.style.display = 'block'
+        RevAprobacionDescripBreaker.style.display = 'block'
+        revAprobacionDescripcion.disabled = true
+        break
+      case 'Nombre':
+        revAprobacionPuestoDiv.style.display = 'none'
+        revAprobacionFirmaDiv.style.display = 'none'
+        RevAprobacionDescripBreaker.style.display = 'none'
+        revAprobacionDescripcion.disabled = false
+        break        
+      default:
+        void 0
+        break
+     }
+     revAprobacionDescripcion.value = ''
+    } }
 
   function handleDisplayInlineForm(e,route,element) {e.preventDefault();setInlineForm(`${route},${element}`)}  
 
   return (
    <>
     <h2 style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>{props.sectionNumber && props.sectionNumber}. Revisión y aprobación:</h2>
-    <h4 style={{'letterSpacing':'-1.7px','display':'inline-block','position':'relative','marginRight':'auto'}}>Nombre:</h4>   
-    {props.inputWidth && <textarea style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`,'display':'inline-block','position':'absolute','margin':'0 5px 0 5px','borderRadius':'50px','minHeight':'35px','maxHeight':'35px'}} className='revAprobacionNombreInput' placeholder='Nombre de la persona'></textarea>}
-    {!props.inputWidth && <textarea placeholder='Nombre de la persona' style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'absolute','margin':'0 5px 0 5px','borderRadius':'50px','minHeight':'35px','maxHeight':'35px'}} className='revAprobacionNombreInput'></textarea>}
-    <input type='submit' className='responsAddButton revAprobAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','marginLeft':'24%','borderRadius':'115px','padding':'4px 35px 4px 35px'}}/>    
+    <h4 className='revAprobacionPuestoTitle' style={{'marginTop':'8px','letterSpacing':'-1.7px'}}>Sección de revisión y aprobación a modificar:</h4>   
+    {props.inputWidth && <select style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`,'marginTop':'1px','display':'inline-block','position':'relative','marginRight':'5px'}} className='revAprobacionSeccionInput'>
+     <option>Elaborado por</option>
+     <option>Revisado por</option>
+     <option>Aprobado por</option>
+    </select>}
+    {!props.inputWidth && <select style={{'minWidth':'20.6%','maxWidth':'20.6%','display':'inline-block','position':'relative','marginRight':'5px'}} className='revAprobacionSeccionInput'>
+    <option>Elaborado por</option>
+     <option>Revisado por</option>
+     <option>Aprobado por</option>     
+    </select>}  
+    <input type='submit' className='responsAddButton revAprobAddRecordButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'display':'inline-block','position':'relative','borderRadius':'115px','padding':'4px 35px 4px 35px','margin':'0'}}/>      
     <br/>
     <br/>
-    <h4 className='revAprobacionFirmaTitle' style={{'letterSpacing':'-1.7px'}}>Firma:</h4>   
-    <input type="file" accept="image/*" onChange={handleImageUpload} className='revAprobacionFirmaInput revAprobacionFirmaFileInput' style={{'marginLeft':'3px'}}/>
-     {image && (
-        <img
-          src={image}
-          alt="Uploaded"
-          style={{ cursor: 'pointer', marginTop: '10px', maxWidth: '100px', maxHeight:'100px' }}
-          onClick={handleImageClick}
-          className='revAprobImg'
-        />
-      )}    
-    <br/>
-    <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'puestos','revAprobacionPuestoInput')}}>Crear nuevo puesto</a>
-    <br/>
-    <h4 className='revAprobacionPuestoTitle' style={{'marginTop':'8px','letterSpacing':'-1.7px'}}>Puesto:</h4>   
-    {props.inputWidth && <select style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`,'marginTop':'1px','display':'inline-block','position':'relative','marginRight':'5px'}} className='revAprobacionPuestoInput'></select>}
-    {!props.inputWidth && <select className='revAprobacionPuestoInput' style={{'minWidth':'21.9%','maxWidth':'21.9%','display':'inline-block','position':'relative','marginRight':'5px'}}></select>}
+    <h4 style={{'letterSpacing':'-1.7px','display':'inline-block','position':'relative','marginRight':'auto'}}>Apartado de revisión y aprobación a modificar:</h4>   
+    {props.inputWidth && <select style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`,'marginTop':'1px','display':'inline-block','position':'relative','marginRight':'5px'}} className='revAprobacionApartadoEspecificoInput' onChange={(e)=>{handleApartadoEspecificoChange(e)}}>
+     <option>Nombre</option>
+     <option>Firma</option>
+     <option>Puesto</option>
+    </select>}
+    {!props.inputWidth && <select style={{'minWidth':'20%','maxWidth':'20%','display':'inline-block','position':'relative','marginRight':'5px'}} className='revAprobacionApartadoEspecificoInput' onChange={(e)=>{handleApartadoEspecificoChange(e)}}>
+    <option>Nombre</option>
+     <option>Firma</option>
+     <option>Puesto</option>     
+    </select>}
     <br/>
     <br/>
+    <div className='revAprobacionPuestoDiv' style={{'display':'none'}}>
+      <a className='inlineFormLabel' href='' onClick={(e)=>{handleDisplayInlineForm(e,'puestos','revAprobacionPuestoInput')}} style={{'margin':'0 0 -50px'}}>Crear nuevo puesto</a>
+      <br/>
+      <h4 className='revAprobacionPuestoTitle' style={{'marginTop':'8px','letterSpacing':'-1.7px'}}>Puesto:</h4>   
+      {props.inputWidth && <select style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`,'marginTop':'1px','display':'inline-block','position':'relative','marginRight':'5px'}} className='revAprobacionPuestoInput'></select>}
+      {!props.inputWidth && <select className='revAprobacionPuestoInput' style={{'minWidth':'23.2%','maxWidth':'23.2%','display':'inline-block','position':'relative','marginRight':'5px'}}></select>}
+    </div>      
+    <div className='revAprobacionFirmaDiv' style={{'display':'none'}}>
+      <h4 className='revAprobacionFirmaTitle' style={{'letterSpacing':'-1.7px'}}>Firma:</h4>   
+      <input type="file" accept="image/*" onChange={handleImageUpload} className='revAprobacionFirmaInput revAprobacionFirmaFileInput' style={{'marginLeft':'3px'}}/>
+      <br/>
+    </div>
+    <br className='RevAprobacionDescripBreaker' style={{'display':'none'}}/>
+    <h4 className='revAprobacionPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Descripción:</h4>   
+    <textarea className='revAprobacionDescripcion' placeholder='Descripción' style={{'minWidth':'20.8%','maxWidth':'20.8%','minHeight':'36px','maxHeight':'36px','borderRadius':'20px'}}></textarea>        
+    <br/>
+    <br/>    
     <table className='RevAprobacionTable' style={{'border':'0','borderCollapse':'separate'}}>
-     <thead className='RevAprobacionHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
-     <tbody className='RevAprobacionBody'></tbody>
+     <thead className='RevAprobacionHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}><tr><td></td><td>Nombre</td><td style={{'maxWidth':'fit-content'}}>Firma</td><td>Puesto</td></tr></thead>
+     <tbody className='RevAprobacionBody'>
+      <tr><td style={{'backgroundColor':'white'}}>Elaborado por:</td><td id='ElaboradoPor' style={{'backgroundColor':'white','fontWeight':'400'}}></td><td id='FirmaElaborado' style={{'backgroundColor':'white','maxWidth':'fit-content'}}><img style={{'minWidth':'100%','maxWidth':'100%','maxHeight':'400px'}}/></td><td id='PuestoElaborado' style={{'backgroundColor':'white','fontWeight':'400'}}></td></tr>
+      <tr><td style={{'backgroundColor':'white'}}>Revisado por:</td><td id='RevisadoPor' style={{'backgroundColor':'white','fontWeight':'400'}}></td><td id='FirmaRevisado' style={{'backgroundColor':'white','maxWidth':'fit-content'}}><img style={{'minWidth':'100%','maxWidth':'100%','maxHeight':'400px'}}/></td><td id='PuestoRevisado' style={{'backgroundColor':'white','fontWeight':'400'}}></td></tr>
+      <tr><td style={{'backgroundColor':'white'}}>Aprobado por:</td><td id='AprobadoPor' style={{'backgroundColor':'white','fontWeight':'400'}}></td><td id='FirmaAprobado' style={{'backgroundColor':'white','maxWidth':'fit-content'}}><img style={{'minWidth':'100%','maxWidth':'100%','maxHeight':'400px'}}/></td><td id='PuestoAprobado' style={{'backgroundColor':'white','fontWeight':'400'}}></td></tr>
+     </tbody>
     </table>
     <br/>      
-    <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'0'}} onClick={()=>{handleRecordRemove()}}/>
-    <br/>
     <hr/>
    {inlineForm && ( (inlineForm.split(',')[0]=='puestos' && <InlinePuesto inlineForm={inlineForm} setInlineForm={setInlineForm}/>) )}    
    </> 

@@ -4,71 +4,39 @@ import ConfirmationModal from '../ConfirmationModal';
 import SummaryModal from '../SummaryModal';
 
 export default function HistorialCambios (props) {
-  var selectedTableRecord = useRef(undefined)
   const [modalErrorData,setModalErrorData] = useState(false);
   const [summary,setSummary] = useState(false);
+  let selectedDocumentKey = useRef('');
 
   useEffect(()=>{
-   setTimeout(()=>{ 
-    if(props.procedData.specificData && props.procedData.specificData['HistorialCambios']) {
-      let tHead = document.getElementsByClassName('historialCambioHead')[0]
-      let tBody = document.getElementsByClassName('historialCambioBody')[0]
-      for(let records of props.procedData.specificData['HistorialCambios']) {
-       let columnSchema = ['Fecha','Version','Descripcion']
-       let trBody = document.createElement('tr')
-       if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
-       for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
-       trBody.value=records['ID']
-       trBody.style.backgroundColor = 'rgb(250, 250, 250)'
-       trBody.style.fontWeight = '400'
-       trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor = 'rgb(212, 208, 208)'})
-       trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor = 'rgb(250, 250, 250)'})
-       trBody.addEventListener('click',(e)=>{
-       if(e.target.parentElement.value){
-        selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-       }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
-       })        
-       tBody.appendChild(trBody)
-      } 
-     }    
-   },250) },[])
-
-  function HandleAdd() {
-    let HistorialCambios_DescripcionInput = document.getElementsByClassName('HistorialCambios_DescripcionInput')[0]
-    let HistorialCambios_VersionInput = document.getElementsByClassName('HistorialCambios_VersionInput')[0] 
-    let HistorialCambios_FechaInput = document.getElementsByClassName('HistorialCambios_FechaInput')[0]  
-    
-    let historialCambioHead = document.getElementsByClassName('historialCambioHead')[0]    
-    let historialCambioBody = document.getElementsByClassName('historialCambioBody')[0]    
-    let data = [HistorialCambios_FechaInput,HistorialCambios_VersionInput,HistorialCambios_DescripcionInput]
-    let columns = ['Fecha','Versión','Descripción de la creación o modificación del documento']
-    var trHead = document.createElement('tr')
-    var trBody = document.createElement('tr')
-    trBody.style.backgroundColor = 'rgb(250, 250, 250)'
-    trBody.style.fontWeight = '400'
-    trBody.addEventListener('mouseenter',(e)=>{e.target.style.backgroundColor='rgb(212, 208, 208)'})
-    trBody.addEventListener('mouseleave',(e)=>{e.target.style.backgroundColor='rgb(250, 250, 250)'})
-    trBody.addEventListener('click',(e)=>{
-      if(e.target.parentElement.value){
-       selectedTableRecord.current = {'recordToDeleteId':e.target.parentElement.value,'record':e.target.parentElement}
-      }else{selectedTableRecord.current = {'record':e.target.parentElement}}    
-    }) 
-
-    for(let dataCounter=0;dataCounter<=data.length-1;dataCounter+=1) {
-      let td = document.createElement('td')
-      let th = document.createElement('th')
-      td.innerText = data[dataCounter].value
-      th.innerText = columns[dataCounter]
-      trBody.appendChild(td)
-      trHead.appendChild(th)
+   setTimeout(()=>{
+    selectedDocumentKey.current=document.getElementsByClassName(`${props.documentCodeSelectName}`)[0]
+    if(props.keyLocation=='select') {
+      selectedDocumentKey.current=JSON.parse(selectedDocumentKey.current.value)['pk']
+    } else if(props.keyLocation=='option') {
+      selectedDocumentKey.current=selectedDocumentKey.current.children[selectedDocumentKey.current.selectedIndex].id
     }
-    props.backenData.current['HistorialCambios'].push({'Descripcion':HistorialCambios_DescripcionInput.value,'Version':HistorialCambios_VersionInput.value,'Fecha':HistorialCambios_FechaInput.value,'elementHtml':trBody.innerHTML})            
-    HistorialCambios_FechaInput.value = ''
-    HistorialCambios_VersionInput.value = ''
-    HistorialCambios_DescripcionInput.value = ''    
-    historialCambioBody.appendChild(trBody)
-    !historialCambioHead.children.length?historialCambioHead.appendChild(trHead):void 0
-   }   
+    fetch(`http://${window.location.hostname}:8000/historialcambios/`,{
+      'method':'POST',
+      'headers':{'Content-Type':'application/json'},
+      'body':JSON.stringify({'mode':'requestRecords','documentKey':selectedDocumentKey.current,'formName':props.formName})
+     })
+    .then(e => e.json())
+    .then(data => {
+      console.log('-------------->>>',data)
+      if(data['payload']) {
+        let tHead = document.getElementsByClassName('historialCambioHead')[0]
+        let tBody = document.getElementsByClassName('historialCambioBody')[0]
+        for(let records of data['payload']) {
+         let columnSchema = ['Fecha','Versión','Descripción de la creación o modificación del documento']
+         let trBody = document.createElement('tr')
+         if(!tHead.children.length) {let trHead=document.createElement('tr');for(let column of Object.keys(records)) {if(column!=='ID'){let th=document.createElement('th');th.innerText=column.replace('ID','');trHead.appendChild(th)}}tHead.appendChild(trHead)}
+         for(let column of columnSchema) {let td = document.createElement('td');td.innerText=column.length>2 && column.includes('ID')?Object.values(records[column][0]):records[column];trBody.appendChild(td)}
+         trBody.value=records['ID']
+         trBody.style.backgroundColor = 'rgb(250, 250, 250)'
+         trBody.style.fontWeight = '400'        
+         tBody.appendChild(trBody)
+        } } }) },500) },[])
 
  useEffect((() => {
   if(props.route && props.route == 'procedimiento' && props.senData){ 
@@ -94,23 +62,10 @@ export default function HistorialCambios (props) {
     })():void 0)
   }}),[props.senData])
 
-  function handleRecordRemove(){
-    if(!selectedTableRecord.current){return}
-    if(Object.keys(selectedTableRecord.current).includes('recordToDeleteId')){
-     props.backenData.current['recordsToDelete'].push({'HistorialCambios':selectedTableRecord.current['recordToDeleteId']})
-    }else{
-      if(selectedTableRecord.current['record']){
-       for(let counter=0;counter<=props.backenData.current['HistorialCambios'].length-1;counter++){
-        let currentRecordToCreate = props.backenData.current['HistorialCambios'][counter]
-        if(currentRecordToCreate['elementHtml']==selectedTableRecord.current['record'].innerHTML){props.backenData.current['HistorialCambios'].splice(counter,1)}
-      }}}
-    if(selectedTableRecord.current['record']){selectedTableRecord.current['record'].style.display='none'}    
-    }
-    
  return (
   <>
    <h2 style={{'fontWeight':'900'}}>{props.sectionNumber && props.sectionNumber}. Historial de cambios:</h2>
-   <h4 className='historialCambioFechaTitle'>Fecha:</h4>
+   {/* <h4 className='historialCambioFechaTitle'>Fecha:</h4>
    {props.inputWidth && <input type='date' style={{'minWidth':`${props.inputWidth}%`,'maxWidth':`${props.inputWidth}%`}} className='HistorialCambios_FechaInput'/>}   
    {!props.inputWidth && <input type='date' className='HistorialCambios_FechaInput'/>}
     <br/>
@@ -121,16 +76,18 @@ export default function HistorialCambios (props) {
    <h4 className='historialCambioDescripcionTitle'>Descripción:</h4>   
    <textarea className='HistorialCambios_DescripcionInput' placeholder='Razón por la que se realizó el cambio'></textarea>
    <br/>
-   <input type='submit' className='responsAddButton' value='Agregar' onClick={()=>{HandleAdd()}} style={{'marginLeft':'0'}}/>   
+   <input type='submit' className='responsAddButton' value='Agregar' style={{'marginLeft':'0'}}/>    */}
 
-   <table className='RevAprobacionTable' style={{'marginBottom':'10px'}}>
-    <thead className='historialCambioHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}></thead>
+   <table className='RevAprobacionTable' style={{'marginBottom':'10px','border':'0','borderCollapse':'separate'}}>
+    <thead className='historialCambioHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}>
+      <tr><td>Fecha</td><td>Versión</td><td>Descripción de la creación o modificación del documento</td></tr>
+    </thead>
     <tbody className='historialCambioBody'></tbody>
    </table> 
    {/* <input type='submit' className='responsAddButton' value='Eliminar' style={{'margin':'-5px 0 3px 130px'}} onClick={()=>{handleRecordRemove()}}/> */}
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}
     icon={<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" className="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/> </svg>}/>}
-    {summary && props.procedData.specificProced && <SummaryModal setSummary={setSummary} summaryData={props.summaryData} backenData={props.backenData} procedData={props.procedData.specificData}/>}
+    {summary && props.procedData.specificProced && <SummaryModal setSummary={setSummary} summaryData={props.summaryData} backenData={props.backenData} procedData={props.procedData.specificData} formName={props.formName} selectedDocumentKey={selectedDocumentKey.current}/>}
   </>
  )}

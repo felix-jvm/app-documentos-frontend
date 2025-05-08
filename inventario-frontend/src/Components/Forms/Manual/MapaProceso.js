@@ -30,7 +30,7 @@ export default function MapaProceso (props) {
         })    
         .then((res)=>{setMapaProcesoFileType(res.headers.get('Content-Type'));return res.blob()})
         .then((res)=>{if(res.type!='text/html'){setMapaProcesoFile(URL.createObjectURL(res))}})
-      },100)     
+      },100)
 
       setTimeout(()=>{
         fetch(`http://${window.location.hostname}:8000/manual/`,{
@@ -41,7 +41,7 @@ export default function MapaProceso (props) {
         .then((res)=>{setEstructuraProcesoFileType(res.headers.get('Content-Type'));return res.blob()})
         .then((res)=>{if(res.type!='text/html'){setEstructuraProcesoFile(URL.createObjectURL(res))}})        
       },500)
- } },250)},[])  
+ } },250)},[])
 
   function handleImageSave(archive,attr) {
     setTimeout(()=>{
@@ -56,7 +56,7 @@ export default function MapaProceso (props) {
         //     method:'POST',
         //     body:formData
         //  })
-       props.fileFormData.append(`${attr}`,archive)  
+       props.fileFormData.append(`${attr}`,archive)
       } },0)    
     }
 

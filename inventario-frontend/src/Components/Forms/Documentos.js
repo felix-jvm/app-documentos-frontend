@@ -125,7 +125,7 @@ export default function Documentos (props) {
           <br/>
           <br/>
           <h3>Descripción:</h3>
-          <textarea required={true} maxLength='100' className='Procedimiento_ObjetivoInput documentosDescription' name='descripción' placeholder='Descripcion' style={{'margin':'0 0 0 1.5px'}}></textarea>
+          <textarea required={true} maxLength='100' className='Procedimiento_ObjetivoInput documentosDescription' name='descripcion' placeholder='Descripción' style={{'margin':'0 0 0 1.5px'}}></textarea>
           <br/>
           <h3>Versión:</h3>
           <input type='number' required={false} maxLength='100' name='version' placeholder='Versión' className='DocumentosReferencias_IDDocumentoSelect' style={{'border':'1px solid gray'}}/>

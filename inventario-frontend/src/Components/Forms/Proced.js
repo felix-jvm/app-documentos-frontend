@@ -12,10 +12,12 @@ import {useState,useRef,useEffect} from 'react';
 
 export default function Proced (props) {
   const [sendData,setSendData] = useState(false);
-  const [confirmationModal,setConfirmationModal] = useState(false);  
+  const [confirmationModal,setConfirmationModal] = useState(false);
   var refreshDataTable = useRef(false);
-  var backenData = useRef({'DocumentosReferencias':[],'Responsabilidades':[],'TerminologiasDef':[],'DescripcionesProcedimiento':[],'SubDescripciones':{},'Diagrama_Flujo':'','Anexos':[],'RevAprobacion':[{'empty':false}],'HistorialCambios':[],'recordsToDelete':[]})
-  var summaryData = useRef({'Procedimiento_alcance':'','Procedimiento_objetivo':'','Procedimiento_codigo':'','DocumentosReferencias':{},'Responsabilidades':{},'TerminologiasDef':{},'DescripcionesProcedimiento':{},'SubDescripciones':{},'Diagrama_flujo':'','Anexos':{},'RevAprobacion':{},'recordsToDelete':{}})
+  var backenData = useRef({'DocumentosReferencias':[],'Responsabilidades':[],'TerminologiasDef':[],'DescripcionesProcedimiento':[],'SubDescripciones':{},'Diagrama_Flujo':'','Anexos':[],'recordsToDelete':[]})
+  var summaryData = useRef({'Procedimiento_alcance':'','Procedimiento_objetivo':'','Procedimiento_codigo':'','DocumentosReferencias':{},'Responsabilidades':{},'TerminologiasDef':{},'DescripcionesProcedimiento':{},'SubDescripciones':{},'Anexos':{},'recordsToDelete':{}})
+  // var backenData = useRef({'DocumentosReferencias':[],'Responsabilidades':[],'TerminologiasDef':[],'DescripcionesProcedimiento':[],'SubDescripciones':{},'Diagrama_Flujo':'','Anexos':[],'recordsToDelete':[]})
+  // var summaryData = useRef({'Procedimiento_alcance':'','Procedimiento_objetivo':'','Procedimiento_codigo':'','DocumentosReferencias':{},'Responsabilidades':{},'TerminologiasDef':{},'DescripcionesProcedimiento':{},'SubDescripciones':{},'Diagrama_flujo':'','Anexos':{},'recordsToDelete':{}})
   if(props.procedData.specificProced){backenData.current={'specificProced':props.procedData.specificProced,...backenData.current}}
   useEffect(()=>{if(refreshDataTable.current){
      props.setTableName('')
@@ -32,8 +34,8 @@ export default function Proced (props) {
     <DescripcionProcedimiento senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
     <DiagramaFlujo senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
     <Anexos senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData}/>
-    <RevAprobacion senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData} sectionNumber={'9'}/>
-    <HistorialCambios senData={sendData} procedData={props.procedData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} setSendData={setSendData} refreshDataTable={refreshDataTable} sectionNumber={'10'} route={'procedimiento'}/>
+    <RevAprobacion fullData={sendData} formName='procedimiento' documentCodeSelectName='Procedimiento_CodigoSelect' keyLocation={'option'} sectionNumber={'9'}/>
+    <HistorialCambios route={'procedimiento'} procedData={props.procedData} backenData={backenData} senData={sendData} setSendData={setSendData} refreshDataTable={refreshDataTable} summaryData={summaryData} setConfirmationModal={setConfirmationModal} formName='procedimiento' documentCodeSelectName='Procedimiento_CodigoSelect' keyLocation={'option'} sectionNumber={'10'}/>
     <button className='saveProcButton saveProcedureButton' onClick={e=>{e.preventDefault();setSendData(true)}}>Guardar datos</button>
     <button className='saveProcButton closeProcedureButton' onClick={e=>{
       props.setProcedData(false)

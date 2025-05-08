@@ -10,19 +10,26 @@ export default function ObjetivoGeneralManual (props) {
      for(let elemName of toFill) {
      let htmlElem = document.getElementsByClassName(elemName)[0]
      for(let record of props.formsData.current[elemName]) {
-      let optionInnerText = ''
       let option = document.createElement('option')
       option.value = `{"pk":"${record['ID']}","Descripcion":"${record['Descripcion']}"}`      
-      optionInnerText = record['Codigo']
-      option.innerText = optionInnerText     
+      option.innerText = `${record['Codigo']} ,  ${record['Descripcion']}`  
       htmlElem? htmlElem.appendChild(option):void 0    
       props.formsData.current['specificData'] && props.formsData.current['specificData']['Manual']['CodigoManual'] == record['ID']?
-      option.selected=true:htmlElem.value = ''
-     } }
+      (()=>{
+        option.selected=true
+        let titlElem = document.getElementsByClassName('manualTitleDocument')[0]
+        titlElem.innerText = record['Descripcion']
+      })():htmlElem.value = '' } }
      if(props.formsData.current['specificData']) {
       let htmlElem = document.getElementsByClassName('ObjetivoGeneralManual_ObjetivoGeneralManualDescri')[0] 
       htmlElem.innerText = props.formsData.current['specificData']['Manual']['ObjetivoGeneralManualDescri']      
      } },250) },[])
+
+ function updateTitle(selectElem, titleElem) {
+      let titlElem = document.getElementsByClassName(`${titleElem}`)[0]
+      if(selectElem.value) {
+        let selectedText = selectElem.children[selectElem.selectedIndex].innerText.split(' ,  ')
+        if(selectedText) {titlElem.innerText = selectedText[1]} } }
 
  useEffect((() => {  
   if(props.fullManualData) {
@@ -38,12 +45,13 @@ export default function ObjetivoGeneralManual (props) {
 
  return (
   <div className="Sección_ObjetivoGeneralManual">
+   <p className='manualTitleDocument' style={{'position':'relative','textAlign':'center','display':'block','width':'100%','fontSize':'3.4vh'}}></p>    
    <h2 style={{'fontWeight':'900','letterSpacing':'-2px'}}>Manual</h2>    
    <br/>
    <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-2px'}}>1. Objetivo general del manual</h2>  
    <br/>
    <h4 className='responsTitle' style={{'display':'inline-block','letterSpacing':'-2px','marginTop':'2px'}}>Código del manual:</h4>
-   <select className='ObjetivoGeneralManual_Codigo' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}></select>   
+   <select className='ObjetivoGeneralManual_Codigo' required={true} style={{'minWidth':'15%','maxWidth':'15%'}} onClick={(e)=>updateTitle(e.target,'manualTitleDocument')}></select>   
    <br/>
    <h5 className='responsTitle' style={{'display':'inline-block','margin':'15px 0 10px 0','letterSpacing':'-1.7px'}}>Descripción general:</h5>
    <textarea className='ObjetivoGeneralManual_ObjetivoGeneralManualDescri' placeholder='Descripción'></textarea>

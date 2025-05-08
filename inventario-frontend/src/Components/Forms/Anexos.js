@@ -26,10 +26,7 @@ export default function Anexos (props) {
        for (let tr of trList){if(tr!=e.target.parentElement){
         setTimeout(()=>{tr.style.backgroundColor = 'rgb(222, 221, 221)'},50)} else {e.target.parentElement.style.backgroundColor = 'white'} } })        
        tBody.appendChild(trBody)
-      } 
-     }    
-  },250)
- },[]) 
+      } } },250) },[]) 
 
  function HandleAdd() {
   let Anexos_NumInput = document.getElementsByClassName('Anexos_NumInput')[0]
@@ -39,7 +36,7 @@ export default function Anexos (props) {
   let AnexosHead = document.getElementsByClassName('AnexosHead')[0]    
   let AnexosBody = document.getElementsByClassName('AnexosBody')[0]    
   let data = [Anexos_NumInput,Anexos_NombreInput,Anexos_CodigoInput]
-  let columns = ['Nùmero','Nombre','Còdigo']
+  let columns = ['Num','Nombre','Codigo']
   var trHead = document.createElement('tr')
   let trBody = document.createElement('tr')
   trBody.className = 'anexoTr'
@@ -96,11 +93,11 @@ export default function Anexos (props) {
    <br/>
    <br/>
    <h4 className='AnexosNombreTitle' style={{'letterSpacing':'-1.7px'}}>Nombre:</h4>   
-   <textarea className='Anexos_NombreInput' placeholder='Nombre del anexo'></textarea>
+   <textarea className='Anexos_NombreInput' placeholder='Nombre del anexo' style={{'minWidth':'21.3%','maxWidth':'21.3%'}}></textarea>
    <br/>
    <br/>
    <h4 className='AnexosCodigoTitle AnexosNombreTitle' style={{'display':'inline-block','position':'relative','letterSpacing':'-1.7px'}}>Código:</h4>   
-   <textarea className='Anexos_CodigoInput Anexos_NombreInput' placeholder='Código del anexo'></textarea>
+   <textarea className='Anexos_CodigoInput Anexos_NombreInput' placeholder='Código del anexo' style={{'minWidth':'21.8%','maxWidth':'21.8%'}}></textarea>
    <br/>
    <br/>
    <table className='AnexosTable' style={{'border':'0','borderCollapse':'separate'}}>

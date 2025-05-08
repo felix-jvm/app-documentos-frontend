@@ -19,13 +19,20 @@ export default function Identificacion (props) {
       let option = document.createElement('option')
       let cleanElementClassName = elemName.replace('Identificacion_','')           
       option.value = `{"pk":"${record['ID']}","Descripcion":"${record['Descripcion']}"}`      
-      if (elemName == 'Identificacion_CodigoPuesto'){optionInnerText = record.Codigo}
-      else if(elemName == 'Identificacion_Departamento'){optionInnerText = `${record.Codigo} - ${record.Descripcion}`}
+      // if (elemName == 'Identificacion_CodigoPuesto'){optionInnerText = `${record['Codigo']} ,  ${record['Descripcion']}`}
+      // else if(elemName == 'Identificacion_Departamento'){optionInnerText = `${record.Codigo} - ${record.Descripcion}`}
+      if (elemName == 'Identificacion_CodigoPuesto' || elemName == 'Identificacion_Departamento'){optionInnerText = `${record['Codigo']} ,  ${record['Descripcion']}`}      
       else {optionInnerText = record.Descripcion}
-      option.innerText = optionInnerText
-      props.formsData.current['specificData']? (()=>{
+      option.innerText = optionInnerText     
+      props.formsData.current['specificData']? (() => {
       let backendChoosenIdOpt = props.formsData.current['specificData']['DescripcionPuesto'][0][cleanElementClassName]  
-      if(backendChoosenIdOpt==record['ID']){option.selected=true}
+      if(backendChoosenIdOpt == record['ID']){
+        let titlElem = document.getElementsByClassName('descripPuestoTitleDocument')[0]
+        let codigoSelect = document.getElementsByClassName('Identificacion_CodigoSelect')[0]
+        option.selected=true
+        if(codigoSelect.value) {
+          let selectedText = codigoSelect.children[codigoSelect.selectedIndex].innerText.split(' ,  ')
+          if(selectedText) {titlElem.innerText = selectedText[1]} }}
       let specificElemToFill = ['Identificacion_Ubicacion','Identificacion_OrganigramaDescri','Identificacion_ObjetivoPuesto','Identificacion_CodigoDepartamento']
       for(let elemName of specificElemToFill) {
        let cleanElementClassName = elemName.replace('Identificacion_','')     
@@ -91,6 +98,12 @@ export default function Identificacion (props) {
   identificacion_CodigoDepartamento.value = selectedOptText
  }
 
+ function updateTitle(selectElem, titleElem) {
+  let titlElem = document.getElementsByClassName(`${titleElem}`)[0]
+  if(selectElem.value) {
+    let selectedText = selectElem.children[selectElem.selectedIndex].innerText.split(' ,  ')
+    if(selectedText) {titlElem.innerText = selectedText[1]} } }
+
  const handleImageUpload = (event) => {
    const file = event.target.files[0];
    if (file) {
@@ -102,6 +115,7 @@ export default function Identificacion (props) {
 
  return (
   <div className="Sección_Identificacion">
+   <p className='descripPuestoTitleDocument' style={{'position':'relative','textAlign':'center','display':'block','width':'100%','fontSize':'3.4vh'}}></p>
    <h2 style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>Descripción de puesto</h2>    
    <br/>
    <h2 className='responsTitle' style={{'fontWeight':'900','letterSpacing':'-1.7px'}}>1. Identificación:</h2>  
@@ -109,7 +123,7 @@ export default function Identificacion (props) {
    <br/>   
    <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Código del puesto:</h4>
    <br/>
-   <select className='Identificacion_CodigoSelect Identificacion_CodigoPuesto' required={true} style={{'minWidth':'15%','maxWidth':'15%'}}></select>
+   <select className='Identificacion_CodigoSelect Identificacion_CodigoPuesto' required={true} style={{'minWidth':'15%','maxWidth':'15%'}} onClick={(e)=>updateTitle(e.target,'descripPuestoTitleDocument')}></select>
    <br/>
    <br/>
    <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Título del puesto:</h4>
@@ -124,7 +138,7 @@ export default function Identificacion (props) {
    <br/>
    <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Departamento:</h4>
    <br/>
-   <select className='Identificacion_DepartamentoSelect Identificacion_Departamento' required={true} style={{'minWidth':'15%','maxWidth':'15%'}} onClick={((e)=>{updateDeparmentCode(e)})}></select>       
+   <select className='Identificacion_DepartamentoSelect Identificacion_Departamento' required={true} style={{'minWidth':'15%','maxWidth':'15%'}} onClick={(e)=>{updateDeparmentCode(e)}}></select>       
    <br/>
    <br/>
    <h4 className='responsPuestoTitle' style={{'letterSpacing':'-1.7px'}}>Código del departamento:</h4>     
@@ -151,7 +165,7 @@ export default function Identificacion (props) {
             style={{'display':'block','cursor':'pointer','margin': '5px 0 0 0','maxWidth':'100px','maxHeight':'100px' }}
             className='imageElement'
             onClick={handleImageClick}
-        />) )}  
+        />) )}
    <hr/>
    {/* {inlineForm && ( (inlineForm.split(',')[0]=='puestos' && <InlinePuesto inlineForm={inlineForm} setInlineForm={setInlineForm}/>) )}    */}
    {modalErrorData && <ConfirmationModal message={modalErrorData} setConfirmationModal={setModalErrorData}

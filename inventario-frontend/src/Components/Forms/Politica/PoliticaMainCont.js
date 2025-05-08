@@ -1,23 +1,6 @@
 import '../Forms.css'
 import {useState,useRef,useEffect} from 'react';
 import ConfirmationModal from '../../ConfirmationModal';
-// import ObjetivoGeneralManual from './ObjetivoGeneralManual';
-// import ObjetivoEspecificos from './ObjetivosEspecíficos';
-// import MarcoLegalRegulatorio from './MarcoLegalRegulatorio';
-// import ObjetivosUnidadNegocio from './ObjetivosUnidadNegocio';
-// import MapaProceso from './MapaProceso';
-// import OrganigramaEstructuralFuncional from './OrganigramaEstructuralFuncional';
-// import DescripcionesPuesto from './DescripcionesPuesto';
-// import ClienteInterno from './ClienteInterno';
-// import ClienteExterno from './ClienteExterno';
-// import ComunicacionInterna from './ComunicacionInterna';
-// import ComunicacionExterna from './ComunicacionExterna';
-// import Presupuesto from './Presupuesto';
-// import PresupuestoGastoPartida from './PresupuestoGastoPartida.js';
-// import BoundManuales from './BoundManuales.js';
-// import BoundProcedimiento from './BoundProcedimiento.js';
-// import RendicionCuenta from './RendicionCuenta.js';
-// import IndicadoresProceso from './IndicadoresProceso.js';
 import ObjetivoPolitica from './ObjetivoPolitica.js';
 import ResponsabilidadesPolitica from './ResponsabilidadesPolitica.js';
 import TerminologiaDefinicionesPolitica from './TerminologiaDefinicionesPolitica';
@@ -43,10 +26,9 @@ export default function PoliticaMainCont (props) {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:props.updateElementId? JSON.stringify({'mode':'fillForm','CodigoPolitica':props.updateElementId.current}):JSON.stringify({'mode':'fillForm'})
-    // body:props.updateElementId? JSON.stringify({'mode':'fillForm'}):JSON.stringify({'mode':'fillForm'})
    })
    .then(re=>re.json())
-   .then(re=>{console.log('-------------------->',re);formsData.current = re['payload']})
+   .then(re=>formsData.current = re['payload'])
   useEffect(()=>{
     if(refreshDataTable){
      props.setTableName('')
@@ -75,7 +57,6 @@ export default function PoliticaMainCont (props) {
      <Proveedores formsData={formsData} backenData={backenData} summaryData={summaryData} fullPoliticaData={fullPoliticaData}/>
      <Pago formsData={formsData} backenData={backenData} summaryData={summaryData} fullPoliticaData={fullPoliticaData}/>
      <AnexosPolitica formsData={formsData} backenData={backenData} summaryData={summaryData} fullPoliticaData={fullPoliticaData} setConfirmationModal={setConfirmationModal} refreshDataTable={setrefreshDataTable}/>
-
 
      <RevAprobacion senData={fullPoliticaData} procedData={formsData} backenData={backenData} summaryData={summaryData} sectionNumber={'12'} inputWidth={'15'}/>
      <HistorialCambios senData={fullPoliticaData} procedData={formsData} backenData={backenData} summaryData={summaryData} setConfirmationModal={setConfirmationModal} sectionNumber={'13'} inputWidth={'15'}/>
