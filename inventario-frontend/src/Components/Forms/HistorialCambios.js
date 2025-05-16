@@ -79,7 +79,7 @@ export default function HistorialCambios (props) {
 
    <table className='RevAprobacionTable' style={{'marginBottom':'10px','border':'0','borderCollapse':'separate'}}>
     <thead className='historialCambioHead' style={{'backgroundColor':'rgb(212, 208, 208)'}}>
-      <tr><td>Fecha</td><td>Versión</td><td>Descripción de la creación o modificación del documento</td></tr>
+      <tr><td>Fecha</td><td>Versión</td><td>Descripción de la creación o modificación del documento </td></tr>
     </thead>
     <tbody className='historialCambioBody'></tbody>
    </table> 
