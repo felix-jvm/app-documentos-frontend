@@ -23,7 +23,6 @@ export default function HistorialCambios (props) {
      })
     .then(e => e.json())
     .then(data => {
-      console.log('-------------->>>',data)
       if(data['payload']) {
         let tHead = document.getElementsByClassName('historialCambioHead')[0]
         let tBody = document.getElementsByClassName('historialCambioBody')[0]

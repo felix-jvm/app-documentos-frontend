@@ -26,7 +26,7 @@ export default function IndicadoresProceso (props) {
           body:JSON.stringify({'mode':'request_IndicadorProcesoGestionRiesgoFile','manualCode':manualCode})
         })
         .then((res)=>{setIndicadorProcesoGestionRiesgoFileType(res.headers.get('Content-Type'));return res.blob()})
-        .then((res)=>{console.log('----------------------<',res);if(res.type!='text/html'){setIndicadorProcesoGestionRiesgoFile(URL.createObjectURL(res))}})        
+        .then((res)=>{if(res.type!='text/html'){setIndicadorProcesoGestionRiesgoFile(URL.createObjectURL(res))}})        
       },1600)
 
       setTimeout(()=>{
