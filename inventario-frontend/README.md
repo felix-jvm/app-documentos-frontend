@@ -1,4 +1,4 @@
-## Instrucciones para clonar y ejecutar los servidores del backend de gestión de documentos y maestro de materiales
+## Instrucciones para clonar y ejecutar los servidores del frontend de gestión de documentos y maestro de materiales
 
 ## 1. Clonar el repo del frontend:
 
