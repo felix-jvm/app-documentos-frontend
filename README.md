@@ -4,9 +4,9 @@
 
 -Instalar git, node.js y luego clonar el repo usando `git clone` y la dirección del repo
 
-[felix-jvm/app-documentos-frontend.git](felix-jvm/app-documentos-frontend.git)
+[felix-jvm/app-documentos-frontend.git](https://github.com/felix-jvm/app-documentos-frontend.git)
 
-[felix-jvm/maestromateriales-frontend.git](felix-jvm/maestromateriales-frontend.git)
+[felix-jvm/maestromateriales-frontend.git](https://github.com/felix-jvm/maestromateriales-frontend.git)
 
 
 
