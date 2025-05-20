@@ -14,4 +14,4 @@ felix-jvm/maestromateriales-frontend.git
 
 ## 3.Ejecutar servidor:
 
--Luego de instalar las dependencias, ejecutar `npm start`
+-Luego de instalar las dependencias,  ejecutar `npm start`
