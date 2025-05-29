@@ -23,7 +23,7 @@ export default function MapaProceso (props) {
     OrganigramaEstructuralFuncional_FuncionalDescri.innerText = props.formsData.current['specificData']['Manual']['OrganigramaFuncionalDescri']
     OrganigramaEstructuralFuncional_EstructuralDescri.innerText = props.formsData.current['specificData']['Manual']['OrganigramaEstructuralDescri']
     setTimeout(()=>{
-      fetch(`http://${window.location.hostname}:8000/manual/`,{
+      fetch(`http://${window.location.hostname}:9000/manual/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'request_organigramaEstructuralFile','manualCode':manualCode})
@@ -33,7 +33,7 @@ export default function MapaProceso (props) {
     },800)
 
     setTimeout(()=>{
-      fetch(`http://${window.location.hostname}:8000/manual/`,{
+      fetch(`http://${window.location.hostname}:9000/manual/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'request_organigramaFuncionalFile','manualCode':manualCode})
@@ -51,7 +51,7 @@ export default function MapaProceso (props) {
         //  const formData = new FormData()
         //  formData.append('mode',mode)
         //  formData.append('manualCode',manualCode)
-        //  fetch(`http://${window.location.hostname}:8000/manual/`,{
+        //  fetch(`http://${window.location.hostname}:9000/manual/`,{
           //     method:'POST',
           //     body:formData
           //  })

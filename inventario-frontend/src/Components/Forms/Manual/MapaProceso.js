@@ -23,7 +23,7 @@ export default function MapaProceso (props) {
     if(props.formsData.current['specificData']) {
       let manualCode = props.formsData.current['specificData']? props.formsData.current['specificData']['Manual']['ID']:'' 
       setTimeout(()=>{
-        fetch(`http://${window.location.hostname}:8000/manual/`,{
+        fetch(`http://${window.location.hostname}:9000/manual/`,{
           'method':'POST',
           'headers':{'Content-Type':'application/json'},
           body:JSON.stringify({'mode':'request_mapaprocesoFile','manualCode':manualCode})
@@ -33,7 +33,7 @@ export default function MapaProceso (props) {
       },100)
 
       setTimeout(()=>{
-        fetch(`http://${window.location.hostname}:8000/manual/`,{
+        fetch(`http://${window.location.hostname}:9000/manual/`,{
           'method':'POST',
           'headers':{'Content-Type':'application/json'},
           body:JSON.stringify({'mode':'request_estructuraprocesoFile','manualCode':manualCode})
@@ -52,7 +52,7 @@ export default function MapaProceso (props) {
       //  const formData = new FormData()
       //  formData.append('mode',mode)
       //  formData.append('manualCode',manualCode)
-      //  fetch(`http://${window.location.hostname}:8000/manual/`,{
+      //  fetch(`http://${window.location.hostname}:9000/manual/`,{
         //     method:'POST',
         //     body:formData
         //  })

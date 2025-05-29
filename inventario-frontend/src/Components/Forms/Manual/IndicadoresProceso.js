@@ -20,7 +20,7 @@ export default function IndicadoresProceso (props) {
       let IndicadoresProceso_GestionRiesgoDescrihtmlElem = document.getElementsByClassName('IndicadoresProceso_GestionRiesgoDescri')[0] 
       IndicadoresProceso_GestionRiesgoDescrihtmlElem.innerText = props.formsData.current['specificData']['Manual']['IndicadorProcesoGestionRiesgoDescri']  
       setTimeout(()=>{
-        fetch(`http://${window.location.hostname}:8000/manual/`,{
+        fetch(`http://${window.location.hostname}:9000/manual/`,{
           'method':'POST',
           'headers':{'Content-Type':'application/json'},
           body:JSON.stringify({'mode':'request_IndicadorProcesoGestionRiesgoFile','manualCode':manualCode})
@@ -30,7 +30,7 @@ export default function IndicadoresProceso (props) {
       },1600)
 
       setTimeout(()=>{
-        fetch(`http://${window.location.hostname}:8000/manual/`,{
+        fetch(`http://${window.location.hostname}:9000/manual/`,{
           'method':'POST',
           'headers':{'Content-Type':'application/json'},
           body:JSON.stringify({'mode':'request_IndicadorProcesoGestionFile','manualCode':manualCode})
@@ -46,7 +46,7 @@ export default function IndicadoresProceso (props) {
         //  const formData = new FormData()
         //  formData.append('mode',mode)
         //  formData.append('manualCode',manualCode)
-        //  fetch(`http://${window.location.hostname}:8000/manual/`,{
+        //  fetch(`http://${window.location.hostname}:9000/manual/`,{
           //     method:'POST',
           //     body:formData
           //  })
@@ -58,7 +58,7 @@ export default function IndicadoresProceso (props) {
           // const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;    
           props.fileFormData.append('manualCode',manualCode)  
           props.fileFormData.append('mode','saveManualFiles') 
-          fetch(`http://${window.location.hostname}:8000/manual/`,{
+          fetch(`http://${window.location.hostname}:9000/manual/`,{
           method:'POST',
           body:props.fileFormData
         })} },800) }
@@ -67,7 +67,7 @@ export default function IndicadoresProceso (props) {
     if(props.fullManualData && props.backenData.current['Manual']['CodigoManual']) { 
      let GestionRiesgoDescri = document.getElementsByClassName('IndicadoresProceso_GestionRiesgoDescri')[0]    
      if(GestionRiesgoDescri.value){props.backenData.current['Manual']['IndicadorProcesoGestionRiesgoDescri']=GestionRiesgoDescri.value}
-     fetch(`http://${window.location.hostname}:8000/manual/`,{
+     fetch(`http://${window.location.hostname}:9000/manual/`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'mode':'saveManualRecord','payload':props.backenData.current})

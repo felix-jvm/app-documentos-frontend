@@ -21,7 +21,7 @@ export default function RevAprobacion (props) {
         } else if(props.keyLocation=='option') {
           selectedDocumentKey.current=selectedDocumentKey.current.children[selectedDocumentKey.current.selectedIndex].id
         }
-        fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+        fetch(`http://${window.location.hostname}:9000/revaprobacion/`,{
           'method':'POST',
           'headers':{'Content-Type':'application/json'},
           'body':JSON.stringify({'mode':'requestRecord','documentKey':selectedDocumentKey.current,'formName':props.formName})
@@ -48,7 +48,7 @@ export default function RevAprobacion (props) {
          revAprobacionSeccionInput.value = ''
          revAprobacionApartadoEspecificoInput.value = ''
         })
-        fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+        fetch(`http://${window.location.hostname}:9000/revaprobacion/`,{
           'method':'POST',
           'headers':{'Content-Type':'application/json'},
           'body':JSON.stringify({'mode':'requestFirmaElaboradoFile','documentKey':selectedDocumentKey.current,'formName':props.formName})
@@ -63,7 +63,7 @@ export default function RevAprobacion (props) {
             imageTag.src = imageFileUrl
           } })
 
-         fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+         fetch(`http://${window.location.hostname}:9000/revaprobacion/`,{
           'method':'POST',
           'headers':{'Content-Type':'application/json'},
           'body':JSON.stringify({'mode':'requestFirmaRevisadoFile','documentKey':selectedDocumentKey.current,'formName':props.formName})
@@ -78,7 +78,7 @@ export default function RevAprobacion (props) {
             imageTag.src = imageFileUrl
           } })
          
-         fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+         fetch(`http://${window.location.hostname}:9000/revaprobacion/`,{
           'method':'POST',
           'headers':{'Content-Type':'application/json'},
           'body':JSON.stringify({'mode':'requestFirmaAprobadoFile','documentKey':selectedDocumentKey.current,'formName':props.formName})
@@ -97,7 +97,7 @@ export default function RevAprobacion (props) {
    if(props.fullData) {
     revAprobacionBackendData.current['FormName'] = props.formName
     revAprobacionBackendData.current['DocumentKey'] = selectedDocumentKey.current
-    fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+    fetch(`http://${window.location.hostname}:9000/revaprobacion/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         'body':JSON.stringify({'mode':'saveRecord','documentKey':selectedDocumentKey.current,'formName':props.formName,'payload':revAprobacionBackendData.current})
@@ -107,7 +107,7 @@ export default function RevAprobacion (props) {
      formData.append('formName',props.formName)
      formData.append('documentKey',selectedDocumentKey.current)
      formData.append('mode','saveImageFile')
-     fetch(`http://${window.location.hostname}:8000/revaprobacion/`,{
+     fetch(`http://${window.location.hostname}:9000/revaprobacion/`,{
       method:'POST',
       body:formData
    }) },600) } },[props.fullData])

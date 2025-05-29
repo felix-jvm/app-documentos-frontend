@@ -18,7 +18,7 @@ export default function SubDescripciones (props) {
     } else {
      mode = 'create'
    } 
-   fetch(`http://localhost:8000/${props.route}/`,{
+   fetch(`http://localhost:9000/${props.route}/`,{
      method:'POST',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({mode:mode, data})})
@@ -26,14 +26,14 @@ export default function SubDescripciones (props) {
   }  
 
   function handleDelete(){
-    fetch(`http://localhost:8000/${props.route}/`,{
+    fetch(`http://localhost:9000/${props.route}/`,{
        method:'DELETE',
        headers:{'Content-Type':'application/json'},
        body:JSON.stringify({ID:props.updateElementId.current,mode:'delete'})})
       .then(()=>window.location.reload())}
 
     if(props.callMode && props.callMode.current==='update') {
-      fetch(`http://localhost:8000/${props.route}/`,{
+      fetch(`http://localhost:9000/${props.route}/`,{
        method:'POST',
        headers:{'Content-Type':'application/json'},
        body:JSON.stringify({mode:'requestUpdateData',ID:props.updateElementId})
@@ -53,7 +53,7 @@ export default function SubDescripciones (props) {
        deleteButton? deleteButton.style.visibility = 'hidden':void(0)    
       }
 
-    fetch(`http://localhost:8000/${props.route}/`,{
+    fetch(`http://localhost:9000/${props.route}/`,{
       method:'POST',
       'headers':{'Content-Type':'application/json'},
       body:JSON.stringify({mode:'relations'})

@@ -45,7 +45,7 @@ export default function PoliticaClasificacion (props) {
   // }
 
   if(props.formsData.current['specificData']) {
-    fetch(`http://${window.location.hostname}:8000/politica/`,{
+    fetch(`http://${window.location.hostname}:9000/politica/`,{
       'method':'POST',
       'headers':{'Content-Type':'application/json'},
       body:JSON.stringify({'mode':'request_tipo_politica','codigoPolitica':props.backenData.current['CodigoPolitica']})
@@ -69,7 +69,7 @@ export default function PoliticaClasificacion (props) {
         formData.append('mode','save_tipo_politica')
         formData.append('codigoPolitica',codigoPolitica)
         formData.append('file',archive)  
-        fetch(`http://${window.location.hostname}:8000/politica/`,{
+        fetch(`http://${window.location.hostname}:9000/politica/`,{
            method:'POST',
            body:formData
         })} },400)    

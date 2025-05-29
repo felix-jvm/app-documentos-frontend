@@ -14,7 +14,7 @@ export default function InlineTermino(props) {
      data['DescripcionGeneral'] = ''
      let route = props.inlineForm.split(',')[0]
      if(inlineDescripcion && route) {
-      fetch(`http://${window.location.hostname}:8000/${route}/`,{
+      fetch(`http://${window.location.hostname}:9000/${route}/`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'create',data})

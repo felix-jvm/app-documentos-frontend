@@ -22,7 +22,7 @@ export default function PoliticaMainCont (props) {
   var backenData = useRef({'Politica':{},'DocumentosReferenciasPolitica':[],'ResponsabilidadesPolitica':[],'TerminologiasPolitica':[],'ClasificacionTipoMaterialPolitica':[],'BoundProcedimientosPolitica':[],'AnexoPolitica':[],'recordsToDelete':[]});
   var summaryData = useRef({'Politica':{},'DocumentosReferenciasPolitica':[],'ResponsabilidadesPolitica':[],'TerminologiasPolitica':[],'ClasificacionTipoMaterialPolitica':[],'BoundProcedimientosPolitica':[],'AnexoPolitica':[],'recordsToDelete':{}});
   backenData.current = props.callMode && props.callMode.current == 'update'? {'CodigoPolitica':props.updateElementId.current,...backenData.current}:backenData.current
-  fetch(`http://${window.location.hostname}:8000/politica/`,{
+  fetch(`http://${window.location.hostname}:9000/politica/`,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:props.updateElementId? JSON.stringify({'mode':'fillForm','CodigoPolitica':props.updateElementId.current}):JSON.stringify({'mode':'fillForm'})
@@ -65,7 +65,7 @@ export default function PoliticaMainCont (props) {
        props.callMode && props.callMode.current == 'update'? props.setUpdateForm(false):props.setCreationForm(false)
        }} style={{'display':'block','margin':'3% 0 0 0'}}>Cerrar</button>
       {/* {props.procedData && props.procedData.specificProced && <a className = 'saveProcButton printProcedureButton' style={{'display':'block','margin':'6% 0 0 0'}} onClick={e=>{
-      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+      fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'fillForm','procedCodigo':props.procedData.specificProced})

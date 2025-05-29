@@ -21,7 +21,7 @@ export default function Termino (props) {
     } else {
      mode = 'create'
    } 
-   fetch(`http://localhost:8000/${props.route}/`,{
+   fetch(`http://localhost:9000/${props.route}/`,{
      method:'POST',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({mode:mode, data})})
@@ -30,7 +30,7 @@ export default function Termino (props) {
    } 
 
   function handleDelete(){
-    fetch(`http://localhost:8000/${props.route}/`,{
+    fetch(`http://localhost:9000/${props.route}/`,{
      method:'DELETE',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({ID:props.updateElementId.current,mode:'delete'})})
@@ -38,7 +38,7 @@ export default function Termino (props) {
 
     setTimeout(()=>{
       if(props.callMode && props.callMode.current==='update') {
-        fetch(`http://localhost:8000/${props.route}/`,{
+        fetch(`http://localhost:9000/${props.route}/`,{
          method:'POST',
          headers:{'Content-Type':'application/json'},
          body:JSON.stringify({mode:'requestUpdateData',ID:props.updateElementId})
@@ -59,7 +59,7 @@ export default function Termino (props) {
         }      
     },250)
 
-  fetch(`http://localhost:8000/${props.route}/`,{
+  fetch(`http://localhost:9000/${props.route}/`,{
     method:'POST',
     'headers':{'Content-Type':'application/json'},
     body:JSON.stringify({mode:'relations'})

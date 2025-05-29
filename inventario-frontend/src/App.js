@@ -16,13 +16,13 @@ function App() {
   useEffect(()=>{if(!userData){setHome(false)}},[userData])      
   useEffect(() => {
    if (tableName && !tableName.includes('specificProcedRecord')) { 
-    fetch(`http://${window.location.hostname}:8000/${tableName}/`)
+    fetch(`http://${window.location.hostname}:9000/${tableName}/`)
       .then(res => res.json())
       .then(res => setData(res))       
     }else if(tableName.includes('specificProcedRecord')) {
-      setTableName('procedimiento')
+      // setTableName('procedimiento')
       let codeToSearch = tableName.split('_')[1].replace(' ','')
-      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+      fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'fillForm','procedCodigo':codeToSearch})
@@ -30,7 +30,7 @@ function App() {
        .then(res=>res.json())
        .then((res)=>{
          let specificData = res.specificData
-         setTableName('procedimiento')
+        //  setTableName('procedimiento')
          setData({'fields':['Còdigo','Descripcion','Objetivo','Fecha','Version'],
           'data':[
             {'Codigo':specificData.Procedimiento_Codigo,
@@ -38,7 +38,8 @@ function App() {
             'Objetivo':specificData.Procedimiento_Objetivo,
             'Fecha':specificData.Documentos.Fecha,
             'Version':specificData.Documentos.Version}]})
-        })}},[tableName])
+        })}
+    },[tableName])
   
   function activateProcOutterCont() {
    let procedOutterCont = document.getElementsByClassName('procedOutterCont')[0];

@@ -37,7 +37,7 @@ export default function AnexosPolitica (props) {
     useEffect((() => {  
       if(props.fullPoliticaData && props.backenData.current['Politica']['CodigoPolitica']) {
         if(props.fullPoliticaData) {
-        fetch(`http://${window.location.hostname}:8000/politica/`,{
+        fetch(`http://${window.location.hostname}:9000/politica/`,{
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({'mode':'savePoliticaRecord','payload':props.backenData.current})

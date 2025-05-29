@@ -6,7 +6,7 @@ export default function DiagramaFlujo(props) {
  useEffect((() => {
   setTimeout(() => {
    if(props.procedData.specificData){
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+    fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
      'method':'POST',
      'headers':{'Content-Type':'application/json'},
      body:JSON.stringify({'mode':'request_proced_diagrama_flujo','procedCode':props.procedData.specificData['Procedimiento_Codigo']})
@@ -25,7 +25,7 @@ export default function DiagramaFlujo(props) {
      formData.append('img',archive)
      formData.append('mode','save_diagrama_flujo_img')
      formData.append('procedCode',props.backenData.current['Procedimiento_CodigoSelect'])
-     fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+     fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
       method:'POST',
       body:formData
     }) },500) }}),[props.senData])

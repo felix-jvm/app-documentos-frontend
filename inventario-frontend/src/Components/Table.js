@@ -221,7 +221,7 @@ let times = useRef(0)
   //   return
   //  }
    if(!procedRecordActions.current){
-    fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+    fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
       'method':'POST',
       'headers':{'Content-Type':'application/json'},
       body:JSON.stringify({'mode':'fillForm','procedCodigo':codeToSearch})
@@ -236,7 +236,7 @@ let times = useRef(0)
         let codeToLook = false
         if(codeToLook){props.setTableName(`specificProcedRecord_${codeToLook}`)}else{props.setProcedData({specificProced:codeToSearch,...res})}
       }})}else if(procedRecordActions.current=='DELETE_RECORD'){
-      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+      fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
        'method':'POST',
        'headers':{'Content-Type':'application/json'},
        body:JSON.stringify({'mode':'deleteRecord','procedCodigo':codeToSearch})
@@ -253,7 +253,7 @@ let times = useRef(0)
 
   function deleteDocumentRecord() {
     let documentCodeToDel = lastSelectedRecord.current
-    fetch(`http://${window.location.hostname}:8000/documentos/`,{
+    fetch(`http://${window.location.hostname}:9000/documentos/`,{
      'method':'POST',
      'headers':{'Content-Type':'application/json'},
      body:JSON.stringify({'mode':'deleteRecord','documentCode':documentCodeToDel})
@@ -292,7 +292,7 @@ let times = useRef(0)
     }else if (parseRoute(props)==='documentos'){deleteDocumentRecord()}}}>Eliminar</button>}
 
     {parseRoute(props)==='procedimiento' && <a className = 'addRecordButton' style={{'margin':'0 10px 5px 0','float':'left'}} onClick={e=>{
-      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+      fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'fillForm','procedCodigo':lastSelectedRecord.current})

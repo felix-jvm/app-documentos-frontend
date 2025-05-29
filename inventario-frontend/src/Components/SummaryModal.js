@@ -70,7 +70,7 @@ export default function SummaryModal(props) {
                 props.summaryData.current['recordsToDelete'] = cleanBackendDataDelRecords
              historialCambiosBackendData.current['FormName'] = props.formName
              historialCambiosBackendData.current['DocumentKey'] = props.selectedDocumentKey
-             fetch(`http://${window.location.hostname}:8000/historialcambios/`,{
+             fetch(`http://${window.location.hostname}:9000/historialcambios/`,{
                  'method':'POST',
                  'headers':{'Content-Type':'application/json'},
                  'body':JSON.stringify({'mode':'saveRecord','documentKey':props.selectedDocumentKey,'formName':props.formName,'payload':props.summaryData.current})

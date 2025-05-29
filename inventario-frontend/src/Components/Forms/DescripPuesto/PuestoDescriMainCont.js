@@ -31,7 +31,7 @@ export default function PuestoDescriMainCont (props) {
   // if(props.procedData && props.procedData.specificProced){backenData.current={'specificProced':props.procedData.specificProced,...backenData.current}}
   backenData.current = props.callMode && props.callMode.current == 'update'? {'puestoDescriCode':props.updateElementId.current,...backenData.current}:backenData.current
   // formMainCont.current = props.callMode && props.callMode.current == 'update'? props.setUpdateForm:props.setCreationForm
-  fetch(`http://${window.location.hostname}:8000/puestodescripcion/`,{
+  fetch(`http://${window.location.hostname}:9000/puestodescripcion/`,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:props.updateElementId? JSON.stringify({'mode':'fillForm','puestoDescriCode':props.updateElementId.current}):JSON.stringify({'mode':'fillForm'})
@@ -70,7 +70,7 @@ export default function PuestoDescriMainCont (props) {
        props.callMode && props.callMode.current == 'update'? props.setUpdateForm(false):props.setCreationForm(false)
        }} style={{'display':'block','margin':'3% 0 0 0'}}>Cerrar</button>
       {/* {props.procedData && props.procedData.specificProced && <a className = 'saveProcButton printProcedureButton' style={{'display':'block','margin':'6% 0 0 0'}} onClick={e=>{
-      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+      fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'fillForm','procedCodigo':props.procedData.specificProced})

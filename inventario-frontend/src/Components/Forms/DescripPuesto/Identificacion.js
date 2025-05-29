@@ -42,7 +42,7 @@ export default function Identificacion (props) {
       props.formsData.current['specificData'] && props.formsData.current['specificData']['DescripcionPuesto'][0][cleanElementClassName]? void 0:htmlElem.value = ''
      } } 
      if(props.formsData.current['specificData']) {
-      fetch(`http://${window.location.hostname}:8000/puestodescripcion/`,{
+      fetch(`http://${window.location.hostname}:9000/puestodescripcion/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'request_ficha_tecnica','puestoDescriCode':props.updateElementId.current})
@@ -82,7 +82,7 @@ export default function Identificacion (props) {
        formData.append('mode','save_ficha_tecnica')
        formData.append('puestoDescriCode',puestoDescriCode)
        formData.append('file',archive)  
-       fetch(`http://${window.location.hostname}:8000/puestodescripcion/`,{
+       fetch(`http://${window.location.hostname}:9000/puestodescripcion/`,{
           method:'POST',
           body:formData
        })}

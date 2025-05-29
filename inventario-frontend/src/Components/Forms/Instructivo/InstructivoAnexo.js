@@ -36,7 +36,7 @@ export default function InstructivoAnexo (props) {
 
 useEffect((() => {  
   if(props.fullInstructivoData && props.backenData.current['Instructivo']['CodigoInstructivo']) {
-      fetch(`http://${window.location.hostname}:8000/instructivo/`,{
+      fetch(`http://${window.location.hostname}:9000/instructivo/`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'saveInstructivoRecord','payload':props.backenData.current})

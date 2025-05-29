@@ -42,7 +42,7 @@ export default function Proced (props) {
       let procedOutterCont = document.getElementsByClassName('procedOutterCont')[0]
       if(procedOutterCont){procedOutterCont.style.display = 'none'}}} style={{'display':'block','margin':'3% 0 0 0'}}>Cerrar</button>
     {props.procedData.specificProced && <a className = 'saveProcButton printProcedureButton' style={{'display':'block','margin':'6% 0 0 0'}} onClick={e=>{
-      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+      fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'fillForm','procedCodigo':props.procedData.specificProced})

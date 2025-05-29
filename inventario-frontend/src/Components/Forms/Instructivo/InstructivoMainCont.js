@@ -16,13 +16,13 @@ export default function InstructivoMainCont (props) {
   var backenData = useRef({'Instructivo':{},'InstructivoInstrucciones':[],'InstructivoAnexo':[],'recordsToDelete':[]});
   var summaryData = useRef({'Instructivo':{},'InstructivoInstrucciones':[],'InstructivoAnexo':[],'recordsToDelete':{}});
   backenData.current = props.callMode && props.callMode.current == 'update'? {'CodigoInstructivo':props.updateElementId.current,...backenData.current}:backenData.current
-  fetch(`http://${window.location.hostname}:8000/instructivo/`,{
+  fetch(`http://${window.location.hostname}:9000/instructivo/`,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:props.updateElementId? JSON.stringify({'mode':'fillForm','CodigoInstructivo':props.updateElementId.current}):JSON.stringify({'mode':'fillForm'})
    })
    .then(re=>re.json())
-   .then(re=>{console.log('------------>>>>',re);formsData.current = re['payload']})
+   .then(re=>{formsData.current = re['payload']})
   useEffect(()=>{
     if(refreshDataTable){
      props.setTableName('')
@@ -49,7 +49,7 @@ export default function InstructivoMainCont (props) {
        props.callMode && props.callMode.current == 'update'? props.setUpdateForm(false):props.setCreationForm(false)
        }} style={{'display':'block','margin':'3% 0 0 0'}}>Cerrar</button>
       {/* {props.procedData && props.procedData.specificProced && <a className = 'saveProcButton printProcedureButton' style={{'display':'block','margin':'6% 0 0 0'}} onClick={e=>{
-      fetch(`http://${window.location.hostname}:8000/procedimiento/`,{
+      fetch(`http://${window.location.hostname}:9000/procedimiento/`,{
         'method':'POST',
         'headers':{'Content-Type':'application/json'},
         body:JSON.stringify({'mode':'fillForm','procedCodigo':props.procedData.specificProced})

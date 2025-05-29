@@ -129,7 +129,7 @@ export default function CompeteTecniIndisLista (props) {
       props.backenData.current['DescripcionPuesto']['Departamento']){
      let CompeteTecniIndisLista_Descripcion = document.getElementsByClassName('CompeteTecniIndisLista_Descripcion')[0]
      CompeteTecniIndisLista_Descripcion.value? props.backenData.current['DescripcionPuesto']['CompeteTecniIndisDescr'] = CompeteTecniIndisLista_Descripcion.value:void 0     
-     fetch(`http://${window.location.hostname}:8000/puestodescripcion/`,{
+     fetch(`http://${window.location.hostname}:9000/puestodescripcion/`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'mode':'savePuestoDescriRecord','payload':props.backenData.current})

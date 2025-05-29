@@ -24,7 +24,7 @@ export default function Documentos (props) {
      mode = 'create'
    } 
 
-   fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
+   fetch(`http://${window.location.hostname}:9000/${props.route}/`,{
      method:'POST',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({mode:mode, data})})
@@ -33,7 +33,7 @@ export default function Documentos (props) {
   }
 
   // if(props.callMode && props.callMode.current==='update') {
-  //   fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
+  //   fetch(`http://${window.location.hostname}:9000/${props.route}/`,{
   //    method:'POST',
   //    headers:{'Content-Type':'application/json'},
   //    body:JSON.stringify({mode:'requestUpdateData',ID:props.updateElementId})
@@ -54,7 +54,7 @@ export default function Documentos (props) {
   //   }
 
   // function handleDelete(){
-  //   fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
+  //   fetch(`http://${window.location.hostname}:9000/${props.route}/`,{
   //    method:'DELETE',
   //    headers:{'Content-Type':'application/json'},
   //    body:JSON.stringify({ID:props.updateElementId.current,mode:'delete'})})
@@ -62,7 +62,7 @@ export default function Documentos (props) {
   //  }
 
   setTimeout(()=>{
-    fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
+    fetch(`http://${window.location.hostname}:9000/${props.route}/`,{
       method:'POST',
       'headers':{'Content-Type':'application/json'},
       body:JSON.stringify({'mode':'fillForm'})
@@ -90,7 +90,7 @@ export default function Documentos (props) {
       let codigoText = document.getElementsByClassName('codigoText')[0]
       let code = `${tipoDoc.value.split('-')[0].trim()}-${e.target.value.split('-')[0].trim()}`
       if(tipoDoc.value && e.target.value){
-        fetch(`http://${window.location.hostname}:8000/${props.route}/`,{
+        fetch(`http://${window.location.hostname}:9000/${props.route}/`,{
           method:'POST',
           'headers':{'Content-Type':'application/json'},
           body:JSON.stringify({'mode':'requestCodeSequence',code})
